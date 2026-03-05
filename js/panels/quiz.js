@@ -68,7 +68,7 @@ async function startNewQuiz() {
     const articles=(daily?.digest?.articles||[]).slice(0,5);
     if(!articles.length) { renderEmpty(body,{icon:'📰',title:'No articles yet',body:'Generate your digest first.'}); quizState.generating=false; return; }
     const summaries=articles.map((a,i)=>`Article ${i+1}: "${a.title}" — ${a.lead||''} Key: ${(a.key_points||[]).join('; ')}`).join('\n\n');
-    const system=`Quiz generator for APS Solution Architect. Return ONLY valid JSON:
+    const system=`Quiz generator for APS Solution Architect. RESPOND WITH ONLY A JSON OBJECT. No prose, no markdown. Start with { end with }. Shape:
 {"questions":[{"q":"question","options":["A. opt","B. opt","C. opt","D. opt"],"correct":0,"explanation":"2-3 sentences","vendors":["key"],"topicTag":"arch|security|ai|devops|industry"}]}
 3 questions: 1 recall, 1 comprehension, 1 application. Wrong options must be plausible.`;
     try {

@@ -233,7 +233,8 @@ Today: ${date} Sydney Australia.
 Vendors: ${active.map(k => VENDORS[k]?.fullName||k).join(', ')}
 APS Context: ISM/IRAP, protective markings (OFFICIAL/PROTECTED), DTA cloud policy, data sovereignty, WoG platforms.
 ${ctx}
-Search web for LATEST real news past 48 hours. Return ONLY valid JSON:
+CRITICAL: Your ENTIRE response must be a single valid JSON object. No preamble, no explanation, no markdown fences. Start your response with { and end with }.
+Search web for LATEST real news past 48 hours. Output this exact JSON shape:
 {"summary":"2-sentence overview","apsAlert":"APS alert or null","articles":[{"title":"string","vendors":["key"],"topicTag":"arch|security|ai|devops|industry","lead":"string","body":"4-5 paragraphs technical depth","arch_impact":"3-4 sentences","key_points":["p1","p2","p3","p4"],"apsRelevance":"string or null"}]}
 Generate exactly 7 articles. Real product names, current facts, deep technical detail.`;
 

@@ -86,7 +86,7 @@ async function generateAps() {
   const out=document.getElementById('aps-out'), btn=document.getElementById('btn-gen-aps');
   if(btn){btn.disabled=true;btn.textContent='⏳ Refreshing…';}
   renderLoader(out,'Checking APS compliance landscape…');
-  const system=`You are ArchBrief APS compliance specialist. Return ONLY valid JSON:
+  const system=`You are ArchBrief APS compliance specialist. RESPOND WITH ONLY A JSON OBJECT. No prose, no markdown. Start with { end with }. Shape:
 {"keyAlerts":[{"title":"string","severity":"high|medium|low","vendor":"key or null","detail":"2-3 sentences","action":"1 sentence or null"}],"irapStatus":[{"vendor":"key","label":"string","status":"assessed|in-progress|not-assessed","level":"PROTECTED|OFFICIAL|unknown","note":"string or null"}],"dtaUpdate":"string or null","dataSovereignty":"string","wogPlatforms":[{"name":"string","update":"string"}]}`;
   try {
     const raw=await callClaude({messages:[{role:'user',content:'Current APS cloud compliance status, IRAP assessments, DTA updates.'}],system,maxTokens:2000,webSearch:true});

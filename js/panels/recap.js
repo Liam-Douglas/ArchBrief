@@ -54,7 +54,7 @@ async function generateRecap() {
   const out=document.getElementById('recap-out'), btn=document.getElementById('btn-gen-recap');
   if(btn){btn.disabled=true;btn.textContent='⏳ Generating…';}
   renderLoader(out,'Summarising the week…');
-  const system=`You are ArchBrief weekly summariser for APS Solution Architect. Return ONLY valid JSON:
+  const system=`You are ArchBrief weekly summariser for APS Solution Architect. RESPOND WITH ONLY A JSON OBJECT. No prose, no markdown. Start with { end with }. Shape:
 {"weekHeadline":"string","topStories":[{"title":"string","vendors":["key"],"why":"string"}],"vendorHighlights":[{"vendor":"key","label":"string","highlight":"string"}],"apsWeekly":"string","nextWeekWatch":["string","string","string"],"weekStats":{"articleCount":35,"vendorCount":9}}`;
   try {
     const raw=await callClaude({messages:[{role:'user',content:'Weekly recap for APS Solution Architect — key stories, vendor highlights, APS developments.'}],system,maxTokens:2500,webSearch:true});

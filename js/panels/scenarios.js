@@ -17,7 +17,7 @@ async function genScenarios() {
   const started=LP_DOMAINS.flatMap(dom=>dom.modules).filter(m=>prog[m.id]&&prog[m.id]!=='not-started').map(m=>m.name).slice(0,5).join(', ')||'Cloud Foundations';
   const active=getActiveVendors();
 
-  const system=`Scenario challenge generator for APS Solution Architect at IBM. Return ONLY valid JSON:
+  const system=`Scenario challenge generator for APS Solution Architect at IBM. RESPOND WITH ONLY A JSON OBJECT. No prose, no markdown. Start with { end with }. Shape:
 {"scenarios":[{
   "title":"string","difficulty":"intermediate|advanced|expert",
   "vendors":["keys"],"apsClassification":"OFFICIAL|PROTECTED",
@@ -81,7 +81,7 @@ async function submitScenario(i) {
   const btn=document.getElementById(`sc-sub-${i}`), fbEl=document.getElementById(`sc-fb-${i}`);
   if(btn){btn.disabled=true;btn.textContent='Getting feedback…';}
   renderLoader(fbEl,'Reviewing your approach…');
-  const system=`Senior IBM Solution Architect reviewing a colleague's answer. Be specific — not generic. Return ONLY valid JSON:
+  const system=`Senior IBM Solution Architect reviewing a colleague's answer. Be specific — not generic. RESPOND WITH ONLY A JSON OBJECT. No prose, no markdown. Start with { end with }. Shape:
 {"score":"X/10","strengths":["s1","s2"],"gaps":["g1","g2"],"expertAdditions":"3-4 paragraphs — what expert would add/do differently","apsNotes":"APS-specific points they missed or nailed","verdict":"1-sentence overall"}`;
   try {
     const raw=await callClaude({messages:[{role:'user',content:`SCENARIO: ${s.question}\nCONTEXT: ${s.context}\nCONSTRAINTS: ${(s.constraints||[]).join('; ')}\n\nCANDIDATE ANSWER:\n${answer}\n\nMODEL ANSWER (reference):\n${s.modelAnswer}`}],system,maxTokens:1500});

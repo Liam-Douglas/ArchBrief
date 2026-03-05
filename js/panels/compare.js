@@ -50,7 +50,7 @@ async function runCompare() {
   const result=document.getElementById('compare-result'), btn=document.getElementById('btn-run-compare');
   if(btn){btn.disabled=true;btn.textContent='⏳ Comparing…';}
   renderLoader(result,'Comparing vendors…');
-  const system=`You are ArchBrief vendor analyst for APS Solution Architect. Return ONLY valid JSON:
+  const system=`You are ArchBrief vendor analyst for APS Solution Architect. RESPOND WITH ONLY A JSON OBJECT. No prose, no markdown. Start with { end with }. Shape:
 {"topic":"string","summary":"2-3 sentence overview","vendors":[{"key":"string","label":"string","score":8,"verdict":"1 sentence","strengths":["s1","s2","s3"],"weaknesses":["w1","w2"],"apsNote":"APS-specific note or null"}],"recommendation":"2-3 sentences on which to choose and why for APS context","apsContext":"1-2 sentences on government-specific considerations"}`;
   try {
     const vLabels=selectedVendors.map(k=>VENDORS[k]?.fullName||k);

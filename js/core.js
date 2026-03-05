@@ -138,16 +138,38 @@ async function callClaude({ messages, system, maxTokens = 1000, webSearch = fals
   return text;
 }
 
-// Parse JSON from Claude response (handles markdown fences)
+// Parse JSON from Claude response
+// Handles: markdown fences, preamble/postamble text, web-search narration
 function parseClaudeJson(raw) {
   let cleaned = raw.trim();
+
+  // 1. Strip markdown code fences (```json ... ```)
   if (cleaned.startsWith('```')) {
     const lines = cleaned.split('\n');
     if (lines[0].startsWith('```')) lines.shift();
     if (lines[lines.length - 1].trim() === '```') lines.pop();
     cleaned = lines.join('\n').trim();
   }
-  return JSON.parse(cleaned);
+
+  // 2. Try direct parse (ideal case — model returned pure JSON)
+  try { return JSON.parse(cleaned); } catch (_) {}
+
+  // 3. Extract the outermost JSON object from surrounding prose
+  //    Handles "Based on my search... { ... } Here is your brief."
+  const start = cleaned.indexOf('{');
+  const end   = cleaned.lastIndexOf('}');
+  if (start !== -1 && end > start) {
+    try { return JSON.parse(cleaned.slice(start, end + 1)); } catch (_) {}
+  }
+
+  // 4. Extract a JSON array (fallback for array-only responses)
+  const aStart = cleaned.indexOf('[');
+  const aEnd   = cleaned.lastIndexOf(']');
+  if (aStart !== -1 && aEnd > aStart) {
+    try { return JSON.parse(cleaned.slice(aStart, aEnd + 1)); } catch (_) {}
+  }
+
+  throw new SyntaxError('No valid JSON found in response: ' + cleaned.slice(0, 120));
 }
 
 // ── LOADING STATES ───────────────────────────────────────

@@ -60,7 +60,7 @@ async function generateExplorer() {
   if(btn){btn.disabled=true;btn.textContent='⏳ Generating…';}
   renderLoader(out,'Writing deep-dives…');
   const active=getActiveVendors();
-  const system=`You are ArchBrief deep-dive writer for APS Solution Architect. Return ONLY valid JSON:
+  const system=`You are ArchBrief deep-dive writer for APS Solution Architect. RESPOND WITH ONLY A JSON OBJECT. No prose, no markdown. Start with { end with }. Shape:
 {"articles":[{"title":"string","vendors":["key"],"lead":"hook","body":"6-8 paragraphs","sections":[{"heading":"string","content":"2-3 paragraphs"}],"key_points":["p1","p2","p3","p4","p5"],"arch_impact":"3-4 sentences","apsRelevance":"string or null","readTime":8}]}
 5 articles, varied vendors, expert depth.`;
   try {
