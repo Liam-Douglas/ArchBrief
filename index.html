@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArchBrief — Multi-Vendor IT Learning</title>
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#06080c">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="ArchBrief">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles — order matters -->
+  <link rel="stylesheet" href="styles/base.css">
+  <link rel="stylesheet" href="styles/layout.css">
+  <link rel="stylesheet" href="styles/components.css">
+  <link rel="stylesheet" href="styles/tutor.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ══ TOPBAR ══════════════════════════════════════════ -->
+  <header id="topbar">
+    <button class="topbar-hamburger" id="topbar-hamburger" aria-label="Menu">☰</button>
+    <div class="topbar-brand">ArchBrief</div>
+    <div class="topbar-date" id="topbar-date"></div>
+    <div class="topbar-vendors" id="topbar-vendors"></div>
+    <div class="topbar-right">
+      <div class="topbar-aps" id="topbar-aps">
+        <div class="topbar-aps-dot"></div>
+        <span>APS</span>
+      </div>
+      <button class="topbar-search btn-icon" id="topbar-search" title="Search (/)">🔍</button>
+    </div>
+  </header>
+
+  <!-- ══ SIDEBAR ═════════════════════════════════════════ -->
+  <nav id="sidebar">
+
+    <!-- Morning Routine -->
+    <div class="sb-section">
+      <div class="nav-item morning-item" id="nav-morning" onclick="showPanel('morning')">
+        <span class="nav-icon">🌅</span>
+        <span class="nav-label">Start My Day</span>
+        <span class="nav-badge alert" id="nav-morning-badge">Start</span>
+      </div>
+    </div>
+
+    <!-- Daily Content -->
+    <div class="sb-section">
+      <div class="sb-section-label">Today</div>
+      <div class="nav-item" id="nav-digest" onclick="showPanel('digest')">
+        <span class="nav-icon">📰</span>
+        <span class="nav-label">Daily Digest</span>
+      </div>
+      <div class="nav-item" id="nav-explorer" onclick="showPanel('explorer')">
+        <span class="nav-icon">🗂</span>
+        <span class="nav-label">Topic Explorer</span>
+      </div>
+      <div class="nav-item" id="nav-compare" onclick="showPanel('compare')">
+        <span class="nav-icon">⚖️</span>
+        <span class="nav-label">Vendor Compare</span>
+      </div>
+      <div class="nav-item" id="nav-aps" onclick="showPanel('aps')">
+        <span class="nav-icon">🇦🇺</span>
+        <span class="nav-label">APS Radar</span>
+        <span class="nav-badge" style="background:var(--aps-d);color:var(--aps)">APS</span>
+      </div>
+      <div class="nav-item" id="nav-chat" onclick="showPanel('chat')">
+        <span class="nav-icon">💬</span>
+        <span class="nav-label">Q&amp;A Chat</span>
+      </div>
+    </div>
+
+    <!-- Learning -->
+    <div class="sb-section">
+      <div class="sb-section-label">Learn</div>
+      <div class="nav-item" id="nav-quiz" onclick="showPanel('quiz')">
+        <span class="nav-icon">🧠</span>
+        <span class="nav-label">Daily Quiz</span>
+        <span class="nav-badge hidden" id="nav-quiz-badge">!</span>
+      </div>
+      <div class="nav-item" id="nav-path" onclick="showPanel('path')">
+        <span class="nav-icon">🗺</span>
+        <span class="nav-label">Learning Path</span>
+      </div>
+      <div class="nav-item" id="nav-scenarios" onclick="showPanel('scenarios')">
+        <span class="nav-icon">⚔️</span>
+        <span class="nav-label">Scenarios</span>
+      </div>
+      <div class="nav-item" id="nav-glossary" onclick="showPanel('glossary')">
+        <span class="nav-icon">📖</span>
+        <span class="nav-label">Glossary</span>
+        <span class="nav-badge" id="nav-glossary-badge">0</span>
+      </div>
+      <div class="nav-item" id="nav-progress" onclick="showPanel('progress')">
+        <span class="nav-icon">📈</span>
+        <span class="nav-label">My Progress</span>
+      </div>
+    </div>
+
+    <!-- Personal -->
+    <div class="sb-section">
+      <div class="sb-section-label">Personal</div>
+      <div class="nav-item" id="nav-saved" onclick="showPanel('saved')">
+        <span class="nav-icon">📌</span>
+        <span class="nav-label">Saved</span>
+        <span class="nav-badge" id="nav-saved-badge">0</span>
+      </div>
+      <div class="nav-item" id="nav-projects" onclick="showPanel('projects')">
+        <span class="nav-icon">🎯</span>
+        <span class="nav-label">My Projects</span>
+      </div>
+      <div class="nav-item" id="nav-recap" onclick="showPanel('recap')">
+        <span class="nav-icon">📊</span>
+        <span class="nav-label">Weekly Recap</span>
+      </div>
+    </div>
+
+    <!-- Vendor toggles -->
+    <div class="sb-section">
+      <div class="sb-section-label">Vendors</div>
+      <div class="vendor-grid" id="vendor-grid"></div>
+    </div>
+
+    <!-- Sidebar bottom -->
+    <div class="sb-bottom">
+      <div class="sb-pwa" id="sb-pwa" style="display:none">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t4);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">App & Notifications</div>
+        <button class="btn btn-secondary btn-sm btn-full" id="btn-install" style="display:none;margin-bottom:6px">📲 Install App</button>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <input type="time" class="input-time" id="reminder-time" value="05:00">
+          <button class="btn btn-secondary btn-sm" id="btn-notify">🔔 Remind</button>
+        </div>
+        <div id="notify-status" style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t4)"></div>
+      </div>
+    </div>
+
+  </nav>
+
+  <!-- Sidebar scrim — visible only when sidebar is open on mobile -->
+  <div class="sidebar-scrim" id="sidebar-scrim"></div>
+
+  <!-- ══ MAIN CONTENT ════════════════════════════════════ -->
+  <main id="main">
+
+    <!-- MORNING ROUTINE -->
+    <div class="panel" id="panel-morning">
+      <div class="morning-wrap" id="morning-content">
+        <!-- Rendered by morning.js -->
+      </div>
+    </div>
+
+    <!-- DAILY DIGEST -->
+    <div class="panel" id="panel-digest">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">📰 Daily Digest</div>
+          <div class="panel-subtitle" id="digest-subtitle">Loading today's brief…</div>
+        </div>
+        <div class="panel-actions">
+          <button class="btn btn-secondary btn-sm" id="btn-gen-digest">⚡ Generate</button>
+        </div>
+      </div>
+      <div id="digest-pregen-banner"></div>
+      <div id="digest-out"></div>
+    </div>
+
+    <!-- TOPIC EXPLORER -->
+    <div class="panel" id="panel-explorer">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">🗂 Topic Explorer</div>
+          <div class="panel-subtitle">Five deep-dives, updated daily</div>
+        </div>
+        <div class="panel-actions">
+          <button class="btn btn-secondary btn-sm" id="btn-gen-explorer">⚡ Generate</button>
+        </div>
+      </div>
+      <div id="explorer-out"></div>
+    </div>
+
+    <!-- VENDOR COMPARE -->
+    <div class="panel" id="panel-compare">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">⚖️ Vendor Compare</div>
+          <div class="panel-subtitle">Side-by-side analysis across any topic</div>
+        </div>
+      </div>
+      <div id="compare-out"></div>
+    </div>
+
+    <!-- APS RADAR -->
+    <div class="panel" id="panel-aps">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">🇦🇺 APS Radar</div>
+          <div class="panel-subtitle">IRAP status, DTA alignment, protective markings</div>
+        </div>
+        <div class="panel-actions">
+          <button class="btn btn-secondary btn-sm" id="btn-gen-aps">⚡ Refresh</button>
+        </div>
+      </div>
+      <div id="aps-changes-banner" class="hidden"></div>
+      <div id="aps-out"></div>
+    </div>
+
+    <!-- Q&A CHAT -->
+    <div class="panel" id="panel-chat">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">💬 Q&amp;A Chat</div>
+          <div class="panel-subtitle">Ask anything — APS and vendor context included</div>
+        </div>
+        <div class="panel-actions">
+          <button class="btn btn-ghost btn-sm" id="btn-clear-chat">Clear</button>
+        </div>
+      </div>
+      <div id="chat-messages"></div>
+      <div id="chat-input-wrap">
+        <div style="display:flex;gap:8px;align-items:flex-end">
+          <textarea class="textarea" id="chat-input" placeholder="Ask about architecture, vendors, APS compliance…" rows="2"></textarea>
+          <button class="btn btn-primary" id="btn-chat-send" style="flex-shrink:0;align-self:flex-end">Send</button>
+        </div>
+        <div id="chat-chips" style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap"></div>
+      </div>
+    </div>
+
+    <!-- DAILY QUIZ -->
+    <div class="panel" id="panel-quiz">
+      <div class="quiz-wrap" id="quiz-content">
+        <!-- Rendered by quiz.js -->
+      </div>
+    </div>
+
+    <!-- LEARNING PATH -->
+    <div class="panel" id="panel-path">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">🗺 Learning Path</div>
+          <div class="panel-subtitle">54 modules across 6 domains — progress tracked</div>
+        </div>
+        <div class="panel-actions">
+          <div id="path-overall-progress" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--g);text-align:right">
+            <div id="path-progress-text">0 / 54</div>
+            <div class="progress-track" style="width:120px;margin-top:5px"><div class="progress-fill" id="path-progress-bar" style="width:0%"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="lp-domains" id="lp-domains"></div>
+    </div>
+
+    <!-- SCENARIO CHALLENGES -->
+    <div class="panel" id="panel-scenarios">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">⚔️ Scenario Challenges</div>
+          <div class="panel-subtitle">Real architecture decisions — write your approach, get expert feedback</div>
+        </div>
+        <div class="panel-actions">
+          <button class="btn btn-primary" id="btn-gen-scenarios">⚡ Generate</button>
+        </div>
+      </div>
+      <div id="scenarios-out"></div>
+    </div>
+
+    <!-- GLOSSARY -->
+    <div class="panel" id="panel-glossary">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">📖 My Glossary</div>
+          <div class="panel-subtitle">Terms you've looked up — click any word in an article to add</div>
+        </div>
+        <div class="panel-actions">
+          <button class="btn btn-secondary btn-sm" id="btn-export-glossary">Export ↓</button>
+        </div>
+      </div>
+      <div class="input-search-wrap" style="margin-bottom:12px">
+        <span class="input-search-icon">🔍</span>
+        <input class="input input-search-wrap" id="glossary-search" placeholder="Search glossary…" style="padding-left:34px">
+      </div>
+      <div id="glossary-filters" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px"></div>
+      <div id="glossary-out"></div>
+    </div>
+
+    <!-- PROGRESS DASHBOARD -->
+    <div class="panel" id="panel-progress">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">📈 My Progress</div>
+          <div class="panel-subtitle">Learning trends, quiz accuracy, module completion, certification readiness</div>
+        </div>
+      </div>
+      <div class="progress-dashboard" id="progress-out"></div>
+    </div>
+
+    <!-- MY PROJECTS -->
+    <div class="panel" id="panel-projects">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">🎯 My Projects</div>
+          <div class="panel-subtitle">Active projects shape your 5am brief automatically</div>
+        </div>
+        <div class="panel-actions">
+          <button class="btn btn-secondary btn-sm" onclick="showProjectsGuide()">How to update →</button>
+        </div>
+      </div>
+      <div id="projects-out"></div>
+      <div style="margin-top:20px">
+        <div class="label" style="margin-bottom:10px">Feedback & Sync</div>
+        <div id="feedback-summary-out"></div>
+      </div>
+    </div>
+
+    <!-- WEEKLY RECAP -->
+    <div class="panel" id="panel-recap">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">📊 Weekly Recap</div>
+          <div class="panel-subtitle">Coverage summary, learning priorities, knowledge gaps</div>
+        </div>
+        <div class="panel-actions">
+          <button class="btn btn-secondary btn-sm" id="btn-gen-recap">⚡ Generate</button>
+        </div>
+      </div>
+      <div id="recap-out"></div>
+    </div>
+
+    <!-- SAVED ARTICLES -->
+    <div class="panel" id="panel-saved">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">📌 Saved Articles</div>
+          <div class="panel-subtitle" id="saved-subtitle">0 saved articles</div>
+        </div>
+        <div class="panel-actions">
+          <button class="btn btn-ghost btn-sm" id="btn-clear-saved">Clear all</button>
+        </div>
+      </div>
+      <div id="saved-out"></div>
+    </div>
+
+    <!-- SEARCH RESULTS -->
+    <div class="panel" id="panel-search">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">🔍 Search</div>
+        </div>
+      </div>
+      <div class="input-search-wrap" style="margin-bottom:16px">
+        <span class="input-search-icon">🔍</span>
+        <input class="input" id="global-search-input" placeholder="Search articles, vendors, topics…" style="padding-left:34px">
+      </div>
+      <div id="search-out"></div>
+    </div>
+
+  </main>
+
+</div><!-- /#app -->
+
+<!-- ══ TOAST CONTAINER ═════════════════════════════════ -->
+<div id="toast-container"></div>
+
+<!-- ══ EXPLAINER PORTAL ════════════════════════════════ -->
+<!-- Concept explainer popup renders here (managed by explainer.js) -->
+
+<!-- ══ SCRIPTS ═════════════════════════════════════════ -->
+<!-- Load order: vendors → data → core → panels → tutor -->
+<script src="js/vendors.js"></script>
+<script src="js/data.js"></script>
+<script src="js/core.js"></script>
+
+<!-- Panels -->
+<script src="js/panels/morning.js"></script>
+<script src="js/panels/digest.js"></script>
+<script src="js/panels/explorer.js"></script>
+<script src="js/panels/compare.js"></script>
+<script src="js/panels/aps.js"></script>
+<script src="js/panels/chat.js"></script>
+<script src="js/panels/quiz.js"></script>
+<script src="js/panels/path.js"></script>
+<script src="js/panels/scenarios.js"></script>
+<script src="js/panels/glossary.js"></script>
+<script src="js/panels/progress.js"></script>
+<script src="js/panels/projects.js"></script>
+<script src="js/panels/recap.js"></script>
+<script src="js/panels/saved.js"></script>
+
+<!-- Tutor utilities -->
+<script src="js/tutor/explainer.js"></script>
+<script src="js/tutor/spaced-rep.js"></script>
+<script src="js/tutor/certifications.js"></script>
+
+<!-- PWA: Service Worker + Install Prompt + Notifications -->
+<script>
+(function () {
+  if (!('serviceWorker' in navigator)) return;
+
+  // ── Install prompt capture ────────────────────────────
+  let deferredPrompt = null;
+
+  window.addEventListener('beforeinstallprompt', e => {
+    e.preventDefault();
+    deferredPrompt = e;
+    const btn = document.getElementById('btn-install');
+    const pwa = document.getElementById('sb-pwa');
+    if (btn) btn.style.display = '';
+    if (pwa) pwa.style.display = '';
+  });
+
+  // ── Install button handler ────────────────────────────
+  document.getElementById('btn-install')?.addEventListener('click', async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      const btn = document.getElementById('btn-install');
+      if (btn) btn.style.display = 'none';
+      deferredPrompt = null;
+    }
+  });
+
+  // ── App already installed (standalone mode) ───────────
+  if (window.matchMedia('(display-mode: standalone)').matches) {
+    const pwa = document.getElementById('sb-pwa');
+    if (pwa) pwa.style.display = '';
+  }
+
+  // ── Notification / reminder button ───────────────────
+  document.getElementById('btn-notify')?.addEventListener('click', async () => {
+    const statusEl  = document.getElementById('notify-status');
+    const timeEl    = document.getElementById('reminder-time');
+    const setStatus = msg => { if (statusEl) statusEl.textContent = msg; };
+
+    if (!('Notification' in window)) { setStatus('Notifications not supported'); return; }
+
+    const perm = await Notification.requestPermission();
+    if (perm !== 'granted') { setStatus('Permission denied'); return; }
+
+    const time = timeEl?.value || '05:00';
+    if (typeof updateSetting === 'function') {
+      updateSetting('reminderEnabled', true);
+      updateSetting('reminderTime', time);
+    }
+
+    // Periodic background sync (if supported)
+    try {
+      const reg = await navigator.serviceWorker.ready;
+      if ('periodicSync' in reg) {
+        await reg.periodicSync.register('archbrief-daily', { minInterval: 24 * 60 * 60 * 1000 });
+      }
+      if ('sync' in reg) {
+        await reg.sync.register('archbrief-reminder').catch(() => {});
+      }
+    } catch (_) {}
+
+    setStatus('✓ Reminder set for ' + time + ' AEST');
+    if (typeof toast === 'function') toast('Daily reminder enabled', '🔔');
+  });
+
+  // ── Service Worker registration with update detection ─
+  navigator.serviceWorker.register('./sw.js').then(reg => {
+    // Show PWA section once SW is registered
+    const pwa = document.getElementById('sb-pwa');
+    if (pwa) pwa.style.display = '';
+
+    // Detect new SW version waiting to activate
+    reg.addEventListener('updatefound', () => {
+      const newWorker = reg.installing;
+      if (!newWorker) return;
+      newWorker.addEventListener('statechange', () => {
+        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+          // New version available — offer refresh
+          if (typeof toast === 'function') {
+            toast('Update available — tap to refresh', '🔄', 8000);
+          }
+          // Make the last-added toast clickable
+          setTimeout(() => {
+            const toasts = document.querySelectorAll('#toast-container .toast');
+            const last   = toasts[toasts.length - 1];
+            if (last) {
+              last.style.cursor = 'pointer';
+              last.addEventListener('click', () => {
+                newWorker.postMessage({ type: 'SKIP_WAITING' });
+              });
+            }
+          }, 100);
+        }
+      });
+    });
+
+    // Reload when new SW takes control (after SKIP_WAITING)
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      window.location.reload();
+    });
+
+  }).catch(console.warn);
+})();
+</script>
+
+</body>
+</html>

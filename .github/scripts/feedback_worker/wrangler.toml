@@ -1,0 +1,15 @@
+# ArchBrief v5 — Cloudflare Worker config
+# Run: wrangler deploy  (from this directory)
+
+name = "archbrief-feedback"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+# Secrets (set via: wrangler secret put SECRET_NAME)
+# Required:
+#   GITHUB_TOKEN  — Personal Access Token with repo write scope
+#   GITHUB_OWNER  — Your GitHub username
+#   GITHUB_REPO   — Repository name (e.g. "archbrief")
+
+[vars]
+ENVIRONMENT = "production"

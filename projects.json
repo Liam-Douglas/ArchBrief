@@ -1,0 +1,41 @@
+{
+  "_instructions": "Edit this file to tell ArchBrief what you're working on. The daily generator reads it at 5am and surfaces relevant news. Add/remove projects as your work changes. Commit the file back to your repo when you update it.",
+  "_lastUpdated": "2025-01-01",
+  "role": "Assistant Solution Architect at IBM, Australian Public Sector",
+  "projects": [
+    {
+      "name": "Example: PROTECTED Cloud Migration",
+      "description": "Migrating legacy on-premises workloads to a PROTECTED-level cloud environment for a federal agency",
+      "vendors": ["aws", "azure"],
+      "apsClassification": "PROTECTED",
+      "topics": ["cloud migration", "IRAP", "data sovereignty", "landing zone", "security"],
+      "active": false
+    },
+    {
+      "name": "Example: AI/ML Platform for APS",
+      "description": "Evaluating watsonx and Azure OpenAI for a natural language processing capability in a government context",
+      "vendors": ["ibm", "azure"],
+      "apsClassification": "OFFICIAL",
+      "topics": ["AI", "watsonx", "Azure OpenAI", "responsible AI", "DTA AI policy"],
+      "active": false
+    }
+  ],
+  "focusAreas": [
+    "Australian Public Sector ICT",
+    "Multi-cloud architecture",
+    "Zero trust security",
+    "AI/ML in government"
+  ],
+  "vendorWeights": {
+    "_note": "Adjust 1-3. Higher = more coverage. All start at 1 (equal).",
+    "aws": 1,
+    "ibm": 1,
+    "azure": 1,
+    "oracle": 1,
+    "salesforce": 1,
+    "servicenow": 1,
+    "paloalto": 1,
+    "hashicorp": 1,
+    "emerging": 1
+  }
+}

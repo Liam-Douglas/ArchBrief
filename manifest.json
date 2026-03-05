@@ -1,0 +1,84 @@
+{
+  "name": "ArchBrief — Multi-Vendor IT Learning",
+  "short_name": "ArchBrief",
+  "description": "Daily IT intelligence for Solution Architects. Multi-vendor, APS-aware, architect-framed.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#060810",
+  "theme_color": "#060810",
+  "orientation": "any",
+  "categories": ["productivity", "education", "business"],
+  "icons": [
+    {
+      "src": "icons/icon-72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Daily Digest",
+      "short_name": "Digest",
+      "description": "Open today's brief",
+      "url": "./index.html#digest",
+      "icons": [{ "src": "icons/icon-96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "APS Radar",
+      "short_name": "APS",
+      "description": "Australian Public Sector compliance radar",
+      "url": "./index.html#aps",
+      "icons": [{ "src": "icons/icon-96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Q&A Chat",
+      "short_name": "Chat",
+      "description": "Ask your architecture AI",
+      "url": "./index.html#chat",
+      "icons": [{ "src": "icons/icon-96.png", "sizes": "96x96" }]
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+# ArchBrief v5 — Monthly Living Path Update
+# Runs 1st of every month at 4:30am AEST
+# Regenerates learning module content via Claude + web search
+# Updates path_content.json so modules stay current
+
+name: Monthly Path Update
+
+on:
+  schedule:
+    - cron: '30 18 1 * *'   # 4:30am AEST = 18:30 UTC (standard) / 17:30 UTC (daylight)
+  workflow_dispatch:          # Allow manual trigger
+
+jobs:
+  update-path:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install anthropic requests
+
+      - name: Generate updated path content
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python .github/scripts/generate_monthly.py
+
+      - name: Commit updated path content
+        run: |
+          git config --global user.name  "ArchBrief Bot"
+          git config --global user.email "bot@archbrief"
+          git add data/path_content.json
+          if git diff --staged --quiet; then
+            echo "No changes to path content"
+          else
+            git commit -m "📚 Monthly path update — $(date +%Y-%m-%d)"
+            git push
+          fi
