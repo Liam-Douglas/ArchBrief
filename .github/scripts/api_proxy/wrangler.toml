@@ -1,0 +1,12 @@
+name = "archbrief-proxy"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+# Worker runs on Cloudflare's global edge network
+# Free tier: 100,000 requests/day — more than enough for personal use
+
+# ANTHROPIC_API_KEY must be set as a secret (never committed to source):
+#   wrangler secret put ANTHROPIC_API_KEY
+
+[observability]
+enabled = true

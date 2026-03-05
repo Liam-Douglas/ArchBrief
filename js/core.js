@@ -83,8 +83,22 @@ const PANEL_TITLES = {
 const MODEL = 'claude-sonnet-4-20250514';
 
 async function callClaude({ messages, system, maxTokens = 1000, webSearch = false, onStream }) {
-  const apiKey = getSettings().apiKey;
-  if (!apiKey) throw new Error('API key not set — add it in My Projects → Settings');
+  const settings = getSettings();
+
+  // Resolve endpoint: proxy (secure, production) or direct (dev fallback)
+  let endpoint, extraHeaders = {};
+  if (settings.proxyUrl) {
+    endpoint = settings.proxyUrl.replace(/\/$/, '');
+  } else if (settings.apiKey) {
+    // Dev-only fallback — direct browser→Anthropic (not for production)
+    endpoint = 'https://api.anthropic.com/v1/messages';
+    extraHeaders = {
+      'x-api-key': settings.apiKey,
+      'anthropic-dangerous-direct-browser-access': 'true',
+    };
+  } else {
+    throw new Error('No API proxy configured — add the proxy URL in My Projects → API Proxy');
+  }
 
   const payload = {
     model:      MODEL,
@@ -97,15 +111,14 @@ async function callClaude({ messages, system, maxTokens = 1000, webSearch = fals
     payload.tools = [{ type: 'web_search_20250305', name: 'web_search' }];
   }
 
-  const res = await fetch('https://api.anthropic.com/v1/messages', {
+  const res = await fetch(endpoint, {
     method:  'POST',
     headers: {
-      'Content-Type':  'application/json',
-      'x-api-key':     apiKey,
+      'Content-Type':      'application/json',
       'anthropic-version': '2023-06-01',
-      'anthropic-dangerous-direct-browser-access': 'true',
+      ...extraHeaders,
     },
-    body:    JSON.stringify(payload),
+    body: JSON.stringify(payload),
   });
 
   if (!res.ok) {

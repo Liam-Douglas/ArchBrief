@@ -22,15 +22,26 @@ function renderProjects() {
     </div>
 
     <div style="padding:14px 16px;background:var(--s1);border:1px solid var(--border);border-radius:var(--r-lg);margin-bottom:16px">
-      <div class="label" style="margin-bottom:10px">Anthropic API Key</div>
+      <div class="label" style="margin-bottom:4px">API Proxy</div>
+      <div style="font-size:11px;color:var(--g);font-family:'JetBrains Mono',monospace;margin-bottom:10px">🔒 Secure — API key lives on Cloudflare, never in browser</div>
       <div style="font-size:13px;color:var(--t3);margin-bottom:10px;line-height:1.65">
-        Required for Generate, Chat, Quiz, and all AI features. Stored locally in your browser only.
+        Deploy the Cloudflare Worker in <code style="background:var(--s3);padding:1px 5px;border-radius:3px;color:var(--g)">.github/scripts/api_proxy/</code> then paste the worker URL below.
       </div>
       <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
-        <input class="input input-mono" id="api-key-input" type="password" placeholder="sk-ant-api03-..." value="${esc(settings.apiKey||'')}" style="flex:1">
-        <button class="btn btn-secondary btn-sm" onclick="saveApiKey()">Save</button>
+        <input class="input input-mono" id="proxy-url-input" type="url" placeholder="https://archbrief-proxy.yourname.workers.dev" value="${esc(settings.proxyUrl||'')}" style="flex:1">
+        <button class="btn btn-primary btn-sm" onclick="saveProxyUrl()">Save</button>
       </div>
-      <div id="api-key-status"></div>
+      <div id="proxy-status"></div>
+      <details style="margin-top:10px">
+        <summary style="font-size:11px;color:var(--t4);cursor:pointer;font-family:'JetBrains Mono',monospace">▸ Deploy steps</summary>
+        <div style="font-size:12px;color:var(--t3);line-height:1.9;margin-top:8px;padding-left:8px">
+          1. <code style="background:var(--s3);padding:1px 4px;border-radius:3px;color:var(--g)">cd .github/scripts/api_proxy</code><br>
+          2. <code style="background:var(--s3);padding:1px 4px;border-radius:3px;color:var(--g)">wrangler login</code><br>
+          3. <code style="background:var(--s3);padding:1px 4px;border-radius:3px;color:var(--g)">wrangler secret put ANTHROPIC_API_KEY</code> ← paste key<br>
+          4. <code style="background:var(--s3);padding:1px 4px;border-radius:3px;color:var(--g)">wrangler deploy</code><br>
+          5. Copy the <em>workers.dev</em> URL into the field above
+        </div>
+      </details>
     </div>
 
     <div style="padding:14px 16px;background:var(--s1);border:1px solid var(--border);border-radius:var(--r-lg);margin-bottom:16px">
@@ -55,7 +66,7 @@ function renderProjects() {
         5. Paste the worker URL above
       </div>
     </div>`;
-  updateApiKeyStatus();
+  updateProxyStatus();
   updateFeedbackSection();
   updateWorkerStatus();
 }
@@ -82,16 +93,27 @@ function saveWorkerUrl() {
   toast('Worker URL saved','✅');
   if(url) syncFeedback().then(()=>updateFeedbackSection());
 }
+function saveProxyUrl() {
+  const url=(document.getElementById('proxy-url-input')?.value||'').trim();
+  updateSetting('proxyUrl', url);
+  updateProxyStatus();
+  toast(url ? 'Proxy URL saved' : 'Proxy URL cleared', url ? '🔒' : '⬜');
+}
+function updateProxyStatus() {
+  const el=document.getElementById('proxy-status'); if(!el) return;
+  const {proxyUrl, apiKey}=getSettings();
+  if(proxyUrl) {
+    el.innerHTML=`<div style="font-size:11px;color:var(--g)">🔒 Proxy active — API key secured on Cloudflare</div>`;
+  } else if(apiKey) {
+    el.innerHTML=`<div style="font-size:11px;color:var(--aws)">⚠ Dev mode — direct API key in browser (deploy proxy for production)</div>`;
+  } else {
+    el.innerHTML=`<div style="font-size:11px;color:var(--t4)">Not configured — AI features will not work</div>`;
+  }
+}
+// Legacy: direct API key (dev only — not shown in UI unless no proxy)
 function saveApiKey() {
   const key=(document.getElementById('api-key-input')?.value||'').trim();
   updateSetting('apiKey',key);
-  updateApiKeyStatus();
-  toast(key?'API key saved':'API key cleared', key?'🔑':'⬜');
-}
-function updateApiKeyStatus() {
-  const el=document.getElementById('api-key-status'); if(!el) return;
-  const key=getSettings().apiKey;
-  if(!key) { el.innerHTML=`<div style="font-size:11px;color:var(--t4)">Not set — AI features will not work</div>`; return; }
-  el.innerHTML=`<div style="font-size:11px;color:var(--g)">✓ Key saved (${key.slice(0,10)}…)</div>`;
+  toast(key?'Dev API key saved':'Key cleared','🔑');
 }
 function showProjectsGuide() { toast('Edit projects.json in your GitHub repo and commit — takes effect next morning','ℹ️'); }

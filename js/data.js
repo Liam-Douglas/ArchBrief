@@ -326,7 +326,8 @@ async function loadPathContent() {
 // ── SETTINGS ─────────────────────────────────────────────
 function getSettings() {
   return storageGet(KEYS.SETTINGS, {
-    apiKey:            '',
+    proxyUrl:          '',          // Cloudflare Worker proxy URL (preferred, secure)
+    apiKey:            '',          // Direct API key — dev only, not for production
     feedbackWorkerUrl: '',
     reminderTime:      '05:00',
     reminderEnabled:   false,
