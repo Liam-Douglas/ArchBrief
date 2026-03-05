@@ -16,3 +16,4 @@ node_modules/
 # Python cache (from GitHub Actions scripts)
 __pycache__/
 *.pyc
+.github/scripts/api_proxy/.wrangler/
