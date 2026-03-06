@@ -70,7 +70,10 @@ def call_claude(messages, system, max_tokens=8000, retries=3):
             d = r.json()
             if "error" in d: raise ValueError(d["error"])
             import re
-            return "\n".join(re.sub(r'</?cite[^>]*>', '', b["text"]) for b in d.get("content",[]) if b.get("type")=="text")
+            text = "\n".join(re.sub(r'</?cite[^>]*>', '', b["text"]) for b in d.get("content",[]) if b.get("type")=="text")
+            if not text.strip():
+                raise ValueError("API returned no text content (possible tool-only response)")
+            return text
         except Exception as e:
             print(f"    ⚠ Attempt {attempt+1}: {e}")
             if attempt < retries-1: time.sleep(12*(attempt+1))
@@ -468,7 +471,8 @@ def main():
             if ex.get("dateKey")==date_key:
                 print("✓ Today's brief already exists — skipping.")
                 sys.exit(0)
-        except: pass
+        except SystemExit: raise
+        except Exception: pass
 
     # Load all context
     print("Loading personalisation context...")
@@ -489,13 +493,13 @@ def main():
     # Generate quiz from digest
     quiz = {"questions": []}
     if digest.get("articles"):
-        time.sleep(2)
+        time.sleep(15)
         try:
             quiz = gen_quiz(date_str, digest)
         except Exception as e:
             print(f"❌ Quiz: {e}"); errors.append(f"quiz: {e}")
 
-    time.sleep(3)
+    time.sleep(15)
 
     try:
         aps = gen_aps(date_str)
@@ -513,7 +517,7 @@ def main():
                 aps["keyAlerts"].insert(0,
                     f"🔔 IRAP STATUS CHANGE: {c['vendor']} moved from {c['from']} → {c['to']}")
 
-    time.sleep(3)
+    time.sleep(15)
 
     try:
         explorer = gen_explorer(date_str, context)
@@ -528,7 +532,7 @@ def main():
     # Friday: weekly summary + email
     weekly_summary = None
     if is_friday:
-        time.sleep(3)
+        time.sleep(15)
         try:
             fresh_hist     = load_history(days=7)
             weekly_summary = gen_weekly(date_str, fresh_hist, feedback)
