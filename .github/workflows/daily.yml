@@ -11,10 +11,9 @@ on:
   workflow_dispatch:
     inputs:
       force_regenerate:
-        description: 'Force regenerate even if today exists'
+        description: 'Force regenerate even if today exists (true/false)'
         required: false
-        default: false
-        type: boolean
+        default: 'false'
 
 jobs:
   generate:
