@@ -1,5 +1,5 @@
-# ArchBrief Daily Generation Workflow v2
-# 5am AEST daily — with feedback loop, project context, longitudinal tracking
+# ArchBrief Daily Generation Workflow v3
+# 5am AEST daily - with feedback loop, project context, longitudinal tracking
 # Friday also triggers weekly email summary
 
 name: ArchBrief Daily Brief
