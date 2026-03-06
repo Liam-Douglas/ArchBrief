@@ -10,7 +10,6 @@ function renderProgress() {
   const d=getTutor(), p=getProfile();
   const prog=d.moduleProgress||{};
   const sr=srStats();
-  const totalMods=LP_DOMAINS.reduce((s,dom)=>s+dom.modules.length,0);
   const mastered=Object.values(prog).filter(v=>v==='mastered').length;
   const history=d.quizHistory||[];
   const last10=history.slice(-10);
@@ -34,7 +33,7 @@ function renderProgress() {
       <div class="dash-card">
         <div class="dash-card-header">Quiz Accuracy — Last 10 sessions</div>
         <div class="dash-card-body">
-          ${history.length?renderQuizSparkline(history.slice(-10)):`<div style="font-size:12px;color:var(--t4);text-align:center;padding:20px 0">No quiz history yet</div>`}
+          ${history.length?renderQuizSparkline(last10):`<div style="font-size:12px;color:var(--t4);text-align:center;padding:20px 0">No quiz history yet</div>`}
         </div>
       </div>
 
