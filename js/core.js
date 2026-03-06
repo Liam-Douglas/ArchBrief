@@ -85,20 +85,23 @@ const MODEL = 'claude-sonnet-4-20250514';
 async function callClaude({ messages, system, maxTokens = 1000, webSearch = false, onStream }) {
   const settings = getSettings();
 
-  // Resolve endpoint: proxy (secure, production) or direct (dev fallback)
-  let endpoint, extraHeaders = {};
+  // Build endpoint list: proxy first, direct API key as fallback
+  const endpoints = [];
   if (settings.proxyUrl) {
     let url = settings.proxyUrl.replace(/\/$/, '');
     if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
-    endpoint = url;
-  } else if (settings.apiKey) {
-    // Dev-only fallback — direct browser→Anthropic (not for production)
-    endpoint = 'https://api.anthropic.com/v1/messages';
-    extraHeaders = {
-      'x-api-key': settings.apiKey,
-      'anthropic-dangerous-direct-browser-access': 'true',
-    };
-  } else {
+    endpoints.push({ endpoint: url, extraHeaders: {} });
+  }
+  if (settings.apiKey) {
+    endpoints.push({
+      endpoint: 'https://api.anthropic.com/v1/messages',
+      extraHeaders: {
+        'x-api-key': settings.apiKey,
+        'anthropic-dangerous-direct-browser-access': 'true',
+      },
+    });
+  }
+  if (!endpoints.length) {
     throw new Error('No API proxy configured — add the proxy URL in My Projects → API Proxy');
   }
 
@@ -113,34 +116,48 @@ async function callClaude({ messages, system, maxTokens = 1000, webSearch = fals
     payload.tools = [{ type: 'web_search_20250305', name: 'web_search' }];
   }
 
-  const headers = {
-    'Content-Type':      'application/json',
-    'anthropic-version': '2023-06-01',
-    ...extraHeaders,
-  };
-  if (webSearch) headers['anthropic-beta'] = 'web-search-2025-03-05';
+  let lastError;
+  for (const { endpoint, extraHeaders } of endpoints) {
+    const headers = {
+      'Content-Type':      'application/json',
+      'anthropic-version': '2023-06-01',
+      ...extraHeaders,
+    };
+    if (webSearch) headers['anthropic-beta'] = 'web-search-2025-03-05';
 
-  const res = await fetch(endpoint, {
-    method:  'POST',
-    headers,
-    body: JSON.stringify(payload),
-  });
+    let res;
+    try {
+      res = await fetch(endpoint, {
+        method:  'POST',
+        headers,
+        body: JSON.stringify(payload),
+      });
+    } catch (e) {
+      // Network error (proxy unreachable, CORS, etc.) — try next endpoint
+      console.warn(`[callClaude] ${endpoint} failed: ${e.message}`);
+      lastError = e;
+      continue;
+    }
 
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}));
-    throw new Error(err?.error?.message || `API error ${res.status}`);
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err?.error?.message || `API error ${res.status}`);
+    }
+
+    const data = await res.json();
+    if (data.error) throw new Error(data.error.message || 'Unknown API error');
+
+    // Extract text content from all blocks, stripping web-search citation tags
+    const text = (data.content || [])
+      .filter(b => b.type === 'text')
+      .map(b => b.text.replace(/<\/?cite[^>]*>/g, ''))
+      .join('\n');
+
+    return text;
   }
 
-  const data = await res.json();
-  if (data.error) throw new Error(data.error.message || 'Unknown API error');
-
-  // Extract text content from all blocks, stripping web-search citation tags
-  const text = (data.content || [])
-    .filter(b => b.type === 'text')
-    .map(b => b.text.replace(/<\/?cite[^>]*>/g, ''))
-    .join('\n');
-
-  return text;
+  // All endpoints failed
+  throw lastError || new Error('All API endpoints failed');
 }
 
 // Parse JSON from Claude response
