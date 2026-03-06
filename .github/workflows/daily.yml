@@ -13,7 +13,7 @@ on:
       force_regenerate:
         description: 'Force regenerate even if today exists'
         required: false
-        default: 'false'
+        default: false
         type: boolean
 
 jobs:
