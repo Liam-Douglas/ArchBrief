@@ -161,6 +161,7 @@ function epToggleGloss(dataJson) {
   const btn  = document.getElementById('ep-gloss-btn');
   const isNew = addGlossaryEntry(data);
   updateGlossaryBadge();
+  Bus.emit('glossary:updated', {});
   if (btn) {
     btn.textContent = '✓ Saved!';
     btn.className   = 'btn btn-ghost btn-sm';

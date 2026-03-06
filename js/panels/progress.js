@@ -1,7 +1,9 @@
 /* ArchBrief v5 — progress.js — Progress Dashboard */
 Bus.on('panel:activated', ({id}) => { if(id==='progress') renderProgress(); });
-Bus.on('quiz:completed', () => { if(AppState.currentPanel==='progress') renderProgress(); });
-Bus.on('module:mastered', () => { if(AppState.currentPanel==='progress') renderProgress(); });
+Bus.on('quiz:completed',    () => { if(AppState.currentPanel==='progress') renderProgress(); });
+Bus.on('module:mastered',   () => { if(AppState.currentPanel==='progress') renderProgress(); });
+Bus.on('sr:reviewed',       () => { if(AppState.currentPanel==='progress') renderProgress(); });
+Bus.on('glossary:updated',  () => { if(AppState.currentPanel==='progress') renderProgress(); });
 
 function renderProgress() {
   const out=document.getElementById('progress-out'); if(!out) return;
@@ -10,10 +12,9 @@ function renderProgress() {
   const sr=srStats();
   const totalMods=LP_DOMAINS.reduce((s,dom)=>s+dom.modules.length,0);
   const mastered=Object.values(prog).filter(v=>v==='mastered').length;
-  const started=Object.values(prog).filter(v=>v&&v!=='not-started').length;
   const history=d.quizHistory||[];
-  const last7=history.slice(-7);
-  const avgAcc=last7.length?Math.round(last7.reduce((s,q)=>s+(q.score/q.total),0)/last7.length*100):0;
+  const last10=history.slice(-10);
+  const avgAcc=last10.length?Math.round(last10.reduce((s,q)=>s+(q.score/q.total),0)/last10.length*100):0;
   const certProgress=getCertProgress();
 
   out.innerHTML=`
@@ -33,7 +34,7 @@ function renderProgress() {
       <div class="dash-card">
         <div class="dash-card-header">Quiz Accuracy — Last 10 sessions</div>
         <div class="dash-card-body">
-          ${last7.length?renderQuizSparkline(history.slice(-10)):`<div style="font-size:12px;color:var(--t4);text-align:center;padding:20px 0">No quiz history yet</div>`}
+          ${history.length?renderQuizSparkline(history.slice(-10)):`<div style="font-size:12px;color:var(--t4);text-align:center;padding:20px 0">No quiz history yet</div>`}
         </div>
       </div>
 
@@ -55,14 +56,16 @@ function renderProgress() {
             const total=dom.modules.length;
             const done=dom.modules.filter(m=>prog[m.id]==='mastered').length;
             const started=dom.modules.filter(m=>prog[m.id]&&prog[m.id]!=='not-started').length;
-            const pct=Math.round((done/total)*100);
+            const masteredPct=Math.round((done/total)*100);
+            const startedPct=Math.round((started/total)*100);
+            const masteredColor=masteredPct===100?'var(--g)':'var(--azure)';
             return `<div style="margin-bottom:10px">
               <div style="display:flex;justify-content:space-between;margin-bottom:4px">
                 <span style="font-size:12px;color:var(--t2)">${dom.icon} ${dom.name}</span>
                 <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t4)">${done}/${total}</span>
               </div>
               <div class="progress-track">
-                <div class="progress-fill" style="width:${pct}%;background:${pct===100?'var(--g)':pct>50?'var(--azure)':'var(--ibm)'}"></div>
+                <div class="progress-fill" style="width:100%;background:linear-gradient(90deg,${masteredColor} ${masteredPct}%,var(--ibm) ${masteredPct}%,var(--ibm) ${startedPct}%,transparent ${startedPct}%)"></div>
               </div>
             </div>`;
           }).join('')}
@@ -73,11 +76,7 @@ function renderProgress() {
       <div class="dash-card">
         <div class="dash-card-header">Certification Readiness</div>
         <div class="dash-card-body">
-          ${certProgress.map(cert=>`<div class="cert-row">
-            <div class="cert-name">${cert.name.split('—')[0].split('Certified')[0].trim().slice(0,18)}</div>
-            <div class="cert-track"><div class="progress-track"><div class="progress-fill" style="width:${cert.pct}%;background:${cert.color}"></div></div></div>
-            <div class="cert-pct" style="color:${cert.color}">${cert.pct}%</div>
-          </div>`).join('')}
+          ${certProgress.map(cert=>renderCertBadge(cert)).join('')}
           <div style="font-size:11px;color:var(--t4);margin-top:8px;line-height:1.5">Based on started modules aligned to each certification's syllabus.</div>
         </div>
       </div>

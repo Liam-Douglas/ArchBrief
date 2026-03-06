@@ -122,6 +122,7 @@ function morningAnswer(chosen) {
     exp.querySelector('button').textContent=more;
   }
   srUpdateCard(q.id||'', isRight?4:1);
+  Bus.emit('sr:reviewed', {});
 }
 
 function morningQuizNext() {

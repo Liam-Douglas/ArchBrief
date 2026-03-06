@@ -126,6 +126,7 @@ function answerQuiz(chosen) {
   const quality=isRight?4:1;
   if(q.isReview&&q.srId) srUpdateCard(q.srId,quality);
   else if(q.id) srUpdateCard(q.id,quality);
+  Bus.emit('sr:reviewed', {});
 
   // Disable options, apply colours
   document.querySelectorAll('.quiz-option').forEach((btn,i)=>{
