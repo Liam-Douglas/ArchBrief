@@ -48,17 +48,7 @@ jobs:
         run: |
           if [ -f "daily.json" ]; then
             echo "generated=true" >> $GITHUB_OUTPUT
-            python3 -c "
-import json
-with open('daily.json') as f: d=json.load(f)
-print('Date:    ', d.get('date','?'))
-print('Articles:', len(d.get('digest',{}).get('articles',[])))
-print('APS:     ', len(d.get('aps',{}).get('irapStatus',[])), 'vendors')
-print('Changes: ', len(d.get('apsChanges',[])), 'APS changes')
-print('Explorer:', len(d.get('explorer',{}).get('articles',[])), 'articles')
-errors = d.get('errors',[])
-if errors: print('Errors:  ', errors)
-"
+            python3 -c "import json; f=open('daily.json'); d=json.load(f); f.close(); print('Date:    ', d.get('date','?')); print('Articles:', len(d.get('digest',{}).get('articles',[]))); print('APS:     ', len(d.get('aps',{}).get('irapStatus',[])), 'vendors'); print('Changes: ', len(d.get('apsChanges',[])), 'APS changes'); print('Explorer:', len(d.get('explorer',{}).get('articles',[])), 'articles'); errors=d.get('errors',[]); errors and print('Errors:  ', errors)"
           else
             echo "generated=false" >> $GITHUB_OUTPUT
             echo "daily.json not created"
@@ -93,17 +83,7 @@ if errors: print('Errors:  ', errors)
           echo "**Time:** $(TZ='Australia/Sydney' date '+%A %d %B %Y at %H:%M AEST')" >> $GITHUB_STEP_SUMMARY
           if [ -f "daily.json" ]; then
             echo "**Status:** Success" >> $GITHUB_STEP_SUMMARY
-            python3 -c "
-import json
-with open('daily.json') as f: d=json.load(f)
-ctx = d.get('context',{})
-changes = d.get('apsChanges',[])
-print('**Articles:**', len(d.get('digest',{}).get('articles',[])))
-print('**Active projects:**', ctx.get('activeProjects',0))
-print('**Feedback applied:**', ctx.get('feedbackUsed','none'))
-print('**History days:**', ctx.get('historyDays',0))
-if changes: print('**APS Changes:**', len(changes), 'detected')
-" >> $GITHUB_STEP_SUMMARY
+            python3 -c "import json; f=open('daily.json'); d=json.load(f); f.close(); ctx=d.get('context',{}); changes=d.get('apsChanges',[]); print('**Articles:**', len(d.get('digest',{}).get('articles',[]))); print('**Active projects:**', ctx.get('activeProjects',0)); print('**Feedback:**', ctx.get('feedbackUsed','none')); print('**History days:**', ctx.get('historyDays',0)); changes and print('**APS Changes:**', len(changes), 'detected')" >> $GITHUB_STEP_SUMMARY
           else
             echo "**Status:** Failed - daily.json not created" >> $GITHUB_STEP_SUMMARY
           fi
