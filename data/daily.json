@@ -1,7 +1,7 @@
 {
   "dateKey": "2026-03-06",
   "date": "Friday 06 March 2026",
-  "generatedAt": "2026-03-06T22:32:52.111314+11:00",
+  "generatedAt": "2026-03-06T22:40:56.812721+11:00",
   "generatedBy": "github-actions-v2",
   "vendors": [
     "aws",
@@ -15,7 +15,7 @@
     "emerging"
   ],
   "errors": [
-    "digest: Unterminated string starting at: line 20 column 15 (char 3000)",
+    "digest: Expecting value: line 1 column 1 (char 0)",
     "aps: Claude API failed after 3 attempts",
     "explorer: Claude API failed after 3 attempts",
     "weekly: Claude API failed after 3 attempts"
