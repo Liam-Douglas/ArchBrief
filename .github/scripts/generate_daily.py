@@ -51,16 +51,21 @@ VENDOR_COLORS = {
 }
 
 # ── CLAUDE API ──────────────────────────────────────
-def call_claude(messages, system, max_tokens=8000, retries=3):
+HAIKU = "claude-haiku-3-5-20241022"
+
+def call_claude(messages, system, max_tokens=8000, retries=3, model=None, web_search=True):
     if not ANTHROPIC_API_KEY:
         raise ValueError("ANTHROPIC_API_KEY not set")
+    use_model = model or MODEL
     headers = {"Content-Type":"application/json",
                "x-api-key":ANTHROPIC_API_KEY,
-               "anthropic-version":"2023-06-01",
-               "anthropic-beta":"web-search-2025-03-05"}
-    payload = {"model":MODEL,"max_tokens":max_tokens,"system":system,
-               "tools":[{"type":"web_search_20250305","name":"web_search"}],
+               "anthropic-version":"2023-06-01"}
+    if web_search:
+        headers["anthropic-beta"] = "web-search-2025-03-05"
+    payload = {"model":use_model,"max_tokens":max_tokens,"system":system,
                "messages":messages}
+    if web_search:
+        payload["tools"] = [{"type":"web_search_20250305","name":"web_search"}]
     for attempt in range(retries):
         try:
             print(f"    → Claude API (attempt {attempt+1})...")
@@ -231,7 +236,7 @@ PERSONALISATION — follow carefully:
 Search web for latest news past 48 hours. Return ONLY valid JSON:
 {{"summary":"2-sentence overview","apsAlert":"APS alert or null","articles":[{{"title":"string","vendors":["key"],"topicTag":"arch|security|ai|devops|industry","lead":"string","body":"4-5 paragraphs technical depth","arch_impact":"3-4 sentences architect implications","key_points":["p1","p2","p3","p4"],"apsRelevance":"string or null"}}]}}
 Generate exactly 7 articles. Follow personalisation above."""
-    raw  = call_claude([{"role":"user","content":f"Generate today's brief {date_str}. Search latest news."}], system)
+    raw  = call_claude([{"role":"user","content":f"Generate today's brief {date_str}. Search latest news."}], system, max_tokens=8000)
     data = parse_json(raw)
     print(f"  ✓ {len(data.get('articles',[]))} articles")
     return data
@@ -247,7 +252,7 @@ Return ONLY valid JSON:
 "dtaAlignment":[{{"vendor":"string","status":"aligned|partial|unknown","detail":"string"}}],
 "sovereignty":[{{"vendor":"string","australianRegions":["string"],"dataResidency":"guaranteed|configurable|unknown","notes":"string"}}],
 "wogPlatforms":[{{"name":"string","agency":"string","technology":"string","vendors":["string"],"notes":"string"}}]}}"""
-    raw  = call_claude([{"role":"user","content":f"Latest IRAP, DTA, APS compliance {date_str}."}], system)
+    raw  = call_claude([{"role":"user","content":f"Latest IRAP, DTA, APS compliance {date_str}."}], system, max_tokens=4000)
     data = parse_json(raw)
     print(f"  ✓ {len(data.get('irapStatus',[]))} vendors, {len(data.get('keyAlerts',[]))} alerts")
     return data
@@ -260,7 +265,7 @@ PERSONALISATION: {context}
 Search current news. Return ONLY valid JSON:
 {{"articles":[{{"navTitle":"3 words","title":"string","vendors":["key"],"topicTag":"arch|security|ai|devops|industry","lead":"string","sections":[{{"heading":"string","content":"2-3 paragraphs"}}],"arch_impact":"string","apsRelevance":"string or null"}}]}}
 5 articles. Follow personalisation."""
-    raw  = call_claude([{"role":"user","content":f"Build explorer {date_str}. Vendors: {vl}."}], system)
+    raw  = call_claude([{"role":"user","content":f"Build explorer {date_str}. Vendors: {vl}."}], system, model=HAIKU, max_tokens=6000)
     data = parse_json(raw)
     print(f"  ✓ {len(data.get('articles',[]))} explorer articles")
     return data
@@ -311,7 +316,7 @@ Return ONLY valid JSON:
 "apsWeekly":"2-3 sentences most important APS IT development",
 "nextWeekWatch":["watch 1","watch 2","watch 3"],
 "weekStats":{{"articlesGenerated":{len(covered)},"vendorBreakdown":{json.dumps(vc)},"feedbackSummary":"{feedback.get('summary','—')}"}}}}"""
-    raw  = call_claude([{"role":"user","content":f"Weekly summary week ending {date_str}. Articles: {', '.join(covered[-20:])}."}], system)
+    raw  = call_claude([{"role":"user","content":f"Weekly summary week ending {date_str}. Articles: {', '.join(covered[-20:])}."}], system, model=HAIKU, web_search=False, max_tokens=3000)
     data = parse_json(raw)
     print("  ✓ Weekly summary generated")
     return data
@@ -436,7 +441,7 @@ Correct index is 0-based. Wrong options must be plausible. Focus on architect un
 
     raw  = call_claude(
         [{"role":"user","content":f"Generate 3 quiz questions from these APS architect articles:\n\n{summaries}"}],
-        system
+        system, model=HAIKU, web_search=False, max_tokens=2000
     )
     data = parse_json(raw)
     count = len(data.get("questions", []))
