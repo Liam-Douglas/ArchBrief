@@ -30,7 +30,7 @@ const UPSTREAM = 'https://api.anthropic.com/v1/messages';
 const CORS_HEADERS = (origin) => ({
   'Access-Control-Allow-Origin':  origin,
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, anthropic-version',
+  'Access-Control-Allow-Headers': 'Content-Type, anthropic-version, anthropic-beta',
   'Access-Control-Max-Age':       '86400',
   'Vary':                         'Origin',
 });
@@ -81,6 +81,7 @@ export default {
         'Content-Type':      'application/json',
         'x-api-key':         env.ANTHROPIC_API_KEY,
         'anthropic-version': request.headers.get('anthropic-version') || '2023-06-01',
+        ...(request.headers.get('anthropic-beta') ? { 'anthropic-beta': request.headers.get('anthropic-beta') } : {}),
       },
       body,
     });

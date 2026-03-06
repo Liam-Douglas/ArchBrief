@@ -29,6 +29,7 @@ EMAIL_TO          = os.environ.get("EMAIL_TO", "")
 EMAIL_CC          = os.environ.get("EMAIL_CC", "")
 
 MODEL = "claude-sonnet-4-20250514"
+DATA_DIR = Path("data")
 AEST  = ZoneInfo("Australia/Sydney")
 
 VENDORS     = ["AWS","IBM","Microsoft Azure","Oracle Cloud","Salesforce",
@@ -85,7 +86,7 @@ def parse_json(raw):
 # ── CONTEXT LOADERS ─────────────────────────────────
 def load_feedback():
     try:
-        with open("feedback.json") as f: fb = json.load(f)
+        with open(DATA_DIR / "feedback.json") as f: fb = json.load(f)
         ratings = fb.get("ratings", [])
         cutoff  = datetime.now() - timedelta(days=30)
         recent  = []
@@ -139,7 +140,7 @@ def load_projects():
 
 def load_history(days=7):
     try:
-        with open("history.json") as f: data = json.load(f)
+        with open(DATA_DIR / "history.json") as f: data = json.load(f)
         cutoff = datetime.now(AEST) - timedelta(days=days)
         recent = [e for e in data.get("entries",[])
                   if datetime.fromisoformat(e.get("date","2000-01-01")).replace(tzinfo=None)
@@ -161,7 +162,7 @@ def load_history(days=7):
 def update_history(date_key, date_str, articles):
     try:
         try:
-            with open("history.json") as f: data = json.load(f)
+            with open(DATA_DIR / "history.json") as f: data = json.load(f)
         except FileNotFoundError:
             data = {"entries":[]}
         cutoff = datetime.now(AEST) - timedelta(days=30)
@@ -176,7 +177,7 @@ def update_history(date_key, date_str, articles):
             "articles":[{"title":a.get("title",""),"vendors":a.get("vendors",[]),
                          "topicTag":a.get("topicTag","")} for a in articles]
         })
-        with open("history.json","w") as f: json.dump(data,f,indent=2)
+        with open(DATA_DIR / "history.json","w") as f: json.dump(data,f,indent=2)
         print(f"  ✓ history.json updated ({len(data['entries'])} days)")
     except Exception as e:
         print(f"  ⚠ History update error: {e}")
@@ -264,7 +265,7 @@ def detect_aps_changes(new_aps):
     """Compare today's APS radar to yesterday's — surface changes."""
     changes = []
     try:
-        with open("daily.json") as f: prev = json.load(f)
+        with open(DATA_DIR / "daily.json") as f: prev = json.load(f)
         prev_aps = prev.get("aps", {})
         prev_irap = {e.get("vendor",""):e for e in prev_aps.get("irapStatus",[])}
         for entry in new_aps.get("irapStatus",[]):
@@ -448,9 +449,9 @@ def main():
         sys.exit(1)
 
     # Skip if already generated today
-    if not force and Path("daily.json").exists():
+    if not force and Path(DATA_DIR / "daily.json").exists():
         try:
-            with open("daily.json") as f: ex = json.load(f)
+            with open(DATA_DIR / "daily.json") as f: ex = json.load(f)
             if ex.get("dateKey")==date_key:
                 print("✓ Today's brief already exists — skipping.")
                 sys.exit(0)
@@ -519,7 +520,7 @@ def main():
             fresh_hist     = load_history(days=7)
             weekly_summary = gen_weekly(date_str, fresh_hist, feedback)
             email_html     = build_email_html(weekly_summary, date_str)
-            with open("weekly_summary.json","w") as f:
+            with open(DATA_DIR / "weekly_summary.json","w") as f:
                 json.dump({"dateKey":date_key,"date":date_str,
                            "summary":weekly_summary,"emailHtml":email_html},
                           f, indent=2, ensure_ascii=False)
@@ -548,10 +549,10 @@ def main():
         "explorer": explorer,
     }
 
-    with open("daily.json","w",encoding="utf-8") as f:
+    with open(DATA_DIR / "daily.json","w",encoding="utf-8") as f:
         json.dump(daily, f, ensure_ascii=False, indent=2)
 
-    size_kb = Path("daily.json").stat().st_size/1024
+    size_kb = Path(DATA_DIR / "daily.json").stat().st_size/1024
     print(f"\n{'='*58}")
     print(f"  ✅ daily.json written ({size_kb:.1f} KB)")
     print(f"  {'⚠  '+str(len(errors))+' error(s)' if errors else '✓  All sections OK'}")

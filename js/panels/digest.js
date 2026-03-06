@@ -239,7 +239,7 @@ Search web for LATEST real news past 48 hours. Output this exact JSON shape:
 Generate exactly 7 articles. Real product names, current facts, deep technical detail.`;
 
   try {
-    const raw  = await callClaude({ messages:[{role:'user',content:`Brief for ${date}. Vendors: ${active.join(', ')}.`}], system, maxTokens:4000, webSearch:true });
+    const raw  = await callClaude({ messages:[{role:'user',content:`Brief for ${date}. Vendors: ${active.join(', ')}.`}], system, maxTokens:8000, webSearch:true });
     const data = parseClaudeJson(raw);
     if (sub) sub.textContent = date;
     renderDigest(out, data);

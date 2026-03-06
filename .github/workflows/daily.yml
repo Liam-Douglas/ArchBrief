@@ -46,12 +46,12 @@ jobs:
       - name: Verify output
         id: verify
         run: |
-          if [ -f "daily.json" ]; then
+          if [ -f "data/daily.json" ]; then
             echo "generated=true" >> $GITHUB_OUTPUT
-            python3 -c "import json; f=open('daily.json'); d=json.load(f); f.close(); print('Date:    ', d.get('date','?')); print('Articles:', len(d.get('digest',{}).get('articles',[]))); print('APS:     ', len(d.get('aps',{}).get('irapStatus',[])), 'vendors'); print('Changes: ', len(d.get('apsChanges',[])), 'APS changes'); print('Explorer:', len(d.get('explorer',{}).get('articles',[])), 'articles'); errors=d.get('errors',[]); errors and print('Errors:  ', errors)"
+            python3 -c "import json; f=open('data/daily.json'); d=json.load(f); f.close(); print('Date:    ', d.get('date','?')); print('Articles:', len(d.get('digest',{}).get('articles',[]))); print('APS:     ', len(d.get('aps',{}).get('irapStatus',[])), 'vendors'); print('Changes: ', len(d.get('apsChanges',[])), 'APS changes'); print('Explorer:', len(d.get('explorer',{}).get('articles',[])), 'articles'); errors=d.get('errors',[]); errors and print('Errors:  ', errors)"
           else
             echo "generated=false" >> $GITHUB_OUTPUT
-            echo "daily.json not created"
+            echo "data/daily.json not created"
             exit 1
           fi
 
@@ -60,7 +60,7 @@ jobs:
         run: |
           git config --local user.email "archbrief-bot@github-actions"
           git config --local user.name "ArchBrief Daily Bot"
-          git add daily.json history.json weekly_summary.json 2>/dev/null || git add daily.json history.json 2>/dev/null || git add daily.json
+          git add data/daily.json data/history.json data/weekly_summary.json 2>/dev/null || git add data/daily.json data/history.json 2>/dev/null || git add data/daily.json
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
@@ -81,9 +81,9 @@ jobs:
           echo "### ArchBrief Daily Generation" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Time:** $(TZ='Australia/Sydney' date '+%A %d %B %Y at %H:%M AEST')" >> $GITHUB_STEP_SUMMARY
-          if [ -f "daily.json" ]; then
+          if [ -f "data/daily.json" ]; then
             echo "**Status:** Success" >> $GITHUB_STEP_SUMMARY
-            python3 -c "import json; f=open('daily.json'); d=json.load(f); f.close(); ctx=d.get('context',{}); changes=d.get('apsChanges',[]); print('**Articles:**', len(d.get('digest',{}).get('articles',[]))); print('**Active projects:**', ctx.get('activeProjects',0)); print('**Feedback:**', ctx.get('feedbackUsed','none')); print('**History days:**', ctx.get('historyDays',0)); changes and print('**APS Changes:**', len(changes), 'detected')" >> $GITHUB_STEP_SUMMARY
+            python3 -c "import json; f=open('data/daily.json'); d=json.load(f); f.close(); ctx=d.get('context',{}); changes=d.get('apsChanges',[]); print('**Articles:**', len(d.get('digest',{}).get('articles',[]))); print('**Active projects:**', ctx.get('activeProjects',0)); print('**Feedback:**', ctx.get('feedbackUsed','none')); print('**History days:**', ctx.get('historyDays',0)); changes and print('**APS Changes:**', len(changes), 'detected')" >> $GITHUB_STEP_SUMMARY
           else
-            echo "**Status:** Failed - daily.json not created" >> $GITHUB_STEP_SUMMARY
+            echo "**Status:** Failed - data/daily.json not created" >> $GITHUB_STEP_SUMMARY
           fi

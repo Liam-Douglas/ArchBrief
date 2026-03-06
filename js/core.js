@@ -88,7 +88,9 @@ async function callClaude({ messages, system, maxTokens = 1000, webSearch = fals
   // Resolve endpoint: proxy (secure, production) or direct (dev fallback)
   let endpoint, extraHeaders = {};
   if (settings.proxyUrl) {
-    endpoint = settings.proxyUrl.replace(/\/$/, '');
+    let url = settings.proxyUrl.replace(/\/$/, '');
+    if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+    endpoint = url;
   } else if (settings.apiKey) {
     // Dev-only fallback — direct browser→Anthropic (not for production)
     endpoint = 'https://api.anthropic.com/v1/messages';
@@ -111,13 +113,16 @@ async function callClaude({ messages, system, maxTokens = 1000, webSearch = fals
     payload.tools = [{ type: 'web_search_20250305', name: 'web_search' }];
   }
 
+  const headers = {
+    'Content-Type':      'application/json',
+    'anthropic-version': '2023-06-01',
+    ...extraHeaders,
+  };
+  if (webSearch) headers['anthropic-beta'] = 'web-search-2025-03-05';
+
   const res = await fetch(endpoint, {
     method:  'POST',
-    headers: {
-      'Content-Type':      'application/json',
-      'anthropic-version': '2023-06-01',
-      ...extraHeaders,
-    },
+    headers,
     body: JSON.stringify(payload),
   });
 
@@ -129,10 +134,10 @@ async function callClaude({ messages, system, maxTokens = 1000, webSearch = fals
   const data = await res.json();
   if (data.error) throw new Error(data.error.message || 'Unknown API error');
 
-  // Extract text content from all blocks
+  // Extract text content from all blocks, stripping web-search citation tags
   const text = (data.content || [])
     .filter(b => b.type === 'text')
-    .map(b => b.text)
+    .map(b => b.text.replace(/<\/?cite[^>]*>/g, ''))
     .join('\n');
 
   return text;

@@ -9,7 +9,7 @@
       "vendors": ["aws", "azure"],
       "apsClassification": "PROTECTED",
       "topics": ["cloud migration", "IRAP", "data sovereignty", "landing zone", "security"],
-      "active": false
+      "active": true
     },
     {
       "name": "Example: AI/ML Platform for APS",
@@ -17,7 +17,7 @@
       "vendors": ["ibm", "azure"],
       "apsClassification": "OFFICIAL",
       "topics": ["AI", "watsonx", "Azure OpenAI", "responsible AI", "DTA AI policy"],
-      "active": false
+      "active": true
     }
   ],
   "focusAreas": [
