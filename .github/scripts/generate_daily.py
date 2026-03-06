@@ -51,7 +51,7 @@ VENDOR_COLORS = {
 }
 
 # ── CLAUDE API ──────────────────────────────────────
-HAIKU = "claude-haiku-3-5-20241022"
+HAIKU = "claude-3-5-haiku-20241022"
 
 def call_claude(messages, system, max_tokens=8000, retries=3, model=None, web_search=True):
     if not ANTHROPIC_API_KEY:
@@ -70,7 +70,7 @@ def call_claude(messages, system, max_tokens=8000, retries=3, model=None, web_se
         try:
             print(f"    → Claude API (attempt {attempt+1})...")
             r = requests.post("https://api.anthropic.com/v1/messages",
-                              headers=headers, json=payload, timeout=120)
+                              headers=headers, json=payload, timeout=180)
             r.raise_for_status()
             d = r.json()
             if "error" in d: raise ValueError(d["error"])
@@ -81,7 +81,7 @@ def call_claude(messages, system, max_tokens=8000, retries=3, model=None, web_se
             return text
         except Exception as e:
             print(f"    ⚠ Attempt {attempt+1}: {e}")
-            if attempt < retries-1: time.sleep(12*(attempt+1))
+            if attempt < retries-1: time.sleep(20*(attempt+1))
     raise RuntimeError(f"Claude API failed after {retries} attempts")
 
 def parse_json(raw):
@@ -91,7 +91,16 @@ def parse_json(raw):
         if lines[0].startswith("```"): lines = lines[1:]
         if lines and lines[-1].strip()=="```": lines = lines[:-1]
         c = "\n".join(lines).strip()
-    return json.loads(c)
+    # Find JSON object/array even if surrounded by other text
+    start = c.find('{')
+    if start == -1: start = c.find('[')
+    if start != -1:
+        c = c[start:]
+    try:
+        return json.loads(c)
+    except json.JSONDecodeError as e:
+        print(f"    ⚠ JSON parse failed. Raw starts with: {repr(c[:200])}")
+        raise
 
 # ── CONTEXT LOADERS ─────────────────────────────────
 def load_feedback():
