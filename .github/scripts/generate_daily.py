@@ -51,7 +51,7 @@ VENDOR_COLORS = {
 }
 
 # ── CLAUDE API ──────────────────────────────────────
-HAIKU = "claude-3-5-haiku-20241022"
+HAIKU = "claude-haiku-4-5-20251001"
 
 def call_claude(messages, system, max_tokens=8000, retries=3, model=None, web_search=True):
     if not ANTHROPIC_API_KEY:
