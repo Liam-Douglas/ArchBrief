@@ -312,11 +312,22 @@ Return ONLY valid JSON:
     return data
 
 def build_email_html(weekly, date_str):
+    def _vendor_badges(vendors):
+        parts = []
+        for v in vendors:
+            bg = VENDOR_COLORS.get(v, "#333")
+            fg = VENDOR_COLORS.get(v, "#8aa4bc")
+            parts.append(
+                f'<span style="font-size:9px;padding:2px 7px;border-radius:2px;'
+                f'background:{bg}20;color:{fg};font-family:monospace">{v.upper()}</span>'
+            )
+        return " ".join(parts)
+
     stories_html = "".join(
         f'<tr><td style="padding:12px 16px;border-bottom:1px solid #1c2a3e">'
         f'<div style="font-size:14px;font-weight:600;color:#dce8f4;margin-bottom:4px">{s["title"]}</div>'
         f'<div style="font-size:12px;color:#8aa4bc;line-height:1.5">{s["why"]}</div>'
-        f'<div style="margin-top:5px">{" ".join(f"<span style=\"font-size:9px;padding:2px 7px;border-radius:2px;background:{VENDOR_COLORS.get(v,\"#333\")}20;color:{VENDOR_COLORS.get(v,\"#8aa4bc\")};font-family:monospace\">{v.upper()}</span>" for v in s.get("vendors",[]))}</div>'
+        f'<div style="margin-top:5px">{_vendor_badges(s.get("vendors",[]))}</div>'
         f'</td></tr>'
         for s in weekly.get("topStories",[])
     )
