@@ -1,1 +1,63 @@
-{"entries":[]}
+{
+  "entries": [
+    {
+      "dateKey": "2026-03-06",
+      "date": "Friday 06 March 2026",
+      "articles": [
+        {
+          "title": "IRAP Certification Wave: Security Vendors Achieve PROTECTED Status for Australian Government",
+          "vendors": [
+            "wiz",
+            "datadog",
+            "cloudflare",
+            "mongodb"
+          ],
+          "topicTag": "security"
+        },
+        {
+          "title": "DTA Secures Five-Year Microsoft Volume Sourcing Deal with AI Focus",
+          "vendors": [
+            "microsoft"
+          ],
+          "topicTag": "industry"
+        },
+        {
+          "title": "Australian AI Landscape: Government Trials Azure OpenAI While OpenAI Announces Sovereign Infrastructure",
+          "vendors": [
+            "azure",
+            "ibm"
+          ],
+          "topicTag": "ai"
+        },
+        {
+          "title": "Digital ID Amendment Rules Introduce World-First Redress Framework",
+          "vendors": [
+            "servicenow"
+          ],
+          "topicTag": "industry"
+        },
+        {
+          "title": "HashiCorp Terraform Cloud Legacy Free Tier Terminated March 31, 2026",
+          "vendors": [
+            "hashicorp"
+          ],
+          "topicTag": "devops"
+        },
+        {
+          "title": "Australia Mandates Zero Trust Architecture Implementation Across Government",
+          "vendors": [
+            "palo-alto"
+          ],
+          "topicTag": "security"
+        },
+        {
+          "title": "Australian Startup Ecosystem Surges: AI, Defence Tech, and Climate Innovation Drive $10B Funding",
+          "vendors": [
+            "emerging-startups"
+          ],
+          "topicTag": "industry"
+        }
+      ]
+    }
+  ]
+}

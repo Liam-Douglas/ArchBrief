@@ -1,7 +1,7 @@
 {
   "dateKey": "2026-03-06",
   "date": "Friday 06 March 2026",
-  "generatedAt": "2026-03-06T23:28:43.690018+11:00",
+  "generatedAt": "2026-03-06T23:45:56.074251+11:00",
   "generatedBy": "github-actions-v2",
   "vendors": [
     "aws",
@@ -15,7 +15,7 @@
     "emerging"
   ],
   "errors": [
-    "digest: Expecting value: line 1 column 1 (char 0)",
+    "quiz: Claude API failed after 3 attempts",
     "aps: Claude API failed after 3 attempts",
     "explorer: Claude API failed after 3 attempts",
     "weekly: Claude API failed after 3 attempts"
@@ -27,9 +27,133 @@
     "historyDays": 0
   },
   "digest": {
-    "summary": "Generation failed.",
-    "articles": [],
-    "apsAlert": null
+    "summary": "Australia's digital government momentum accelerates as Microsoft secures a five-year volume sourcing deal with DTA commencing July 2026, while emerging challenges arise from HashiCorp's legacy Terraform Cloud free tier termination by March 31, requiring government agencies to reassess multi-cloud infrastructure strategies.",
+    "apsAlert": "HashiCorp ending legacy Terraform Cloud free tier March 31, 2026 - potential disruption to APS agencies using infrastructure-as-code for multi-cloud deployments. Immediate action required for state file migration and cost planning.",
+    "articles": [
+      {
+        "title": "IRAP Certification Wave: Security Vendors Achieve PROTECTED Status for Australian Government",
+        "vendors": [
+          "wiz",
+          "datadog",
+          "cloudflare",
+          "mongodb"
+        ],
+        "topicTag": "security",
+        "lead": "Multiple security and infrastructure vendors complete IRAP assessments at PROTECTED level, expanding sovereign cloud options for Australian government agencies.",
+        "body": "Multiple major technology vendors have successfully completed IRAP assessments at the PROTECTED classification level, significantly expanding secure cloud options for Australian government agencies. Wiz achieved IRAP assessment for its Commercial platform, joining government users globally including the U.S. Navy. Datadog announced IRAP PROTECTED status for its full suite of observability and security capabilities, including Infrastructure Monitoring, Application Performance Monitoring, and Cloud SIEM services deployed in Australia.\n\nCloudflare completed IRAP assessment for 36 specific services at the PROTECTED level, demonstrating compliance with Australian government security standards. The PROTECTED level provides high assurance allowing the Australian Government to process data including and up to PROTECTED classification. MongoDB Atlas also completed the IRAP assessment, enabling government agencies to use its multi-cloud infrastructure with embedded encryption capabilities for building modern applications at scale.\n\nThe IRAP PROTECTED classification gives government agencies and regulated industries added confidence to securely monitor mission-critical workloads. This benchmark for systems managing government data significantly enhances vendors' capacity to support government bodies and tightly regulated organisations across Australia and New Zealand. The certifications enable agencies and enterprises to implement solutions with fewer procurement hurdles, therefore accelerating unified observability and security strategies.",
+        "arch_impact": "Expanding IRAP PROTECTED vendor ecosystem provides architects with more choice for sovereign cloud implementations, reducing single-vendor lock-in risks. These certifications streamline procurement processes and enable hybrid multi-cloud architectures while maintaining security compliance. The addition of observability (Datadog), security (Wiz, Cloudflare), and database (MongoDB) services at PROTECTED level creates comprehensive technology stacks for secure government workloads.",
+        "key_points": [
+          "Wiz, Datadog, Cloudflare, and MongoDB achieve IRAP PROTECTED certification",
+          "Expanded sovereign cloud options reduce vendor lock-in for APS agencies",
+          "Streamlined procurement processes for security and infrastructure services",
+          "Enhanced multi-cloud architecture capabilities at PROTECTED classification"
+        ],
+        "apsRelevance": "Directly impacts APS cloud strategy by providing more PROTECTED-level vendors, supporting DTA's secure cloud policy and reducing dependence on single hyperscale providers."
+      },
+      {
+        "title": "DTA Secures Five-Year Microsoft Volume Sourcing Deal with AI Focus",
+        "vendors": [
+          "microsoft"
+        ],
+        "topicTag": "industry",
+        "lead": "Digital Transformation Agency finalises comprehensive Microsoft agreement effective July 2026, emphasising AI capabilities and cost certainty for Australian Government agencies.",
+        "body": "The Digital Transformation Agency has secured a new five-year volume sourcing agreement with Microsoft commencing July 1, 2026, providing cost certainty through stable pricing, improved discounts and capped price increases for essential ICT products and online services across the Australian Government. Discounted pricing is available across a broad range of Microsoft products, including AI capabilities such as Microsoft 365 Copilot, with pricing mechanisms designed to support cost certainty for agencies.\n\nLed by the Digital Transformation Agency, the new arrangement is designed to support Commonwealth agencies with volume pricing, consistent contracts, simplified procurement and licensing and stronger security, privacy and compliance. Microsoft is making available a $1.55 million training fund to develop a targeted program for the Australian Public Service to deliver tailored skills training, including for ethical AI use.\n\nThe agreement introduces a standardised contracting framework that provides better commercial outcomes for government, stronger legal protections, and more support for emerging technologies. DTA CEO Chris Fechner stated the new arrangement will strengthen the Government's ability to operate critical ICT infrastructure in the future. While personal productivity gains are significant, there are substantial benefits to be realised in operational efficiencies through AI infusion into modern cloud infrastructure and operations to solve real world business and citizen issues.",
+        "arch_impact": "Five-year volume sourcing provides architectural stability for long-term cloud and AI strategy planning, with predictable costs enabling better business case development. Enhanced AI capabilities through Copilot licensing create opportunities for intelligent automation across government services. Standardised contracting framework reduces procurement complexity for Microsoft-based solutions, supporting hybrid and multi-cloud architectural decisions.",
+        "key_points": [
+          "Five-year Microsoft agreement commences July 2026 with AI focus",
+          "Cost certainty through stable pricing and capped increases",
+          "$1.55 million training fund for ethical AI skills development",
+          "Standardised contracting framework reduces procurement complexity"
+        ],
+        "apsRelevance": "Central to APS digital transformation, providing stable foundation for AI adoption and cloud services with enhanced commercial terms and skills development support."
+      },
+      {
+        "title": "Australian AI Landscape: Government Trials Azure OpenAI While OpenAI Announces Sovereign Infrastructure",
+        "vendors": [
+          "azure",
+          "ibm"
+        ],
+        "topicTag": "ai",
+        "lead": "Queensland and South Australia lead government AI experimentation with Azure OpenAI services while OpenAI announces sovereign infrastructure partnership for Australian operations.",
+        "body": "Queensland and South Australian governments are implementing practical AI guidance through early sanctioned use of generative AI running on Azure OpenAI service. Queensland's QChat platform is private, based on the Microsoft service with a government frontend, providing secure, logged access with single sign-on where no data travels outside their environment. South Australia's Department of Education completed an eight-week trial of EdChat, an Azure OpenAI-backed tool for 1,500 students and 150 educators, with Microsoft planning expansion of the service.\n\nOpenAI signed a Memorandum of Understanding with NEXTDC to develop sovereign AI infrastructure partnership, planning a next-generation hyperscale AI campus and large-scale GPU supercluster at NEXTDC's S7 site in Eastern Creek, Sydney. This would provide Australia with sovereign compute capacity needed to support sensitive and mission-critical workloads across government, enterprise, research and national infrastructure.\n\nFor AI governance, IBM Watsonx provides enterprise-grade lifecycle management as an AI development and governance platform for organisations building their own AI products. Watsonx offers highly configurable deployments on-premise, IBM Cloud, hybrid, or third-party clouds, built for regulated industries. The Watsonx platform is available to procure through the Azure marketplace, enabling customers to bring data and multiple AI models with end-to-end governance across Microsoft Azure and hybrid cloud environments.",
+        "arch_impact": "Government AI trials demonstrate practical implementation patterns for enterprise AI adoption, with emphasis on data sovereignty and secure deployment models. OpenAI's sovereign infrastructure investment provides alternative to hyperscaler dependency, supporting data residency requirements. IBM Watsonx on Azure creates hybrid AI governance options, enabling sovereign AI deployments with enterprise controls.",
+        "key_points": [
+          "QLD and SA governments successfully trial Azure OpenAI for secure AI deployment",
+          "OpenAI announces sovereign infrastructure partnership with NEXTDC in Sydney",
+          "IBM Watsonx available through Azure marketplace for AI governance",
+          "Emphasis on data sovereignty and secure AI deployment models"
+        ],
+        "apsRelevance": "Provides proven patterns for APS AI adoption with data sovereignty considerations, supporting DTA's responsible AI policy and secure-by-design principles."
+      },
+      {
+        "title": "Digital ID Amendment Rules Introduce World-First Redress Framework",
+        "vendors": [
+          "servicenow"
+        ],
+        "topicTag": "industry",
+        "lead": "Department of Finance opens consultation on Digital ID redress framework offering formal apology rights and financial compensation for fraud victims, while expanding system to private sector in December 2026.",
+        "body": "Australia's Department of Finance opened consultation on March 4, 2026 on the Digital ID Amendment (Redress Framework) Rules 2026, proposing a world-first statutory mechanism giving individuals harmed by digital identity fraud or technical lockouts the right to a formal apology, clear explanation of failures, and financial compensation. Where a person suffers harm from digital ID fraud or technical lockout within the Australian Government Digital ID System, the framework would entitle them to formal apology from the responsible provider, structured explanation of failures, and financial redress proportionate to harm sustained. No equivalent statutory redress mechanism exists in any other national digital identity system.\n\nPrivate sector entities will be eligible to join the Australian Government Digital ID System from December 2026, substantially expanding the number of providers and population of individuals who could seek redress. Australia has also expanded its biometric authentication framework in parallel, moving toward broader Digital ID adoption across telecommunications, financial services, and other sectors.\n\nA key responsibility of the DTA is supporting government ICT procurement involving billions of dollars of public money each year. Award-winning BuyICT, built on ServiceNow Customer Service Management, has brought government ICT procurement into the digital age and revolutionised the entire process. ServiceNow secured a three-year State Purchase Contract with the Victorian Government to expedite digital transformation, allowing more than 100 Victorian Government departments and agencies to access ServiceNow's cloud products and services.",
+        "arch_impact": "World-first Digital ID redress framework creates new compliance obligations for system architects, requiring robust logging, audit trails, and incident response capabilities. Private sector expansion in December 2026 necessitates scalable identity federation architectures. ServiceNow's expansion across government agencies standardises workflow automation platforms, enabling consistent service delivery patterns.",
+        "key_points": [
+          "World-first Digital ID redress framework with compensation rights consultation opened",
+          "Private sector Digital ID eligibility from December 2026",
+          "ServiceNow secures Victorian Government three-year contract for 100+ agencies",
+          "Enhanced biometric authentication framework supporting broader Digital ID adoption"
+        ],
+        "apsRelevance": "Establishes new compliance requirements for Digital ID implementations and creates opportunities for standardised government service delivery through ServiceNow platform adoption."
+      },
+      {
+        "title": "HashiCorp Terraform Cloud Legacy Free Tier Terminated March 31, 2026",
+        "vendors": [
+          "hashicorp"
+        ],
+        "topicTag": "devops",
+        "lead": "HashiCorp announces end-of-life for legacy Terraform Cloud free tier with automatic migration to enhanced model, requiring infrastructure teams to reassess multi-cloud automation strategies.",
+        "body": "On December 15, 2025, HashiCorp sent email to all HCP Terraform Free tier customers announcing the legacy HCP Terraform Free plan will reach end-of-life on March 31, 2026. Users must sign up for current HCP Terraform plan and migrate existing organisations before March 31, 2026 to continue without interruption. Remaining organisations will be automatically transitioned to the enhanced Free tier, which provides access to 500 managed resources with unlimited users, including features like cost estimation, policies, and policy enforcement.\n\nThe biggest concern is state data management, as workspace deletion is unrecoverable and results in permanent loss of state files. If managing production infrastructure through HCP Terraform Free, losing access to state could leave resources orphaned—still running in cloud accounts but no longer manageable through Terraform. Affected users should take immediate action to export state files and document configurations.\n\nTerraform makes it convenient to manage multi-cloud environments, allowing creation and maintenance of standard templates across environments for databases. It is the de-facto standard for infrastructure-as-code, used as a backend for other IaC tools such as Pulumi and CDK. HashiCorp Terraform provides safe and efficient provisioning automation for organisations of any scale, with infrastructure as code to safely take provisioning time from weeks to minutes and multi-cloud approach to easily adopt any cloud infrastructure or service.",
+        "arch_impact": "Terraform Cloud free tier termination forces immediate architectural review of infrastructure-as-code strategies, with potential migration to alternative platforms like Scalr or self-hosted solutions. State file migration requires careful planning to avoid orphaned resources in multi-cloud deployments. This represents broader trend of open-source business model changes impacting government technology choices.",
+        "key_points": [
+          "HashiCorp legacy Terraform Cloud free tier ends March 31, 2026",
+          "Automatic migration to enhanced free tier with 500 managed resource limit",
+          "Risk of orphaned infrastructure resources if state files not properly migrated",
+          "Broader implications for open-source business model sustainability in government use"
+        ],
+        "apsRelevance": "Direct impact on APS agencies using Terraform for multi-cloud infrastructure management, requiring immediate assessment and potential migration planning for infrastructure-as-code platforms."
+      },
+      {
+        "title": "Australia Mandates Zero Trust Architecture Implementation Across Government",
+        "vendors": [
+          "palo-alto"
+        ],
+        "topicTag": "security",
+        "lead": "PSPF 2025 formally mandates zero trust adoption for Australian government entities, while ACSC releases updated foundations guidance for implementation.",
+        "body": "The Protective Security Policy Framework (PSPF) Annual Release 2025 formally mandated zero trust adoption for Australian government entities. Together with ACSC guidance, these policies signal that the zero trust model has moved from theory to mandatory practice in Australia. In February 2025 the Australian Cyber Security Centre released the Foundations for modern defensible architecture, a guidance package for organisations adopting zero trust. The ACSC explains these foundations outline key zero trust considerations for building and implementing modern IT architecture.\n\nZero trust provides a collection of concepts designed to minimise uncertainty in enforcing accurate, least-privilege, per-request access decisions in information systems viewed as compromised. Zero trust architecture is an enterprise's cybersecurity plan that uses zero trust concepts and encompasses component relationships, workflow planning and access policies. A zero trust architecture treats every access request as potentially hostile until justified, with the authorisation model judging each request against real-time business context and risk, returning approve, deny, or approve with conditions.\n\nPalo Alto Networks forecasts 2026 as the Year of the Defender, where AI-driven defences tip the scale in defender's favour, driving down response times, reducing complexity and increasing visibility to quickly respond to cyberattacks. Autonomous AI will be the only way to keep pace with unprecedented threat environments. Identity will become the primary battleground as AI deepfakes make forgery indistinguishable from reality, while the gap between rapid AI adoption and mature AI security will lead to first major lawsuits holding executives personally liable for rogue AI actions.",
+        "arch_impact": "Zero trust mandate requires fundamental architectural redesign from perimeter-based to identity-centric security models, with continuous verification and least-privilege access. Implementation demands comprehensive asset inventory, identity management systems, and real-time risk assessment capabilities. AI-driven security tools become essential for managing complexity and scale of zero trust implementations.",
+        "key_points": [
+          "PSPF 2025 formally mandates zero trust adoption across Australian government",
+          "ACSC releases comprehensive implementation guidance for modern defensible architecture",
+          "Shift from perimeter-based to identity-centric continuous verification model",
+          "AI-driven security tools essential for managing zero trust complexity"
+        ],
+        "apsRelevance": "Mandatory zero trust implementation across APS requires significant architectural transformation, supported by ACSC guidance and aligned with ISM controls for secure-by-design principles."
+      },
+      {
+        "title": "Australian Startup Ecosystem Surges: AI, Defence Tech, and Climate Innovation Drive $10B Funding",
+        "vendors": [
+          "emerging-startups"
+        ],
+        "topicTag": "industry",
+        "lead": "Australian startups secure record $10 billion VC funding in 2026, with emerging companies like Lorikeet, Gilmour Space, and defence tech innovators leading AI, space, and climate technology sectors.",
+        "body": "Australia's startup scene has evolved from scrappy underdogs to serious global players, with $10 billion in annual VC funding in 2026. Those massive funding rounds over $100 million used to make headlines but now they're routine. Total equity funding reached $503 million across 25 rounds in the first two months of 2026—up 27% from the same period in 2025—driven by AI, climate tech, fintech, and deep tech sectors. While established unicorns like Canva and Airwallex dominate headlines, a new wave of rising startups is gaining traction.\n\nLorikeet emerged as one of the fastest-rising AI startups, securing $35 million in funding in under a year. The Sydney-based platform deploys autonomous AI agents handling complex customer support interactions, reducing reliance on human teams, with strong traction in e-commerce and SaaS expanding globally. Defence technology startup Breaker secured $9 million in seed funding led by Bessemer Venture Partners for AI agent software helping military operators coordinate teams of drones and autonomous robots using voice commands.\n\nGilmour Space Technologies is on the cusp of a major milestone: its first orbital launch attempt with the Eris rocket. The Queensland company secured government contracts and private funding for hybrid rocket technology aimed at small satellite deployment. A successful test flight could catapult Gilmour into the global space economy. AI startups focus on real-world problems in mining, farming, and healthcare with help from research centres and government programs. HealthTech companies grow rapidly using digital tools for remote care, while CleanTech startups leverage Australia's renewable energy resources with strong government funding.",
+        "arch_impact": "Emerging startup ecosystem provides government agencies with innovative technology solutions, particularly in AI automation, defence capabilities, and climate technology. These startups offer alternatives to traditional enterprise vendors, potentially providing more agile and cost-effective solutions for specific use cases. Government support through R&D incentives and procurement programs creates opportunities for early adoption of breakthrough technologies.",
+        "key_points": [
+          "Australian startup funding hits record $10 billion with 27% growth in early 2026",
+          "AI startups like Lorikeet achieving rapid scale with autonomous agent technology",
+          "Defence tech innovation with companies like Breaker developing drone coordination systems",
+          "Space industry milestone as Gilmour Space prepares first orbital launch attempt"
+        ],
+        "apsRelevance": "Growing startup ecosystem provides APS agencies with innovative technology options, particularly for AI automation, cybersecurity, and digital transformation initiatives, supporting government innovation procurement strategies."
+      }
+    ]
   },
   "quiz": {
     "questions": []
