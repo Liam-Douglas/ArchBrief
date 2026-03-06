@@ -51,13 +51,14 @@ VENDOR_COLORS = {
 }
 
 # ── CLAUDE API ──────────────────────────────────────
-def call_claude(messages, system, retries=3):
+def call_claude(messages, system, max_tokens=8000, retries=3):
     if not ANTHROPIC_API_KEY:
         raise ValueError("ANTHROPIC_API_KEY not set")
     headers = {"Content-Type":"application/json",
                "x-api-key":ANTHROPIC_API_KEY,
-               "anthropic-version":"2023-06-01"}
-    payload = {"model":MODEL,"max_tokens":1000,"system":system,
+               "anthropic-version":"2023-06-01",
+               "anthropic-beta":"web-search-2025-03-05"}
+    payload = {"model":MODEL,"max_tokens":max_tokens,"system":system,
                "tools":[{"type":"web_search_20250305","name":"web_search"}],
                "messages":messages}
     for attempt in range(retries):
@@ -68,7 +69,8 @@ def call_claude(messages, system, retries=3):
             r.raise_for_status()
             d = r.json()
             if "error" in d: raise ValueError(d["error"])
-            return "\n".join(b["text"] for b in d.get("content",[]) if b.get("type")=="text")
+            import re
+            return "\n".join(re.sub(r'</?cite[^>]*>', '', b["text"]) for b in d.get("content",[]) if b.get("type")=="text")
         except Exception as e:
             print(f"    ⚠ Attempt {attempt+1}: {e}")
             if attempt < retries-1: time.sleep(12*(attempt+1))
