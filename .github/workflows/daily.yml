@@ -1,17 +1,12 @@
-# ArchBrief Daily Generation Workflow v3
-# 5am AEST daily - with feedback loop, project context, longitudinal tracking
-# Friday also triggers weekly email summary
-
 name: ArchBrief Daily Brief
 
 on:
   schedule:
-    - cron: '0 19 * * *'    # 5am AEST  (UTC+10, standard Apr–Oct)
-    - cron: '0 18 * * *'    # 5am AEDT  (UTC+11, daylight Oct–Apr)
+    - cron: '0 19 * * *'
   workflow_dispatch:
     inputs:
       force_regenerate:
-        description: 'Force regenerate even if today exists (true/false)'
+        description: 'Force regenerate even if today exists'
         required: false
         default: 'false'
 
@@ -19,7 +14,6 @@ jobs:
   generate:
     runs-on: ubuntu-latest
     timeout-minutes: 20
-
     permissions:
       contents: write
 
@@ -40,14 +34,13 @@ jobs:
       - name: Generate daily brief
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          FORCE_REGENERATE:  ${{ inputs.force_regenerate || 'false' }}
-          # Email (optional — add these secrets to enable Friday weekly email)
+          FORCE_REGENERATE: ${{ inputs.force_regenerate || 'false' }}
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
           SMTP_PORT: ${{ secrets.SMTP_PORT || '587' }}
           SMTP_USER: ${{ secrets.SMTP_USER }}
           SMTP_PASS: ${{ secrets.SMTP_PASS }}
-          EMAIL_TO:  ${{ secrets.EMAIL_TO }}
-          EMAIL_CC:  ${{ secrets.EMAIL_CC }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          EMAIL_CC: ${{ secrets.EMAIL_CC }}
         run: python .github/scripts/generate_daily.py
 
       - name: Verify output
@@ -58,18 +51,17 @@ jobs:
             python3 -c "
 import json
 with open('daily.json') as f: d=json.load(f)
-print(f'Date:     {d.get(\"date\",\"?\")}')
-print(f'Articles: {len(d.get(\"digest\",{}).get(\"articles\",[]))}')
-print(f'APS:      {len(d.get(\"aps\",{}).get(\"irapStatus\",[]))} vendors')
-print(f'Changes:  {len(d.get(\"apsChanges\",[]))} APS changes detected')
-print(f'Explorer: {len(d.get(\"explorer\",{}).get(\"articles\",[]))} articles')
-print(f'Context:  {d.get(\"context\",{})}')
+print('Date:    ', d.get('date','?'))
+print('Articles:', len(d.get('digest',{}).get('articles',[])))
+print('APS:     ', len(d.get('aps',{}).get('irapStatus',[])), 'vendors')
+print('Changes: ', len(d.get('apsChanges',[])), 'APS changes')
+print('Explorer:', len(d.get('explorer',{}).get('articles',[])), 'articles')
 errors = d.get('errors',[])
-if errors: print(f'Errors:   {errors}')
+if errors: print('Errors:  ', errors)
 "
           else
             echo "generated=false" >> $GITHUB_OUTPUT
-            echo "❌ daily.json not created"
+            echo "daily.json not created"
             exit 1
           fi
 
@@ -78,7 +70,6 @@ if errors: print(f'Errors:   {errors}')
         run: |
           git config --local user.email "archbrief-bot@github-actions"
           git config --local user.name "ArchBrief Daily Bot"
-          # Stage all generated files
           git add daily.json history.json weekly_summary.json 2>/dev/null || git add daily.json history.json 2>/dev/null || git add daily.json
           if git diff --staged --quiet; then
             echo "No changes to commit"
@@ -86,12 +77,12 @@ if errors: print(f'Errors:   {errors}')
             AEST_DATE=$(TZ='Australia/Sydney' date '+%A %d %B %Y')
             IS_FRIDAY=$(TZ='Australia/Sydney' date '+%u')
             if [ "$IS_FRIDAY" = "5" ]; then
-              git commit -m "📰 Daily brief + 📋 Weekly summary: ${AEST_DATE}"
+              git commit -m "Daily brief + Weekly summary: ${AEST_DATE}"
             else
-              git commit -m "📰 Daily brief: ${AEST_DATE}"
+              git commit -m "Daily brief: ${AEST_DATE}"
             fi
             git push
-            echo "✅ Committed and pushed"
+            echo "Committed and pushed"
           fi
 
       - name: Job summary
@@ -101,18 +92,18 @@ if errors: print(f'Errors:   {errors}')
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Time:** $(TZ='Australia/Sydney' date '+%A %d %B %Y at %H:%M AEST')" >> $GITHUB_STEP_SUMMARY
           if [ -f "daily.json" ]; then
-            echo "**Status:** ✅ Success" >> $GITHUB_STEP_SUMMARY
+            echo "**Status:** Success" >> $GITHUB_STEP_SUMMARY
             python3 -c "
 import json
 with open('daily.json') as f: d=json.load(f)
 ctx = d.get('context',{})
 changes = d.get('apsChanges',[])
-print(f'**Articles:** {len(d.get(\"digest\",{}).get(\"articles\",[]))}')
-print(f'**Active projects used:** {ctx.get(\"activeProjects\",0)}')
-print(f'**Feedback applied:** {ctx.get(\"feedbackUsed\",\"none\")}')
-print(f'**History days tracked:** {ctx.get(\"historyDays\",0)}')
-if changes: print(f'**🔔 APS Changes:** {len(changes)} detected')
+print('**Articles:**', len(d.get('digest',{}).get('articles',[])))
+print('**Active projects:**', ctx.get('activeProjects',0))
+print('**Feedback applied:**', ctx.get('feedbackUsed','none'))
+print('**History days:**', ctx.get('historyDays',0))
+if changes: print('**APS Changes:**', len(changes), 'detected')
 " >> $GITHUB_STEP_SUMMARY
           else
-            echo "**Status:** ❌ Failed — daily.json not created" >> $GITHUB_STEP_SUMMARY
+            echo "**Status:** Failed - daily.json not created" >> $GITHUB_STEP_SUMMARY
           fi
