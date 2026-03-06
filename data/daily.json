@@ -1,1 +1,49 @@
-{}
+{
+  "dateKey": "2026-03-06",
+  "date": "Friday 06 March 2026",
+  "generatedAt": "2026-03-06T22:32:52.111314+11:00",
+  "generatedBy": "github-actions-v2",
+  "vendors": [
+    "aws",
+    "ibm",
+    "azure",
+    "oracle",
+    "salesforce",
+    "servicenow",
+    "paloalto",
+    "hashicorp",
+    "emerging"
+  ],
+  "errors": [
+    "digest: Unterminated string starting at: line 20 column 15 (char 3000)",
+    "aps: Claude API failed after 3 attempts",
+    "explorer: Claude API failed after 3 attempts",
+    "weekly: Claude API failed after 3 attempts"
+  ],
+  "apsChanges": [],
+  "context": {
+    "activeProjects": 2,
+    "feedbackUsed": "0 ratings (0 up, 0 down)",
+    "historyDays": 0
+  },
+  "digest": {
+    "summary": "Generation failed.",
+    "articles": [],
+    "apsAlert": null
+  },
+  "quiz": {
+    "questions": []
+  },
+  "aps": {
+    "lastUpdated": "Friday 06 March 2026",
+    "keyAlerts": [],
+    "irapStatus": [],
+    "protectiveMarkings": [],
+    "dtaAlignment": [],
+    "sovereignty": [],
+    "wogPlatforms": []
+  },
+  "explorer": {
+    "articles": []
+  }
+}
