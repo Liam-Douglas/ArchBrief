@@ -1,7 +1,7 @@
 {
-  "dateKey": "2026-03-07",
-  "date": "Saturday 07 March 2026",
-  "generatedAt": "2026-03-07T06:36:24.624087+11:00",
+  "dateKey": "2026-03-08",
+  "date": "Sunday 08 March 2026",
+  "generatedAt": "2026-03-08T06:25:18.654420+11:00",
   "generatedBy": "github-actions-v2",
   "vendors": [
     "aws",
@@ -15,9 +15,8 @@
     "emerging"
   ],
   "errors": [
-    "digest: Extra data: line 112 column 1 (char 22993)",
     "aps: Claude API failed after 3 attempts",
-    "explorer: Extra data: line 120 column 1 (char 14630)"
+    "explorer: Extra data: line 100 column 1 (char 9023)"
   ],
   "apsChanges": [],
   "context": {
@@ -26,15 +25,188 @@
     "historyDays": 0
   },
   "digest": {
-    "summary": "Generation failed.",
-    "articles": [],
-    "apsAlert": null
+    "summary": "Australia's public sector accelerates AI adoption with GovAI platform while major cloud providers enhance sovereign offerings. The APS AI Plan 2025 launches GovAI with onshore OpenAI instances and new whole-of-government cloud policy by March 2026, as Forrester predicts major multi-day hyperscaler outages will hit in 2026.",
+    "apsAlert": "Critical migration deadlines approach: New whole-of-government cloud policy completes March 2026, while HashiCorp's legacy HCP Terraform free tier ends March 31, 2026",
+    "articles": [
+      {
+        "title": "Australia Launches GovAI Platform with Onshore AI Sovereignty",
+        "vendors": [
+          "ibm",
+          "azure"
+        ],
+        "topicTag": "ai",
+        "lead": "The Australian Government's APS AI Plan 2025 introduces GovAI platform with onshore instances of OpenAI's GPT models and enhanced sovereignty controls.",
+        "body": "GovAI will provide a secure, central, Australian-based platform for developing customized AI solutions, preventing vendor lock-in, and enabling access to diverse AI models including an onshore instance of OpenAI's GPT models. GovAI Chat will begin APS trials from April 2026, offering a universally accessible, secure AI assistant for all public servants.\n\nClear guidance will be developed for using public generative AI tools such as ChatGPT, Claude, and Gemini up to OFFICIAL level information, while a central register of generative AI assessments will be created on GovAI to share completed security, FOCI, and impact assessments. The government recently pledged $29.9 million to establish an AI Safety Institute in early 2026 to ensure official monitoring and response to AI risks, supporting agencies and regulators.\n\nOpenAI and NEXTDC's proposed $7 billion AI campus in Western Sydney signals long-term renewable PPAs and next-generation cooling designs, as data centre energy demand could nearly triple by 2035 with AI workloads pushing utilisation higher. The National AI Plan sees data centre expansion as a national capability issue, requiring whole-of-government coordination across planning approvals, grid capacity, renewable build-out and workforce pipelines.\n\nThe new whole-of-government cloud policy is scheduled for completion between November 2025 and March 2026, aligning with the broader digital transformation strategy across federal agencies.",
+        "arch_impact": "Architects must evaluate GovAI platform capabilities against existing AI toolchains and prepare for sovereign AI model deployment requirements. The onshore OpenAI instances provide PROTECTED-level AI capabilities while maintaining data sovereignty, requiring reassessment of current AI architecture patterns. Cloud policy updates will likely mandate specific sovereignty and residency requirements for government workloads.",
+        "key_points": [
+          "GovAI platform launches with onshore OpenAI GPT instances for PROTECTED workloads",
+          "AI Safety Institute operational early 2026 with $29.9M funding",
+          "New whole-of-government cloud policy completes March 2026",
+          "Central AI assessment register streamlines procurement across agencies"
+        ],
+        "apsRelevance": "Critical for all APS agencies implementing AI capabilities, with direct impact on cloud architecture decisions and AI governance frameworks"
+      },
+      {
+        "title": "AWS European Sovereign Cloud Goes Live as Data Sovereignty Pressures Mount",
+        "vendors": [
+          "aws"
+        ],
+        "topicTag": "arch",
+        "lead": "AWS launches European Sovereign Cloud with complete EU data residency while IBM announces Sovereign Core platform, responding to rising regulatory data sovereignty demands.",
+        "body": "Amazon has announced the general availability of its AWS European Sovereign Cloud, a completely separate cloud environment located within the European Union, with the first region live in Brandenburg, Germany, and plans to extend sovereign AWS Local Zones into Belgium, the Netherlands and Portugal. The sovereign cloud is a completely separate AWS partition with its own governance structure, no critical dependencies on non-EU infrastructure, and the ability to operate independently if connectivity with global AWS is disrupted, launching with approximately 70 core services.\n\nAccording to AWS, the European Sovereign Cloud is operated exclusively by EU residents and keeps all customer metadata within EU borders, allowing customers to keep all metadata they create, such as roles, permissions, resource labels, and configurations entirely in the EU, including sovereign Identity and Access Management, billing, and usage metering systems. Amazon has previously announced plans to invest more than €7.8BN in the German sovereign cloud over the long term.\n\nMeanwhile, IBM announced Sovereign Core, with Computacenter stating it can significantly accelerate time-to-value and help clients who previously couldn't consider AI solutions at all, with IBM planning to make Sovereign Core available in tech preview from February and full general availability for mid-year 2026. Europe's regulatory landscape is evolving under the EU AI Act, which came into force in August 2024 with strict requirements for high-risk AI applications, including traceability and transparency obligations that intersect with data governance expectations.\n\nFor businesses serving European clients in regulated sectors like healthcare, finance, and government, this opens compliance conversations and contract opportunities that weren't previously possible.",
+        "arch_impact": "Enterprise architects must evaluate sovereign cloud architectures for regulated workloads and European operations. The separate AWS partition model requires rethinking multi-region strategies and disaster recovery across sovereign boundaries. IBM Sovereign Core's AI capabilities suggest new patterns for sovereign AI deployment that could influence Australian PROTECTED cloud requirements.",
+        "key_points": [
+          "AWS European Sovereign Cloud operational with 70 core services",
+          "Complete EU data residency with separate governance partition",
+          "IBM Sovereign Core GA mid-2026 with AI sovereignty features",
+          "EU AI Act driving new compliance architecture requirements"
+        ],
+        "apsRelevance": "Demonstrates sovereign cloud implementation patterns applicable to Australian PROTECTED environments and IRAP assessment frameworks"
+      },
+      {
+        "title": "Forrester Predicts Major Cloud Outages as AI Infrastructure Strain Mounts",
+        "vendors": [
+          "aws",
+          "azure"
+        ],
+        "topicTag": "arch",
+        "lead": "Research firm Forrester predicts at least two major multi-day hyperscaler outages in 2026 as cloud providers prioritise AI infrastructure over legacy system maintenance.",
+        "body": "Research firm Forrester predicts at least two major multi-day hyperscaler outages will hit in 2026 as AWS, Azure, and Google Cloud prioritise AI infrastructure upgrades over aging legacy systems. This prediction comes amid mounting evidence of infrastructure strain, with AWS experiencing a major outage on October 20, 2025, affecting its US-EAST-1 region for approximately 15 hours due to DNS resolution failure, disrupting thousands of downstream services.\n\nCurrent incident resolution metrics show AWS averaging 1.5 hours for 38 incidents, Google Cloud incidents averaging 5.8 hours for 78 incidents, and Azure incidents averaging 14.6 hours despite reporting fewer total incidents. The average cost of IT downtime has risen to $14,056 per minute, with large enterprises facing over $23,000 per minute, and a single hour of downtime costing over $100,000.\n\nAmazon announced plans to spend a record $200 billion on capital expenditure in 2026, a significant portion going into AWS data centres, custom chips, and AI infrastructure, signalling continued innovation velocity and long-term platform stability. However, AWS is navigating a transition that would challenge any organisation: maintaining operational excellence while pivoting to AI, retaining institutional knowledge while restructuring, and growing a $132 billion business at rates that satisfy Wall Street.\n\nIn response, 86% of organisations have adopted multi-cloud strategies for resilience, with multi-region deployments eliminating single points of failure through distributed architecture.",
+        "arch_impact": "Solution architects must urgently reassess single-cloud dependencies and accelerate multi-cloud resilience strategies. The prediction suggests fundamental infrastructure stress beyond normal incident patterns, requiring enhanced disaster recovery planning and workload distribution. Government workloads on single-cloud architectures face heightened continuity risks.",
+        "key_points": [
+          "Forrester predicts two major multi-day hyperscaler outages in 2026",
+          "AWS investing $200B in infrastructure while managing operational transition",
+          "Average downtime costs exceed $14,000 per minute for enterprises",
+          "86% of organisations adopting multi-cloud for resilience"
+        ],
+        "apsRelevance": "Critical implications for business continuity planning across APS agencies, particularly those with single-cloud dependencies"
+      },
+      {
+        "title": "Palo Alto Networks and ServiceNow Launch Integrated SASE Management Platform",
+        "vendors": [
+          "palo_alto",
+          "servicenow"
+        ],
+        "topicTag": "security",
+        "lead": "Strategic collaboration introduces automated SASE lifecycle management through ServiceNow integration, eliminating manual operations overhead for enterprises.",
+        "body": "Palo Alto Networks, ServiceNow, and Bell Canada have collaborated to build an innovative ServiceNow application that creates an automated bridge between security operations and service management, with Bell Canada acting as a lighthouse partner that helped pioneer this innovation through deep engagement and strategic partnership. The joint solution eliminates swivel chair operations, as security and network administrators no longer need to toggle between the Prisma SASE console, ServiceNow and support portals, with incident ingestion and management happening in one place.\n\nPalo Alto Networks has also announced new native integrations of its security platform Prisma AIRS with leading AI agent platforms from ServiceNow, IBM, Glean, and Factory to support secure AI innovation, aiming to help remove security roadblocks by providing real-time, inline defence against tool misuse and malicious agent behaviour. For ServiceNow, the Prisma AIRS integration will help secure AI agent workflows in the ServiceNow AI Platform before agents perform actions, helping eliminate new AI ecosystem risks from code to runtime.\n\nServiceNow's Service Bridge creates a major unlock for Managed Service Providers scaling their SASE offerings by automating cross-instance support so critical security incidents and status updates flow between the MSP's ServiceNow instance and the customer's ServiceNow instance without manual sync work. Palo Alto Networks has also announced an upgraded NextWave Partner Program shifting incentives from transactional volume to platformisation and service-led growth for AI-driven security.\n\nFor MSPs, there's the added benefit of creating Palo Alto Networks CSP tickets directly from the ServiceNow SASE app, making incident correlation and troubleshooting straightforward.",
+        "arch_impact": "Integration reduces SASE operational complexity and enables automated security orchestration across enterprise service management platforms. The AI agent security capabilities address emerging risks in autonomous system deployments. MSPs can now deliver SASE at scale without proportional operational overhead increases.",
+        "key_points": [
+          "Automated SASE lifecycle management through ServiceNow integration",
+          "Prisma AIRS secures AI agent workflows with real-time protection",
+          "Service Bridge enables MSP cross-instance automation",
+          "NextWave program shifts to AI-driven security platformisation"
+        ],
+        "apsRelevance": "Relevant for agencies implementing SASE architectures and AI-powered security operations with ServiceNow service management"
+      },
+      {
+        "title": "HashiCorp Ends Legacy Free Tier as IBM Acquisition Drives Commercial Focus",
+        "vendors": [
+          "terraform"
+        ],
+        "topicTag": "devops",
+        "lead": "HashiCorp terminates legacy HCP Terraform free tier by March 31, 2026, forcing migration to resource-based billing as IBM acquisition accelerates commercialisation.",
+        "body": "HashiCorp has announced that by March 2026, HCP Terraform users on the legacy Free plan must migrate to the enhanced Free tier introduced in 2023, with the legacy plan reaching end-of-life on March 31, 2026. This announcement is part of a clear pattern of restrictions that has accelerated since IBM's acquisition of HashiCorp closed in late 2024, with features that were once freely available being systematically moved behind paywalls.\n\nThe enhanced Free tier provides access to more premium capabilities for up to 500 managed resources with unlimited users, but introduces resource-based billing where a managed resource is counted starting from the first plan/apply with null resources excluded. Current pricing shows Essentials at $0.10 per resource per month, Standard at $0.47, and Premium at $0.99, with concurrency limited at 3 for Essentials, 10 for Standard, and up to 200 for Premium.\n\nThe discontinued Free tier offered up to 500 managed resources, 1 concurrent run, and basic policy enforcement, with the biggest concern being state data management as workspace deletion results in permanent loss of state files, potentially leaving resources orphaned. Additionally, the final Replicated release of Terraform Enterprise was in March 2025, with HashiCorp supporting this release until April 1, 2026.\n\nHCP Terraform's managed cloud version adds remote state management, team collaboration, and policy enforcement, with the free tier covering up to 500 managed resources sufficient for most early-stage startups, though the pricing model shift to resource-based billing can become harder to forecast as infrastructure grows.",
+        "arch_impact": "Organisations must audit Terraform resource counts and evaluate migration to alternative IaC platforms or budget for new pricing models. State file management becomes critical for continuity during transitions. Enterprise architects should assess long-term vendor lock-in risks given IBM's commercialisation trajectory.",
+        "key_points": [
+          "Legacy HCP Terraform free tier ends March 31, 2026",
+          "Resource-based pricing from $0.10-$0.99 per managed resource monthly",
+          "Terraform Enterprise Replicated support ends April 1, 2026",
+          "IBM acquisition driving systematic feature commercialisation"
+        ],
+        "apsRelevance": "Impacts APS agencies using Terraform for infrastructure as code, requiring budget planning and potential platform migration assessment"
+      },
+      {
+        "title": "Zero Trust Architecture Becomes Critical as Multi-Cloud Identity Failures Surge",
+        "vendors": [
+          "palo_alto"
+        ],
+        "topicTag": "security",
+        "lead": "Over 70% of cloud security incidents now originate from identity failures across hybrid environments, driving urgent Zero Trust adoption requirements.",
+        "body": "Over 70 percent of cloud security incidents originate from identity failures across hybrid and multicloud environments, with over-permissioned roles, unmanaged service identities, and poor lifecycle controls representing systemic weaknesses. The shift to cloud services, remote work, and hybrid IT environments has rendered perimeter-based security obsolete, as employees work from anywhere, applications live in multiple clouds, and devices connect from beyond the firewall, creating an ever-expanding attack surface.\n\nZero Trust Architecture responds by replacing blind trust with dynamic, context-aware verification, segmenting access to minimise damage in the event of a breach, and providing consistent security across hybrid, multicloud, and on-premises environments while reducing the risk of Advanced Persistent Threats by isolating network segments and supporting distributed workforces. Continuous monitoring is essential for the 'always verify' principle, with ZTA platforms utilising advanced analytics and cyber threat intelligence to analyse network traffic, user behaviour, and device logs in real-time.\n\nAs enterprises shift to hybrid and multicloud environments, misconfigurations become more frequent and costly, with poorly secured APIs and cloud setups serving as prime targets for data exfiltration and unauthorised access, as attackers exploit these weak points to bypass perimeter defences and move laterally within networks. To navigate these challenges, organisations must embrace Zero Trust principles, advanced automated defences, continuous monitoring, and robust identity protection, as awareness and proactive cybersecurity posture are no longer optional but critical to survival.\n\nReversible multicloud is no longer optional but a resilience requirement, aligning directly with NIS2 and DORA regulations which demand operational continuity and sovereign control.",
+        "arch_impact": "Architects must fundamentally redesign security models from perimeter-based to identity-centric approaches. Multi-cloud environments require consistent Zero Trust implementation across all platforms and services. Identity and access management becomes the primary security control point rather than network boundaries.",
+        "key_points": [
+          "70% of cloud incidents stem from identity management failures",
+          "Zero Trust mandatory for hybrid multi-cloud environments",
+          "API misconfigurations creating lateral movement opportunities",
+          "Regulatory compliance driving reversible multi-cloud requirements"
+        ],
+        "apsRelevance": "Essential for APS agencies implementing multi-cloud strategies and meeting protective security policy framework requirements"
+      },
+      {
+        "title": "AI-Powered Autonomous Threats Reshape 2026 Cybersecurity Landscape",
+        "vendors": [
+          "palo_alto"
+        ],
+        "topicTag": "security",
+        "lead": "Cybercriminals deploy AI-driven autonomous threat agents capable of independent vulnerability scanning, exploit generation, and adaptive attack tactics without human supervision.",
+        "body": "As we move deep into 2026, the cyber threat landscape has never been more complex, driven by AI-powered attacks and autonomous threat agents, with artificial intelligence becoming a core weapon in the cybercriminal arsenal as attackers deploy AI-driven autonomous threat agents that can scan systems, probe vulnerabilities, generate exploit code, and adapt tactics on the fly without human supervision.\n\nYear 2026 will see deepfake technology become a mainstream attack tool, with highly realistic AI-generated audio, video, and digital personas used to impersonate executives, trick employees into transferring funds, or manipulate stakeholders into divulging sensitive information, eroding trust and making traditional verification processes less reliable. Attackers aren't just using AI—they're attacking AI systems through threats such as data poisoning, model manipulation, and API abuse that can compromise the integrity of AI models deployed for defence, analytics, or customer engagement, turning AI systems into insider threats.\n\nRansomware evolution continues with double and triple extortion tactics—encrypting and stealing data, then threatening partners, customers, or public release of sensitive information, while Ransomware-as-a-Service platforms continue to democratise cybercrime, allowing inexperienced attackers to deploy sophisticated campaigns. While practical quantum computing is still emerging, adversaries are already engaging in 'harvest now, decrypt later' strategies, collecting encrypted data today with the intent to decrypt it once quantum computers become powerful enough to break current encryption standards.\n\nCyber threats are operating autonomously while cloud costs become board-level risks and regulation shapes architecture rather than policy, meaning any cloud strategy that treats these as separate concerns will fail.",
+        "arch_impact": "Security architectures must integrate AI-powered defence mechanisms to counter autonomous threat agents. Traditional verification processes require enhancement to detect deepfake attacks. Quantum-resistant encryption planning becomes urgent despite current technological limitations. AI system security requires new architectural patterns to prevent adversarial attacks.",
+        "key_points": [
+          "Autonomous AI threat agents operating without human supervision",
+          "Deepfake technology mainstream for executive impersonation attacks",
+          "AI systems becoming targets through adversarial attacks",
+          "Quantum threat driving 'harvest now, decrypt later' data collection"
+        ],
+        "apsRelevance": "Critical for APS agencies deploying AI systems and requiring enhanced verification protocols for senior executive communications"
+      }
+    ]
   },
   "quiz": {
-    "questions": []
+    "questions": [
+      {
+        "q": "According to the APS AI Plan 2025, which government body is scheduled to become operational in early 2026 with $29.9M funding to support AI safety governance?",
+        "options": [
+          "A. Central AI Assessment Register",
+          "B. AI Safety Institute",
+          "C. GovAI Platform Operations Center",
+          "D. Australian Sovereign Cloud Authority"
+        ],
+        "correct": 1,
+        "explanation": "The article explicitly states the AI Safety Institute will be operational early 2026 with $29.9M funding. This recall question tests architect familiarity with Australia's governance framework for AI adoption in public sector infrastructure.",
+        "vendors": [
+          "openai",
+          "australian_government"
+        ],
+        "topicTag": "ai|arch|industry"
+      },
+      {
+        "q": "What is the primary architectural advantage that AWS European Sovereign Cloud and IBM Sovereign Core both address in response to regulatory pressures?",
+        "options": [
+          "A. Reduced latency for cross-border transactions through edge computing",
+          "B. Complete data residency within regulated regions with separate governance partitions",
+          "C. Elimination of third-party security audit requirements",
+          "D. Consolidated billing across multiple sovereign cloud instances"
+        ],
+        "correct": 1,
+        "explanation": "Both platforms address data sovereignty through complete regional residency and isolated governance—a critical architectural requirement under EU AI Act and data protection regulations. This comprehension question assesses understanding of why enterprises adopt sovereign cloud architectures rather than global multi-region deployments.",
+        "vendors": [
+          "aws",
+          "ibm"
+        ],
+        "topicTag": "security|arch|industry"
+      },
+      {
+        "q": "An APS Solution Architect must design resilience for a critical government workload given Forrester's prediction of two major multi-day hyperscaler outages in 2026 and average downtime costs exceeding $14,000/minute. Which architectural pattern best addresses this risk?",
+        "options": [
+          "A. Migrate all workloads to the new GovAI platform's onshore instances to eliminate hyperscaler dependency",
+          "B. Adopt multi-cloud architecture across independent providers, as 86% of organisations are doing, to distribute failure domains",
+          "C. Implement automated SASE failover with ServiceNow integration to reduce manual incident response time",
+          "D. Consolidate all systems on a single hyperscaler with premium SLA guarantees"
+        ],
+        "correct": 1,
+        "explanation": "The article demonstrates that 86% of organisations adopted multi-cloud for resilience in response to predicted outage risks—distributing workloads across independent failure domains reduces single-provider impact. As an architect, this is the defensible pattern against infrastructure strain scenarios, more effective than platform consolidation (A) or single-provider dependency (D).",
+        "vendors": [
+          "aws",
+          "serviceNow",
+          "paloalto"
+        ],
+        "topicTag": "arch|devops|industry"
+      }
+    ]
   },
   "aps": {
-    "lastUpdated": "Saturday 07 March 2026",
+    "lastUpdated": "Sunday 08 March 2026",
     "keyAlerts": [],
     "irapStatus": [],
     "protectiveMarkings": [],
