@@ -518,4 +518,8 @@ Total estimated implementation effort: ~17–22 hours across all features (exclu
 
 4. **F-07 — Mastery gate strictness:** The "1 correct SR card on this vendor" gate is loose (a user could get a single AWS card right and unlock all AWS modules). Should the gate require 1 correct card *per module's specific topic tag*? Recommendation: vendor match is sufficient for v1; tighten if feedback indicates it's too easy.
 
-5. **F-01 — Model selection for monthly:** `generate_monthly.py` now uses `claude-opus-4-6`. This costs ~$15 per full run (27 modules × ~1500 tokens output × $15/M ≈ $0.60 per module). Consider switching to `claude-sonnet-4-6` for a ~5× cost reduction with minimal quality difference for structured educational content.
+5. **F-01 — Cost optimisation (resolved):** Implemented a three-part strategy in `generate_monthly.py`:
+   - **Model:** switched `claude-opus-4-6` → `claude-sonnet-4-6` (~80% cost reduction)
+   - **Two-tier web search:** 7 fast-moving modules (`ai-01–04`, `cf-08`, `aps-01`, `aps-03`) get `web_search_20250305` enabled; 20 stable foundational modules use training knowledge only (~70% input token reduction for stable tier)
+   - **Two-tier refresh cadence:** fast-moving modules refresh every 30 days; stable modules refresh every 90 days (~60% fewer calls in steady-state months)
+   - Combined steady-state cost reduction: ~95% vs. original Opus + all-search approach

@@ -3,9 +3,9 @@
 ArchBrief v5 — generate_monthly.py
 Monthly living path content regeneration.
 
-Reads the module list, checks which modules need refreshing
-(not mastered by user, older than 30 days), generates fresh
-content via Claude + web search, writes to path_content.json.
+Two-tier generation strategy:
+  Fast-moving modules  (7)  — web search enabled, refresh every 30 days
+  Stable modules       (20) — no web search, refresh every 90 days
 
 Runs 1st of every month via GitHub Actions.
 """
@@ -19,10 +19,27 @@ from pathlib import Path
 
 # ── CONFIG ──────────────────────────────────────────────
 client       = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
-MODEL        = "claude-opus-4-6"
+MODEL        = "claude-sonnet-4-6"
 ROOT         = Path(__file__).parent.parent.parent
 DATA_DIR     = ROOT / "data"
 PATH_FILE    = DATA_DIR / "path_content.json"
+
+# Modules where vendor announcements, pricing, or policy change frequently.
+# These get web search enabled and a 30-day refresh interval.
+# All other modules are stable foundations: no web search, 90-day refresh.
+FAST_MOVING = {
+    "ai-01",   # IBM watsonx — active product development
+    "ai-02",   # Azure OpenAI & Copilot — rapid model/feature releases
+    "ai-03",   # AWS AI/ML Services — Bedrock/Nova updates
+    "ai-04",   # Emerging AI Tools — fastest-moving landscape
+    "cf-08",   # FinOps & Cloud Economics — pricing and WoG agreement changes
+    "aps-01",  # ISM & IRAP — ISM version updates, newly assessed vendors
+    "aps-03",  # DTA Cloud Policy — policy and procurement rule changes
+}
+
+def refresh_interval(mod_id):
+    """Return the refresh interval in days for a given module."""
+    return 30 if mod_id in FAST_MOVING else 90
 
 # ── MODULE DEFINITIONS ──────────────────────────────────
 # Mirror of path.js LP_DOMAINS — source of truth for what to generate
@@ -75,29 +92,38 @@ def load_existing():
 
 # ── NEEDS REFRESH? ───────────────────────────────────────
 def needs_refresh(mod_id, existing):
-    """Return True if module content is missing or older than 30 days."""
+    """Return True if module content is missing or older than its tier interval."""
     mod = existing.get("modules", {}).get(mod_id)
     if not mod or not mod.get("content"):
         return True
     try:
         updated = datetime.fromisoformat(mod["updatedAt"].replace("Z", "+00:00"))
         age_days = (datetime.now(timezone.utc) - updated).days
-        return age_days >= 30
+        return age_days >= refresh_interval(mod_id)
     except Exception:
         return True
 
 # ── GENERATE MODULE CONTENT ──────────────────────────────
 def generate_module(module):
-    """Generate rich module content via Claude + web search."""
+    """Generate rich module content via Claude, with web search for fast-moving modules."""
+    mod_id  = module["id"]
     vendors = ", ".join(module.get("vendors", []))
-    prompt = f"""Generate fresh, current learning content for an ArchBrief module.
+    is_fast = mod_id in FAST_MOVING
+
+    search_instruction = (
+        "Search the web for the LATEST information — current product versions, recent announcements, pricing changes."
+        if is_fast else
+        "Draw on your training knowledge. Focus on durable patterns, architecture principles, and APS applicability rather than version-specific details."
+    )
+
+    prompt = f"""Generate fresh learning content for an ArchBrief module.
 
 Module: {module['name']}
 Description: {module['desc']}
 Primary vendors: {vendors}
 Audience: Assistant Solution Architect, IBM, Australian Public Sector
 
-Search the web for the LATEST information — current product versions, recent announcements, pricing changes.
+{search_instruction}
 
 Return ONLY valid JSON:
 {{
@@ -107,12 +133,15 @@ Return ONLY valid JSON:
   "currentAsOf": "month year"
 }}"""
 
-    response = client.messages.create(
+    kwargs = dict(
         model=MODEL,
         max_tokens=1500,
-        tools=[{"type": "web_search_20250305", "name": "web_search"}],
         messages=[{"role": "user", "content": prompt}],
     )
+    if is_fast:
+        kwargs["tools"] = [{"type": "web_search_20250305", "name": "web_search"}]
+
+    response = client.messages.create(**kwargs)
 
     # Extract text blocks
     text = " ".join(b.text for b in response.content if hasattr(b, "text") and b.text)
@@ -153,7 +182,8 @@ def main():
             skipped += 1
             continue
 
-        print(f"  [{i+1:02d}/{len(MODULES)}] GENERATING {mod_id} — {module['name']}...")
+        tier = "fast/search" if mod_id in FAST_MOVING else "stable/no-search"
+        print(f"  [{i+1:02d}/{len(MODULES)}] GENERATING {mod_id} [{tier}] — {module['name']}...")
         try:
             data = generate_module(module)
             if not existing.get("modules"):
