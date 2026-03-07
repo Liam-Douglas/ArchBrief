@@ -77,6 +77,15 @@ def call_claude(messages, system, max_tokens=8000, retries=3, model=None, web_se
             import re
             text = "\n".join(re.sub(r'</?cite[^>]*>', '', b["text"]) for b in d.get("content",[]) if b.get("type")=="text")
             if not text.strip():
+                # Claude returned only tool_use blocks — retry without web_search
+                # so the model must produce a text response from training knowledge
+                if web_search and attempt < retries-1:
+                    print(f"    ⚠ Tool-only response — retrying without web_search")
+                    payload.pop("tools", None)
+                    headers.pop("anthropic-beta", None)
+                    web_search = False
+                    time.sleep(5)
+                    continue
                 raise ValueError("API returned no text content (possible tool-only response)")
             return text
         except Exception as e:
@@ -91,13 +100,16 @@ def parse_json(raw):
         if lines[0].startswith("```"): lines = lines[1:]
         if lines and lines[-1].strip()=="```": lines = lines[:-1]
         c = "\n".join(lines).strip()
-    # Find JSON object/array even if surrounded by other text
+    # Find JSON object/array even if surrounded by prose
     start = c.find('{')
     if start == -1: start = c.find('[')
     if start != -1:
         c = c[start:]
     try:
-        return json.loads(c)
+        # raw_decode stops at the end of the first valid JSON value,
+        # ignoring any trailing prose Claude appends after the JSON.
+        obj, _ = json.JSONDecoder().raw_decode(c)
+        return obj
     except json.JSONDecodeError as e:
         print(f"    ⚠ JSON parse failed. Raw starts with: {repr(c[:200])}")
         raise
@@ -397,7 +409,7 @@ def build_email_html(weekly, date_str):
     <div style="font-size:11px;color:#4a6278;margin-top:6px">Feedback: {stats.get('feedbackSummary','—')}</div>
   </div>
   <div style="text-align:center;padding:16px 0;font-size:11px;color:#2a3a4e;font-family:monospace">
-    ArchBrief v4 · Auto-generated 5:00am AEST every Friday<br>
+    ArchBrief v5 · Auto-generated 5:00am AEST every Friday<br>
     Unclassified only · Do not forward PROTECTED content
   </div>
 </div>
@@ -542,6 +554,29 @@ def main():
     # Update history
     if digest.get("articles"):
         update_history(date_key, date_str, digest["articles"])
+
+    # Send error alert if any section failed
+    if errors and all([SMTP_HOST, SMTP_USER, SMTP_PASS, EMAIL_TO]):
+        try:
+            error_list = "\n".join(f"  • {e}" for e in errors)
+            error_html = f"""<!DOCTYPE html><html><body style="font-family:Arial,sans-serif;background:#060810;color:#dce8f4;padding:20px">
+<h2 style="color:#ff4444">⚠ ArchBrief v5 — Generation Errors {date_str}</h2>
+<p style="color:#8aa4bc">The following sections failed to generate:</p>
+<ul>{"".join(f'<li style="color:#ff9900;margin-bottom:6px">{e}</li>' for e in errors)}</ul>
+<p style="color:#4a6278;font-size:12px">Check GitHub Actions logs for details. Partial content was still saved to daily.json.</p>
+</body></html>"""
+            msg = MIMEMultipart("alternative")
+            msg["Subject"] = f"⚠ ArchBrief generation errors — {date_str}"
+            msg["From"]    = f"ArchBrief <{SMTP_USER}>"
+            msg["To"]      = EMAIL_TO
+            msg.attach(MIMEText(error_html, "html"))
+            with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as s:
+                s.ehlo(); s.starttls()
+                s.login(SMTP_USER, SMTP_PASS)
+                s.sendmail(SMTP_USER, [EMAIL_TO], msg.as_string())
+            print(f"  ✓ Error alert email sent → {EMAIL_TO}")
+        except Exception as e:
+            print(f"  ⚠ Failed to send error alert: {e}")
 
     # Friday: weekly summary + email
     weekly_summary = None

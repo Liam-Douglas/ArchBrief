@@ -12,13 +12,14 @@ Runs 1st of every month via GitHub Actions.
 
 import os
 import json
+import time
 import anthropic
 from datetime import datetime, timezone
 from pathlib import Path
 
 # ── CONFIG ──────────────────────────────────────────────
 client       = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
-MODEL        = "claude-opus-4-5"
+MODEL        = "claude-opus-4-6"
 ROOT         = Path(__file__).parent.parent.parent
 DATA_DIR     = ROOT / "data"
 PATH_FILE    = DATA_DIR / "path_content.json"
@@ -126,7 +127,14 @@ Return ONLY valid JSON:
             lines = lines[:-1]
         text = "\n".join(lines).strip()
 
-    return json.loads(text)
+    # raw_decode stops at the end of the first valid JSON value,
+    # ignoring any trailing prose Claude appends after the JSON.
+    start = text.find('{')
+    if start == -1: start = text.find('[')
+    if start != -1:
+        text = text[start:]
+    obj, _ = json.JSONDecoder().raw_decode(text)
+    return obj
 
 # ── MAIN ─────────────────────────────────────────────────
 def main():
@@ -161,6 +169,9 @@ def main():
             print(f"           ✓ {len(data.get('content','').split())} words, {len(data.get('keyFacts',[]))} facts")
         except Exception as e:
             print(f"           ✗ FAILED: {e}")
+
+        # Brief pause between API calls to avoid rate limiting
+        time.sleep(5)
 
     # Write output
     existing["generatedAt"] = datetime.now(timezone.utc).isoformat()

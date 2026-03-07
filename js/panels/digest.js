@@ -17,6 +17,7 @@ function initDigest() {
   if (!out) return;
   if (daily?.digest?.articles?.length) {
     renderPregenBanner(banner, daily);
+    renderGenerationErrors(banner, daily);
     renderDigest(out, daily.digest);
     if (sub) sub.textContent = daily.date || 'Today';
     flagQuizReady();
@@ -29,6 +30,20 @@ function initDigest() {
       action: '<button class="btn btn-primary btn-lg" onclick="generateDigest()">⚡ Generate Today\'s Brief</button>',
     });
   }
+}
+
+function renderGenerationErrors(el, daily) {
+  if (!el || !daily?.errors?.length) return;
+  const sections = daily.errors.map(e => {
+    const name = e.split(':')[0];
+    return name.charAt(0).toUpperCase() + name.slice(1);
+  }).join(', ');
+  el.insertAdjacentHTML('beforeend',
+    `<div style="padding:9px 14px;margin-bottom:14px;background:rgba(255,68,68,.05);border:1px solid rgba(255,68,68,.2);border-radius:var(--r-md);display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#ff6b6b">
+      <span>⚠</span>
+      <span>Generation errors today — ${sections} may be incomplete. Check GitHub Actions.</span>
+    </div>`
+  );
 }
 
 function renderPregenBanner(el, daily) {

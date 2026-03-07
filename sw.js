@@ -1,10 +1,13 @@
-// ArchBrief Service Worker v4
+// ArchBrief Service Worker v5
 // Handles: app shell caching, offline fallback, push notifications, scheduled reminders
 
-const CACHE_NAME = 'archbrief-v5';
-const CACHE_FILES = [
-  './',
+const CACHE_NAME = 'archbrief-v6';
+const OFFLINE_URL = './index.html';
+
+// Full app shell — precached on install for reliable offline access
+const PRECACHE_ASSETS = [
   './index.html',
+  './manifest.json',
   './styles/base.css',
   './styles/layout.css',
   './styles/components.css',
@@ -26,18 +29,11 @@ const CACHE_FILES = [
   './js/panels/projects.js',
   './js/panels/recap.js',
   './js/panels/saved.js',
+  './js/panels/search.js',
   './js/tutor/explainer.js',
   './js/tutor/spaced-rep.js',
   './js/tutor/certifications.js',
   './data/daily.json',
-  './manifest.json',
-];
-const OFFLINE_URL = './index.html';
-
-// App shell assets to cache on install
-const PRECACHE_ASSETS = [
-  './index.html',
-  './manifest.json',
   './icons/icon-192.png',
   './icons/icon-512.png',
 ];
