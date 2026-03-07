@@ -28,7 +28,7 @@ SMTP_PASS         = os.environ.get("SMTP_PASS", "")
 EMAIL_TO          = os.environ.get("EMAIL_TO", "")
 EMAIL_CC          = os.environ.get("EMAIL_CC", "")
 
-MODEL = "claude-sonnet-4-20250514"
+MODEL = "claude-sonnet-4-6"
 DATA_DIR = Path("data")
 AEST  = ZoneInfo("Australia/Sydney")
 
@@ -257,7 +257,7 @@ PERSONALISATION — follow carefully:
 Search web for latest news past 48 hours. Return ONLY valid JSON:
 {{"summary":"2-sentence overview","apsAlert":"APS alert or null","articles":[{{"title":"string","vendors":["key"],"topicTag":"arch|security|ai|devops|industry","lead":"string","body":"4-5 paragraphs technical depth","arch_impact":"3-4 sentences architect implications","key_points":["p1","p2","p3","p4"],"apsRelevance":"string or null"}}]}}
 Generate exactly 7 articles. Follow personalisation above."""
-    raw  = call_claude([{"role":"user","content":f"Generate today's brief {date_str}. Search latest news."}], system, max_tokens=8000)
+    raw  = call_claude([{"role":"user","content":f"Generate today's brief {date_str}. Search latest news."}], system, max_tokens=6500)
     data = parse_json(raw)
     print(f"  ✓ {len(data.get('articles',[]))} articles")
     return data
@@ -278,15 +278,29 @@ Return ONLY valid JSON:
     print(f"  ✓ {len(data.get('irapStatus',[]))} vendors, {len(data.get('keyAlerts',[]))} alerts")
     return data
 
-def gen_explorer(date_str, context):
-    print("\n🗂 Generating explorer...")
+def gen_explorer(date_str, context, digest):
+    print("\n🗂 Generating explorer (from digest)...")
     vl = ", ".join(VENDORS)
+    digest_articles = digest.get("articles", [])
+    digest_context = "\n\n".join(
+        f'Article {i+1}: "{a.get("title","")}" ({", ".join(a.get("vendors",[]))})\n'
+        f'Lead: {a.get("lead","")}\n'
+        f'Key points: {"; ".join(a.get("key_points",[]))}'
+        for i, a in enumerate(digest_articles[:7])
+    )
     system = f"""ArchBrief explorer for APS Solution Architect. Vendors: {vl}. Date: {date_str}.
 PERSONALISATION: {context}
-Search current news. Return ONLY valid JSON:
+
+You are given today's digest articles. Synthesise 5 deeper analysis pieces from this material —
+go beyond the headline: architectural implications, patterns, APS relevance, vendor strategy.
+Do NOT repeat the digest lead verbatim; add depth and architect perspective.
+Return ONLY valid JSON:
 {{"articles":[{{"navTitle":"3 words","title":"string","vendors":["key"],"topicTag":"arch|security|ai|devops|industry","lead":"string","sections":[{{"heading":"string","content":"2-3 paragraphs"}}],"arch_impact":"string","apsRelevance":"string or null"}}]}}
 5 articles. Follow personalisation."""
-    raw  = call_claude([{"role":"user","content":f"Build explorer {date_str}. Vendors: {vl}."}], system, model=HAIKU, max_tokens=6000)
+    raw  = call_claude(
+        [{"role":"user","content":f"Build explorer {date_str} from these digest articles:\n\n{digest_context}"}],
+        system, model=HAIKU, web_search=False, max_tokens=4500
+    )
     data = parse_json(raw)
     print(f"  ✓ {len(data.get('articles',[]))} explorer articles")
     return data
@@ -479,12 +493,14 @@ def main():
     date_str  = now.strftime("%A %d %B %Y")
     date_key  = now.strftime("%Y-%m-%d")
     is_friday = now.weekday() == 4
+    is_aps_day = now.weekday() in (0, 3)   # Monday=0, Thursday=3
     force     = os.environ.get("FORCE_REGENERATE","false").lower()=="true"
 
     print(f"\n📅 {date_str} AEST")
     print(f"🔑 API key:  {'✓' if ANTHROPIC_API_KEY else '✗ MISSING'}")
     print(f"📧 Email:    {'✓' if SMTP_HOST and EMAIL_TO else 'not configured'}")
-    print(f"📅 Friday:   {'Yes — weekly email will run' if is_friday else 'No'}\n")
+    print(f"📅 Friday:   {'Yes — weekly email will run' if is_friday else 'No'}")
+    print(f"🇦🇺 APS day:  {'Yes — fresh radar' if is_aps_day else 'No — using cached radar'}\n")
 
     if not ANTHROPIC_API_KEY:
         print("ERROR: ANTHROPIC_API_KEY not set.")
@@ -527,26 +543,40 @@ def main():
 
     time.sleep(15)
 
-    try:
-        aps = gen_aps(date_str)
-    except Exception as e:
-        print(f"❌ APS: {e}"); errors.append(f"aps: {e}")
-        aps = {"lastUpdated":date_str,"keyAlerts":[],"irapStatus":[],"protectiveMarkings":[],"dtaAlignment":[],"sovereignty":[],"wogPlatforms":[]}
-
-    # APS change detection
-    aps_changes = detect_aps_changes(aps)
-    if aps_changes:
-        aps["_changes"] = aps_changes
-        # Inject change alert into keyAlerts
-        for c in aps_changes:
-            if c.get("type")=="irap_change":
-                aps["keyAlerts"].insert(0,
-                    f"🔔 IRAP STATUS CHANGE: {c['vendor']} moved from {c['from']} → {c['to']}")
+    _aps_empty = {"lastUpdated":date_str,"keyAlerts":[],"irapStatus":[],"protectiveMarkings":[],"dtaAlignment":[],"sovereignty":[],"wogPlatforms":[]}
+    aps_changes = []
+    if is_aps_day or force:
+        try:
+            aps = gen_aps(date_str)
+        except Exception as e:
+            print(f"❌ APS: {e}"); errors.append(f"aps: {e}")
+            aps = _aps_empty
+        # APS change detection (only meaningful when freshly generated)
+        aps_changes = detect_aps_changes(aps)
+        if aps_changes:
+            aps["_changes"] = aps_changes
+            for c in aps_changes:
+                if c.get("type")=="irap_change":
+                    aps["keyAlerts"].insert(0,
+                        f"🔔 IRAP STATUS CHANGE: {c['vendor']} moved from {c['from']} → {c['to']}")
+    else:
+        print("\n🇦🇺 APS radar: using cached data (Mon/Thu only)")
+        try:
+            with open(DATA_DIR / "daily.json") as f: prev_daily = json.load(f)
+            aps = prev_daily.get("aps", _aps_empty)
+            print(f"  ✓ Cached APS loaded ({len(aps.get('irapStatus',[]))} vendors)")
+        except (FileNotFoundError, KeyError):
+            print("  ℹ No cached APS found — generating fresh")
+            try:
+                aps = gen_aps(date_str)
+            except Exception as e:
+                print(f"❌ APS: {e}"); errors.append(f"aps: {e}")
+                aps = _aps_empty
 
     time.sleep(15)
 
     try:
-        explorer = gen_explorer(date_str, context)
+        explorer = gen_explorer(date_str, context, digest)
     except Exception as e:
         print(f"❌ Explorer: {e}"); errors.append(f"explorer: {e}")
         explorer = {"articles":[]}
