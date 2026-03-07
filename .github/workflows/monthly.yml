@@ -8,11 +8,20 @@ name: Monthly Path Update
 on:
   schedule:
     - cron: '30 18 1 * *'   # 4:30am AEST = 18:30 UTC (standard) / 17:30 UTC (daylight)
-  workflow_dispatch:          # Allow manual trigger
+  workflow_dispatch:
+    inputs:
+      force_regenerate:
+        description: 'Force regenerate all modules regardless of age'
+        required: false
+        default: 'false'
 
 jobs:
   update-path:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -28,16 +37,39 @@ jobs:
       - name: Generate updated path content
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          FORCE_REGENERATE: ${{ inputs.force_regenerate || 'false' }}
         run: python .github/scripts/generate_monthly.py
 
       - name: Commit updated path content
         run: |
-          git config --global user.name  "ArchBrief Bot"
-          git config --global user.email "bot@archbrief"
+          git config --local user.name  "ArchBrief Bot"
+          git config --local user.email "bot@archbrief"
           git add data/path_content.json
           if git diff --staged --quiet; then
             echo "No changes to path content"
           else
-            git commit -m "📚 Monthly path update — $(date +%Y-%m-%d)"
+            git commit -m "Monthly path update — $(date +%Y-%m-%d)"
             git push
+          fi
+
+      - name: Job summary
+        if: always()
+        run: |
+          echo "### ArchBrief Monthly Path Update" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Time:** $(date -u '+%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
+          if [ -f "data/path_content.json" ]; then
+            echo "**Status:** Success" >> $GITHUB_STEP_SUMMARY
+            python3 -c "
+import json
+with open('data/path_content.json') as f:
+    d = json.load(f)
+stats = d.get('stats', {})
+print('**Modules updated:**', stats.get('updated', '?'))
+print('**Modules skipped:**', stats.get('skipped', '?'))
+print('**Total modules:**', stats.get('totalModules', '?'))
+print('**Generated at:**', d.get('generatedAt', '?'))
+" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "**Status:** Failed — data/path_content.json not found" >> $GITHUB_STEP_SUMMARY
           fi

@@ -167,8 +167,9 @@ Return ONLY valid JSON:
 
 # ── MAIN ─────────────────────────────────────────────────
 def main():
+    force = os.environ.get("FORCE_REGENERATE", "false").lower() == "true"
     print(f"ArchBrief v5 — Monthly Path Update — {datetime.now().strftime('%Y-%m-%d %H:%M')}")
-    print(f"Checking {len(MODULES)} modules...")
+    print(f"Checking {len(MODULES)} modules{' (FORCE_REGENERATE)' if force else ''}...")
 
     existing = load_existing()
     updated  = 0
@@ -177,7 +178,7 @@ def main():
     for i, module in enumerate(MODULES):
         mod_id = module["id"]
 
-        if not needs_refresh(mod_id, existing):
+        if not force and not needs_refresh(mod_id, existing):
             print(f"  [{i+1:02d}/{len(MODULES)}] SKIP {mod_id} — content fresh")
             skipped += 1
             continue
