@@ -28,8 +28,35 @@ function buildGlossaryFilters() {
     onclick="document.querySelectorAll('#glossary-filters .pill').forEach(b=>b.classList.remove('active'));this.classList.add('active');renderGlossaryPanel(document.getElementById('glossary-search')?.value||'')"
   >${c==='all'?'All':c}</button>`).join('');
 }
+function findModuleForTerm(term, category) {
+  if(typeof LP_DOMAINS==='undefined') return null;
+  const catToDomain={
+    'Cloud':'cloud','AI':'ai','Security':'security','DevOps':'platform',
+    'Platform':'platform','APS':'aps','Networking':'cloud','Database':'cloud',
+    'Salesforce':'saas','ServiceNow':'saas'
+  };
+  const domainId=catToDomain[category];
+  const termWords=term.toLowerCase().split(/\W+/).filter(w=>w.length>2);
+  // Search preferred domain first, then fall through to others
+  const domains=domainId
+    ?[...LP_DOMAINS.filter(d=>d.id===domainId),...LP_DOMAINS.filter(d=>d.id!==domainId)]
+    :LP_DOMAINS;
+  for(const domain of domains) {
+    for(const mod of domain.modules) {
+      const modText=(mod.name+' '+mod.desc).toLowerCase();
+      if(termWords.some(w=>modText.includes(w))) return mod;
+    }
+  }
+  return domains[0]?.modules?.[0]||null;
+}
+
 function showGlossDetail(term) {
   const g=getGlossary().find(x=>x.term===term); if(!g) return;
+  const relMod=findModuleForTerm(g.term,g.category);
+  const relHtml=relMod?`<div style="margin-top:10px"><div class="ep-section">Related module</div>
+    <button class="btn btn-ghost btn-sm" style="margin-top:4px;color:var(--g);border-color:var(--g)"
+      onclick="document.getElementById('explainer-popup')?.remove();showPanel('path');Bus.emit('path:highlight',{moduleId:'${relMod.id}'})">
+      📚 ${esc(relMod.name)} →</button></div>`:'';
   const popup=document.createElement('div');
   popup.id='explainer-popup';
   popup.className='explainer-popup';
@@ -42,6 +69,7 @@ function showGlossDetail(term) {
     <div class="ep-section">Solution Architect Context</div>
     <div class="callout callout-arch">${esc(g.architectContext||'')}</div>
     ${g.apsNote?`<div class="ep-section">🇦🇺 APS</div><div class="callout callout-aps">${esc(g.apsNote)}</div>`:''}
+    ${relHtml}
     <div style="margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t4)">Added ${new Date(g.addedAt||Date.now()).toLocaleDateString('en-AU')} · ${g.lookupCount||1}× looked up</div>
     <div class="ep-actions">
       <button class="btn btn-secondary btn-sm" onclick="document.getElementById('explainer-popup')?.remove();chatAbout('${esc(g.term).replace(/'/g,"\\'")} deep dive')">Ask Chat →</button>

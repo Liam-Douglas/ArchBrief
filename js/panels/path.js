@@ -146,3 +146,16 @@ function markLpMastered(id) {
   toast('Module mastered! 🎉','✅');
   Bus.emit('module:mastered',{id});
 }
+
+// F-11: navigate from glossary → learning path module
+Bus.on('path:highlight', ({moduleId}) => {
+  const domain=LP_DOMAINS.find(d=>d.modules.some(m=>m.id===moduleId));
+  if(!domain) return;
+  // Allow time for panel render before manipulating DOM
+  setTimeout(() => {
+    const domEl=document.getElementById('lpd-'+domain.id);
+    if(domEl&&!domEl.classList.contains('open')) domEl.classList.add('open');
+    const modEl=document.getElementById('lpm-'+moduleId);
+    if(modEl) { modEl.classList.add('open'); modEl.scrollIntoView({behavior:'smooth',block:'center'}); }
+  }, 300);
+});

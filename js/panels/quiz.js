@@ -78,8 +78,17 @@ async function startNewQuiz() {
     } catch(e) { renderEmpty(body,{icon:'⚠️',title:'Failed',body:e.message,action:'<button class="btn btn-primary" onclick="startNewQuiz()">Retry</button>'}); quizState.generating=false; return; }
   }
 
-  quizState={questions,idx:0,answers:[],source:'digest',generating:false};
-  srAddCards(questions);
+  // F-08: interleave one SR due card at a random position
+  const due=srDueCards();
+  let quizSource='digest';
+  if(due.length) {
+    const rc={...due[0],isReview:true,srId:due[0].id};
+    const at=Math.floor(Math.random()*(questions.length+1));
+    questions=[...questions.slice(0,at),rc,...questions.slice(at)];
+    quizSource='digest+review';
+  }
+  quizState={questions,idx:0,answers:[],source:quizSource,generating:false};
+  srAddCards(questions.filter(q=>!q.isReview)); // review cards are already in srCards
   renderQuestion();
 }
 
@@ -181,10 +190,11 @@ function showQuizComplete(score,total,alreadyDone) {
   if(!body) return;
   const pct=Math.round((score/total)*100);
   const msg=pct===100?'Perfect! Outstanding.':pct>=66?'Solid work — good understanding.':'Keep at it — review the explanations.';
+  const hasReview=!alreadyDone&&quizState.source==='digest+review';
   const d=getTutor();
   body.innerHTML=`<div class="quiz-complete">
     <div class="quiz-score-big">${score}/${total}</div>
-    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);margin-bottom:10px">${pct}% correct${alreadyDone?' · already done today':''}</div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);margin-bottom:10px">${pct}% correct${alreadyDone?' · already done today':''}${hasReview?' · 🔁 1 review card':''}</div>
     <div style="font-size:14px;color:var(--t2);margin-bottom:20px">${msg}</div>
     <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
       ${!alreadyDone?`<button class="btn btn-secondary btn-sm" onclick="startNewQuiz()">Try again</button>`:''}
