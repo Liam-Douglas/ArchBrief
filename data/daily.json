@@ -1,7 +1,7 @@
 {
-  "dateKey": "2026-03-09",
-  "date": "Monday 09 March 2026",
-  "generatedAt": "2026-03-09T06:26:47.961255+11:00",
+  "dateKey": "2026-03-10",
+  "date": "Tuesday 10 March 2026",
+  "generatedAt": "2026-03-10T06:42:02.112720+11:00",
   "generatedBy": "github-actions-v2",
   "vendors": [
     "aws",
@@ -15,8 +15,9 @@
     "emerging"
   ],
   "errors": [
+    "digest: Extra data: line 112 column 1 (char 20440)",
     "aps: Claude API failed after 3 attempts",
-    "explorer: Extra data: line 100 column 1 (char 9962)"
+    "explorer: Extra data: line 100 column 1 (char 12560)"
   ],
   "apsChanges": [],
   "context": {
@@ -25,182 +26,15 @@
     "historyDays": 0
   },
   "digest": {
-    "summary": "Australia's cloud market shows strong momentum with Microsoft's new AUD $5B five-year deal launching July 2026, while private cloud repatriation gains traction amid sovereignty demands. Cross-vendor collaboration emerges as AWS and Google announce multicloud interoperability solutions.",
-    "apsAlert": "Microsoft VSA6 commences 1 July 2026 - standardised whole-of-government framework for Azure, Copilot, and security services across all agencies. DTA confirms significant cost savings and compliance strengthening for smaller APS entities.",
-    "articles": [
-      {
-        "title": "Microsoft Secures Five-Year AUD $5B Government Deal for AI-First Cloud Transformation",
-        "vendors": [
-          "azure"
-        ],
-        "topicTag": "arch",
-        "lead": "Microsoft has signed a landmark five-year whole-of-government arrangement starting July 2026, positioning Azure and Copilot as core infrastructure for Australian Public Service digital transformation.",
-        "body": "Through the deal, which commences on 1 July 2026, the APS will be able to access Microsoft's core enterprise and cloud stack, including Microsoft Copilot, Microsoft 365, Azure cloud services and Dynamics 365, as well as security and identity services. It recommits both sides to national security requirements, including the Security of Critical Infrastructure legislation, the Cloud Hosting Certification Framework and IRAP.\n\nChris Fechner, CEO of the DTA, said the renewed arrangement introduces a standardised contracting framework that will strengthen the government's ability to operate critical ICT infrastructure into the future. \"The recent review of our single-seller arrangements confirmed their value in delivering stronger protections, better terms and significant cost savings for the Australian government,\" Fechner said.\n\nA successful Copilot trial in 2024 already demonstrated personal productivity gains of around one hour per day for participating staff. Microsoft is also establishing a $1.55 million training fund for the Australian Public Service to support capability building in ethical AI use and modern cloud operations.\n\nThe move would increase Microsoft's computing capacity in Australia by about 250% to meet the growing demand for cloud computing services, which are expected to almost double from A$12.2bn in 2022 to A$22.4bn in 2026, according to IDC.",
-        "arch_impact": "This standardised framework will significantly impact multi-vendor strategies, potentially reducing complexity while creating Microsoft-centric architecture patterns. Agencies must evaluate existing AWS and IBM investments against this centralised approach. The IRAP and Security of Critical Infrastructure alignment provides clear compliance pathways for PROTECTED workloads.",
-        "key_points": [
-          "VSA6 framework starts July 2026 with standardised contracts across all agencies",
-          "Mandatory compliance with IRAP, Cloud Hosting Certification Framework alignment",
-          "One-hour daily productivity gains validated through 2024 Copilot trials",
-          "Microsoft capacity expanding 250% to meet A$22.4bn market demand by 2026"
-        ],
-        "apsRelevance": "Critical for architecture planning - all agencies gain access to enterprise Azure stack with strengthened security compliance. Smaller agencies particularly benefit from volume pricing and consistent procurement frameworks."
-      },
-      {
-        "title": "Private Cloud Repatriation Accelerates as Australian Businesses Cut Costs 28%",
-        "vendors": [
-          "aws",
-          "azure"
-        ],
-        "topicTag": "arch",
-        "lead": "Australian enterprises are achieving significant cost reductions by migrating from hyperscale public cloud to managed private cloud environments, driven by sovereignty and compliance requirements.",
-        "body": "Australian businesses are reducing cloud costs by up to 28% and regaining compliance confidence by shifting to managed private cloud environments. While hyperscale public cloud platforms offer global scale and rapid access, many growing Australian firms are hitting real limits: unpredictable pricing, compliance headaches, and limited visibility into where their data really lives.\n\nThat's where private cloud stands out, delivering dedicated infrastructure, enhanced security, and local compliance assurance, without sacrificing performance or flexibility. Choosing local service providers and reputable cloud service providers is crucial to ensure data sovereignty and compliance with Australian regulations.\n\n\"What our clients are realising is that control equals efficiency. When you know exactly what virtual resources are running, where those virtual resources are running, and how they are supported, you're not wasting time or money.\"\n\nThis strategic shift represents a maturation of cloud strategy beyond initial migration enthusiasm, with enterprises seeking balanced hybrid approaches that address both operational efficiency and regulatory compliance in the Australian context.",
-        "arch_impact": "Significant implications for landing zone design and cloud-first policies. Architects must evaluate total cost of ownership models that factor compliance overhead, data egress costs, and operational complexity. Private cloud emergence challenges pure public cloud assumptions in enterprise architecture.",
-        "key_points": [
-          "28% cost reduction achieved through private cloud migration",
-          "Data sovereignty and local compliance driving repatriation decisions",
-          "Hybrid approach emerging as optimal strategy over pure public cloud",
-          "Control and predictability valued over scale and rapid access"
-        ],
-        "apsRelevance": "Relevant for agencies evaluating cloud strategies - private cloud options may align better with PROTECTED classification requirements and data sovereignty mandates while delivering cost efficiencies."
-      },
-      {
-        "title": "IBM watsonx.governance Expands to Australia with PROTECTED-Level AI Compliance",
-        "vendors": [
-          "ibm"
-        ],
-        "topicTag": "ai",
-        "lead": "IBM launches watsonx AI governance platform in Australian data centres, providing local hosting for government AI deployments with comprehensive regulatory compliance frameworks.",
-        "body": "Recently, the Australian government introduced new regulations for safe and responsible AI to develop a regulatory environment that builds community trust and promotes AI adoption at scale. To meet this strong demand for scalable, safe and responsible AI, IBM has launched watsonx.governance on IBM Cloud in Australia and New Zealand, significantly enhancing cloud infrastructure in the region.\n\nThe Sydney, Australia data center will offer several key advantages for clients: Data sovereignty: Manage and store data locally to comply with Australia's stringent privacy regulations, ensuring sensitive information remains secure. Low latency connectivity: IBM Cloud's high-performance network connectivity significantly reduces latency for users across Australia, essential for real-time data processing.\n\nIBM watsonx.governance facilitates enterprise adoption of AI to modernize business operations with a powerful AI governance, risk and compliance (GRC) tool kit built to automate AI lifecycle workflows, proactively detect and mitigate risk, and meet the changing legal, compliance and regulatory landscape. Through effective AI governance, enterprises can assess the reliability of their AI solutions and capitalize on modern day AI tools for improved productivity and overall optimization of business costs.\n\nA new global collaboration between IBM and the recognized defense intelligence company Janes aims to bridge this gap as it integrates open-source defense and security intelligence data into a trusted AI and data platform, IBM's watsonx. This collaboration will build the foundation to enable defense leaders' access to high-quality data infused with trusted AI to improve their decision advantage.",
-        "arch_impact": "Establishes IBM as viable alternative for PROTECTED AI workloads with local data residency. The governance framework addresses key architectural concerns around AI model lifecycle management, bias detection, and regulatory compliance automation. Integration with defence intelligence platforms suggests capability for sensitive use cases.",
-        "key_points": [
-          "watsonx.governance now available in Sydney with data sovereignty compliance",
-          "Automated AI lifecycle workflows for risk detection and regulatory compliance",
-          "Defense intelligence integration through Janes collaboration demonstrates PROTECTED capability",
-          "Addresses Australian AI regulations with governance automation tools"
-        ],
-        "apsRelevance": "Significant for agencies developing AI capabilities - provides locally-hosted governance platform that addresses DTA AI assurance framework requirements and enables responsible AI adoption at PROTECTED levels."
-      },
-      {
-        "title": "AWS-Google Cloud Interoperability Initiative Challenges Microsoft Dominance",
-        "vendors": [
-          "aws"
-        ],
-        "topicTag": "arch",
-        "lead": "AWS and Google Cloud launch joint multicloud networking solution with Microsoft Azure joining in 2026, signaling industry shift toward vendor-agnostic architectures.",
-        "body": "AWS and Google Cloud launched a joint multicloud collaboration Sunday, allowing customers an easier way to connect the cloud platforms. The effort, currently in preview, marks the start of a multicloud networking product that will include Microsoft Azure in 2026, AWS announced at its re:Invent conference.\n\nThe partnership will help businesses operate more open cloud environments through AWS Interconnect - multicloud and Google Cloud's Cross-Cloud Interconnect. Salesforce's support of the initiative also strengthens AWS by including Google Cloud \"as a competitive bulwark against Microsoft Azure in the race for AI-native cloud dominance,\" Sustar said.\n\nMulti-cloud deployment, which is now set to become the new norm. Make no mistake, it's still a challenge to manage policies, billing visibility, and governance across multiple platforms.\n\nThis strategic collaboration represents a fundamental shift in hyperscaler competition, moving from platform lock-in strategies toward interoperability, potentially driven by customer demand for vendor flexibility and regulatory requirements around digital sovereignty.",
-        "arch_impact": "Major implications for enterprise architecture strategies - validates multi-cloud approaches while simplifying inter-cloud networking. Architects can now design truly vendor-agnostic solutions with standardised connectivity patterns. This reduces vendor lock-in risks and supports hybrid architecture resilience.",
-        "key_points": [
-          "AWS-Google partnership enables simplified multicloud networking in preview",
-          "Microsoft Azure integration planned for 2026 creating three-way interoperability",
-          "Multi-cloud deployment becoming industry standard despite governance complexity",
-          "Strategic shift from vendor lock-in to customer flexibility models"
-        ],
-        "apsRelevance": "Important for whole-of-government cloud strategy - enables true vendor diversity while maintaining operational simplicity. Supports risk mitigation through multi-vendor approaches without architectural complexity penalties."
-      },
-      {
-        "title": "Palo Alto Networks Advances Quantum-Safe Security Framework for 2026 Readiness",
-        "vendors": [
-          "palo-alto-networks"
-        ],
-        "topicTag": "security",
-        "lead": "Palo Alto Networks outlines four-stage quantum-safe cybersecurity framework as U.S. National Cyber Strategy emphasizes urgency beyond 2035 timeline.",
-        "body": "In addition to the necessary attention on AI-powered cyber defense, cloud security and zero trust network architecture, Palo Alto Networks applauds the discrete focus on quantum-safe security ahead of \"Q-Day,\" the point where quantum computing capabilities will compromise legacy public key encryption that has underpinned cybersecurity for decades.\n\nTo address this challenge, Palo Alto Networks provides a structured quantum-safe framework organized into four stages: Continuous Discovery – Automating ecosystem ingestion to identify cryptographic dependencies. Risk Assessment & Prioritization – Evaluating vulnerabilities to establish a data-driven remediation roadmap. Comprehensive Remediation – Executing the transition to post-quantum algorithms across the architecture. Governance & Crypto-Hygiene – Maintaining long-term visibility and management.\n\nThe bottom line is that 2035 is too late. Quantum readiness must accelerate today, and this strategy will set a critical North Star to drive the necessary urgency.\n\nIn fact, Palo Alto Networks research shows some form of operational disruption in up to 86% of major cyber incidents. Our 2026 Global Incident Response Report underscores another sobering reality: These entities are under assault from all angles. In 87% of cyber incidents, attacks targeted multiple attack surfaces, which spanned the network, cloud, endpoints and identity.",
-        "arch_impact": "Quantum threat timeline compression requires immediate cryptographic architecture review. Security architects must audit all encryption implementations and begin post-quantum cryptography transition planning. The four-stage framework provides systematic approach for enterprise quantum readiness assessment.",
-        "key_points": [
-          "Four-stage quantum-safe framework addresses cryptographic dependency mapping",
-          "2035 timeline deemed insufficient - quantum readiness required immediately",
-          "86% of cyber incidents cause operational disruption across multiple surfaces",
-          "Post-quantum algorithm transition planning becomes architectural imperative"
-        ],
-        "apsRelevance": "Critical for all APS security architectures - quantum threats affect all encryption across PROTECTED and SECRET classifications. Framework aligns with Essential Eight cryptographic controls and ISM quantum-safe guidance."
-      },
-      {
-        "title": "Oracle Strengthens Australian Government Cloud with PROTECTED-Level AI Capabilities",
-        "vendors": [
-          "oracle"
-        ],
-        "topicTag": "arch",
-        "lead": "Oracle's dedicated government cloud region in Canberra expands with AI-ready infrastructure, maintaining physical isolation and PROTECTED-level certifications.",
-        "body": "Oracle Cloud for Australian Government and Defence has been certified for Information Security Registered Assessors Program (IRAP) at PROTECTED level and for Hosting Certification Framework (HCF) at Certified Strategic level. Located in Canberra, the cloud region is dedicated for Australian Government workloads and isolated from other hyperscale commercial Oracle Cloud regions.\n\nOracle's Government Cloud (launched earlier but expanding) and sovereign AI solutions allow full control over data location, access, and operations without sacrificing cloud benefits. Options like OCI Dedicated Region (now with entry-level Dedicated Region 25 for smaller footprints), Oracle Alloy (partner-operated clouds), and isolated deployments help meet PSPF, ISM, and Essential Eight standards.\n\nOracle is leading with agentic AI, generative AI integrated across its stack (including Fusion Applications and OCI), and tools like the upcoming Oracle AI Database 26ai. Oracle's distributed cloud model supports sovereign AI deployments anywhere—public cloud, on-premises, or disconnected—addressing performance, security, and regulatory demands head-on.\n\nOracle is currently the only hyperscale cloud provider to operate physically separate cloud regions for governments outside the U.S., with eight government regions across the U.S., U.K., and Australia, in addition to multiple air-gapped isolated regions for the U.S.",
-        "arch_impact": "Oracle's physical isolation model provides unique architecture option for agencies requiring absolute data separation. The sovereign AI capabilities enable on-premises deployment without cloud connectivity, critical for air-gapped environments. Essential Eight alignment provides clear compliance pathway for PROTECTED workloads.",
-        "key_points": [
-          "Only hyperscaler with physically separated government cloud regions globally",
-          "IRAP PROTECTED and HCF Certified Strategic certifications maintained",
-          "Sovereign AI deployments support disconnected and on-premises requirements",
-          "Essential Eight and ISM compliance built into distributed cloud architecture"
-        ],
-        "apsRelevance": "Unique value proposition for agencies requiring physical separation from commercial cloud. Air-gapped capabilities essential for defence and intelligence workloads, while sovereign AI addresses data residency requirements."
-      },
-      {
-        "title": "Salesforce Achieves PROTECTED Status for Agentforce, Expands Australian Government Presence",
-        "vendors": [
-          "salesforce"
-        ],
-        "topicTag": "ai",
-        "lead": "Salesforce Agentforce platform receives IRAP PROTECTED certification while company invests $2.5B in Australian AI capabilities and expands Canberra operations.",
-        "body": "Salesforce confirmed that Agentforce recently completed the Independent Registered Assessors Program (IRAP) assessment and received PROTECTED status. This ensures that the product meets the Australian Government's highest requirements for managing sensitive information.\n\nAs part of a continued focus on the Australian market, Salesforce has relocated its Canberra operation to a new office in Barton. This expansion is part of an effort to build capacity to support public sector requirements for digital transformation and customer outcomes.\n\nThe integration of AI into business practices is aligned with the Australian Government's National AI Capability Plan objectives, which focus on expanding local AI expertise and encouraging economic and productivity growth. Salesforce reported closing over 18,500 Agentforce deals by late 2025 (with 9,500+ being paid deals), a massive jump from 5,000 in early FY25. Organisations are using these tools to accelerate business automation with AI, seeing returns such as a 99% reduction in reporting time (from 15 days to 35 minutes) and a dramatic drop in operational costs per report.\n\n\"We're working to deliver a future where government frontline services have the data insights, they need to anticipate customer needs and the AI tools to improve productivity and deliver 24/7 digital-first support.\"",
-        "arch_impact": "PROTECTED certification opens Agentforce for sensitive government workloads, enabling AI-driven automation in citizen services and internal operations. The platform's integration capabilities and natural language agent building democratize AI development across agencies. Significant productivity gains validate ROI for government AI investments.",
-        "key_points": [
-          "IRAP PROTECTED certification enables sensitive government AI workloads",
-          "18,500+ Agentforce deals closed with 99% reporting time reduction demonstrated",
-          "$2.5B Australian investment signals long-term market commitment",
-          "Canberra expansion dedicated to public sector digital transformation"
-        ],
-        "apsRelevance": "Game-changing for citizen services and internal productivity - PROTECTED status enables sensitive data processing while agent-based automation can transform service delivery models. Natural language development reduces technical barriers for agency adoption."
-      }
-    ]
+    "summary": "Generation failed.",
+    "articles": [],
+    "apsAlert": null
   },
   "quiz": {
-    "questions": [
-      {
-        "q": "According to the Microsoft APS government deal article, what standardized framework will Australian public agencies implement starting July 2026 to manage cloud services across the whole-of-government arrangement?",
-        "options": [
-          "A. VSA6 framework with standardised contracts across all agencies",
-          "B. IRAP certification with mandatory Cloud Hosting Certification Framework alignment",
-          "C. Azure-native governance protocol with Copilot integration requirements",
-          "D. Hybrid sovereignty framework balancing Commonwealth and state compliance requirements"
-        ],
-        "correct": 0,
-        "explanation": "The VSA6 framework is explicitly identified as starting July 2026 with standardised contracts. While IRAP compliance is mandatory, it's a compliance requirement rather than the standardizing framework itself. As an architect, understanding the governance structure (VSA6) that underpins the five-year engagement is critical for implementation planning.",
-        "vendors": [
-          "microsoft"
-        ],
-        "topicTag": "arch"
-      },
-      {
-        "q": "Why are Australian enterprises choosing to migrate from hyperscale public cloud to managed private cloud environments, despite losing access to rapid scaling capabilities?",
-        "options": [
-          "A. To eliminate operational disruption caused by quantum computing threats",
-          "B. Data sovereignty requirements and local compliance mandates drive repatriation decisions, with 28% cost savings as secondary benefit",
-          "C. AWS-Google interoperability makes multicloud architectures too complex to govern",
-          "D. Microsoft's government monopoly forces non-government organizations to seek alternatives"
-        ],
-        "correct": 1,
-        "explanation": "The article clearly states that 'data sovereignty and local compliance driving repatriation decisions' with cost reduction (28%) as the outcome. Architects must recognize that sovereignty and compliance are primary drivers in the Australian context, not secondary considerations. This reflects a strategic shift toward control and predictability over hyperscale elasticity.",
-        "vendors": [
-          "private_cloud"
-        ],
-        "topicTag": "arch"
-      },
-      {
-        "q": "As a Solution Architect designing an AI governance solution for an Australian government department handling PROTECTED-classified intelligence, which platform capabilities from the provided articles would best address your dual requirements for local data sovereignty and automated compliance workflow?",
-        "options": [
-          "A. Azure Copilot with VSA6 framework contracts for standardized governance across agencies",
-          "B. IBM watsonx.governance in Sydney with automated AI lifecycle workflows and defense intelligence integration capability",
-          "C. AWS-Google multicloud networking with three-way Azure interoperability for vendor flexibility",
-          "D. Palo Alto Networks quantum-safe framework with post-quantum algorithm transition planning"
-        ],
-        "correct": 1,
-        "explanation": "IBM watsonx.governance explicitly provides Sydney data centre hosting (local sovereignty), automated AI lifecycle workflows for risk/compliance detection, and demonstrated PROTECTED-level capability through Janes defense integration. While VSA6 handles standardization and Palo Alto addresses quantum security, only watsonx.governance directly combines local hosting with AI-specific governance automation required for classified deployments. This tests architect-level decision-making on platform fit.",
-        "vendors": [
-          "ibm"
-        ],
-        "topicTag": "ai|security"
-      }
-    ]
+    "questions": []
   },
   "aps": {
-    "lastUpdated": "Monday 09 March 2026",
+    "lastUpdated": "Tuesday 10 March 2026",
     "keyAlerts": [],
     "irapStatus": [],
     "protectiveMarkings": [],
