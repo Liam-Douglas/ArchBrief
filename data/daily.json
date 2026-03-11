@@ -1,7 +1,7 @@
 {
-  "dateKey": "2026-03-11",
-  "date": "Wednesday 11 March 2026",
-  "generatedAt": "2026-03-11T06:40:17.805196+11:00",
+  "dateKey": "2026-03-12",
+  "date": "Thursday 12 March 2026",
+  "generatedAt": "2026-03-12T06:42:14.217086+11:00",
   "generatedBy": "github-actions-v2",
   "vendors": [
     "aws",
@@ -15,9 +15,8 @@
     "emerging"
   ],
   "errors": [
-    "digest: Extra data: line 112 column 1 (char 20543)",
     "aps: Claude API failed after 3 attempts",
-    "explorer: Extra data: line 100 column 1 (char 10140)"
+    "explorer: Extra data: line 100 column 1 (char 12143)"
   ],
   "apsChanges": [],
   "context": {
@@ -26,15 +25,182 @@
     "historyDays": 0
   },
   "digest": {
-    "summary": "Generation failed.",
-    "articles": [],
-    "apsAlert": null
+    "summary": "The Australian government is appointing chief AI officers to every federal agency in 2026 and providing all government workers with AI tools, while Microsoft has signed a five-year Volume Sourcing Arrangement to accelerate public sector digital transformation. Ping Identity achieved PROTECTED-level IRAP assessment for its identity cloud, marking significant progress in government cloud security standards.",
+    "apsAlert": "New age verification systems for 18+ content platforms will require government ID or biometric verification from March 2026, expanding beyond social media to search engines and app stores",
+    "articles": [
+      {
+        "title": "Microsoft's $142M Five-Year VSA6 Transforms APS AI and Cloud Strategy",
+        "vendors": [
+          "microsoft"
+        ],
+        "topicTag": "arch",
+        "lead": "Microsoft has signed a five-year Volume Sourcing Arrangement (VSA6) with the Australian Government to accelerate public sector digital transformation and grow responsible AI use, led by the Digital Transformation Agency.",
+        "body": "Through the deal commencing July 1, 2026, the APS will access Microsoft's core enterprise and cloud stack, including Microsoft Copilot, Microsoft 365, Azure cloud services and Dynamics 365, as well as security and identity services. The move would increase Microsoft's computing capacity in Australia by about 250% to meet the growing demand for cloud computing services.\n\nThe enhanced Governance Framework will work together on forward-looking technology strategies, innovation, skilling and procurement optimisation in support of the Commonwealth's digital transformation agenda. Microsoft continues to raise the bar in security with ongoing compliance across the Australian Government policy landscape, recommitting to Security of Critical Infrastructure legislation, Cloud Hosting Certification Framework, and Protective Security Policy Framework.\n\nWhile personal productivity gains are significant, operational efficiencies through AI infusion into modern cloud infrastructure can solve real business and citizen issues, with AI allowing agencies to respond at machine speed to online exploitation and citizen harm. The deal benefits hundreds of Australian partners who will be able to grow their operations by offering services to government.",
+        "arch_impact": "This arrangement lays the groundwork for agencies to confidently increase their use of responsible AI and cloud technologies, increase efficiency and improve services to Australians. The standardised contracting framework will strengthen government's ability to operate critical ICT infrastructure, delivering stronger protections, better terms and significant cost savings. AI adoption requires an enduring modernisation agenda to build contemporary, modernised, secure by design cloud platforms that improve privacy. The unified Microsoft stack reduces integration complexity while providing enterprise-scale AI capabilities for APS workloads.",
+        "key_points": [
+          "Five-year VSA6 deal commences July 2026 with standardised framework",
+          "250% increase in Microsoft's Australian computing capacity",
+          "Enhanced governance framework for technology strategy and procurement",
+          "Full compliance with Australian security policies and frameworks"
+        ],
+        "apsRelevance": "Critical for PROTECTED workload strategy and AI deployment across federal agencies"
+      },
+      {
+        "title": "Ping Identity Achieves PROTECTED IRAP Assessment for Government Cloud Services",
+        "vendors": [
+          "emerging"
+        ],
+        "topicTag": "security",
+        "lead": "Ping Identity has secured a PROTECTED-level assessment for its PingOne Advanced Identity Cloud under the Australian Government's Information Security Registered Assessors Program (IRAP).",
+        "body": "The result could influence how government agencies and regulated organisations evaluate and procure cloud-based identity services, indicating the service aligns with Australian Government expectations for systems handling sensitive information. The platform's controls have been independently reviewed against benchmarks used across the public sector, with IRAP using ASD-endorsed assessors to evaluate ICT systems against the Australian Government Information Security Manual.\n\nPROTECTED is a government classification describing the sensitivity of information and expected safeguards, with agencies often using IRAP outcomes as part of cloud risk reviews alongside contractual and operational requirements. PingOne Advanced Identity Cloud is part of Ping Identity's identity and access management portfolio, sitting at the centre of login, authentication, and access decisions across employee and customer applications.\n\nGovernment agencies and critical industries in Australia and New Zealand have increased scrutiny of cloud services, requiring independent assurance that supplier controls map to local standards when services touch citizen data, health information, or financial records. Identity services integrate with directories, HR systems, customer platforms, and third-party applications, creating a broad security and compliance footprint.\n\nPing Identity's VP ANZ said the assessment strengthens their position in the public sector and demonstrates that security is embedded in everything they do, reflecting ongoing responsibility to protect data and manage risk proactively.",
+        "arch_impact": "This PROTECTED IRAP assessment enables government agencies to confidently integrate identity services into their cloud architectures without compromising security posture. IRAP outcomes are used as part of cloud risk reviews alongside contractual requirements, streamlining procurement processes. For multi-cloud environments, having IRAP-assessed identity providers reduces complexity in meeting ISM control requirements. The assessment validates Ping Identity's integration capabilities with existing government directories and systems.",
+        "key_points": [
+          "First PROTECTED-level IRAP assessment for PingOne Advanced Identity Cloud",
+          "Aligns with Australian Government expectations for sensitive information systems",
+          "Streamlines procurement for government agencies and regulated organisations",
+          "Validates integration with directories, HR systems and third-party applications"
+        ],
+        "apsRelevance": "Enables PROTECTED workload identity management with IRAP compliance for government cloud strategies"
+      },
+      {
+        "title": "ServiceNow Australia Release Introduces Cloud Governance and AI Analytics",
+        "vendors": [
+          "servicenow"
+        ],
+        "topicTag": "ai",
+        "lead": "ServiceNow's Australia release (Early Access March 2026, GA May 2026) consolidates analytics and governance with Platform Analytics AI-native features, adding Cloud Governance Suite and Operational Technology Management.",
+        "body": "The release integrates Now Assist AI capabilities directly into Platform Analytics, transforming static dashboards into conversational intelligence where users can ask natural language questions about data. Unlike previous analytics requiring manual dashboard creation and static queries, Australia's AI understands context, learns from historical patterns, and proactively surfaces insights, shifting from 'pull analytics' to 'push intelligence'.\n\nThe Cloud Governance Suite provides unified governance for multi-cloud environments (AWS, Azure, GCP) with AI-powered cost optimization, compliance enforcement, and automated remediation. Operational Technology Management (OTM) makes industrial equipment, medical devices, and building systems visible and manageable within ServiceNow, providing governance frameworks that auditors demand for heavily-regulated industries.\n\nTo meet data residency and regulatory compliance requirements, the ServiceNow Protected Platform Australia offers in-country data storage and technical support, hosted on Microsoft Azure Data Centers located in Australia, particularly relevant to government, finance, and healthcare sectors. Early Release Program registrations opened January 2026, with general availability expected Q2 2026.\n\nOrganizations implementing Australia's capabilities will spend 2027 making data-driven decisions in real-time, spending 30% less on cloud infrastructure, and managing previously-invisible OT assets that represent material business risk.",
+        "arch_impact": "For organizations with mature ServiceNow deployments across 5+ modules where cross-module insights are currently impossible without custom integration work, Platform Analytics AI justifies the upgrade. The Cloud Governance Suite addresses unmanaged cloud spend and multi-cloud complexity that has been problematic since 2024. Data sovereignty requirements are met through in-country Azure hosting, critical for government, finance, and healthcare compliance. OTM extends IT governance to previously invisible operational technology assets.",
+        "key_points": [
+          "AI-native Platform Analytics with conversational intelligence capabilities",
+          "Multi-cloud governance suite for AWS, Azure, GCP with cost optimization",
+          "Operational Technology Management for industrial equipment visibility",
+          "Protected Platform Australia with in-country data residency on Azure"
+        ],
+        "apsRelevance": "In-country hosting meets data sovereignty requirements while OTM addresses government facilities management"
+      },
+      {
+        "title": "HashiCorp Terraform Cloud Legacy Free Tier Ends March 31, 2026",
+        "vendors": [
+          "hashicorp"
+        ],
+        "topicTag": "devops",
+        "lead": "By March 2026, HCP Terraform users on legacy Free plan must migrate to enhanced Free tier, with legacy plan reaching end of life March 31, 2026.",
+        "body": "HashiCorp sent emails to Free tier customers announcing the legacy HCP Terraform Free plan will reach end-of-life March 31, 2026, after which the plan will no longer be supported. The enhanced Free tier includes 500 managed resources at no charge, with managed resources counted as resources in HCP Terraform-managed state files where mode = 'managed'.\n\nThe discontinued Free tier offered up to 500 managed resources, 1 concurrent run, basic Sentinel/OPA policy enforcement (1 policy set, 1 mandatory policy), and 1 self-hosted agent. New pricing is based on managed resources with paid tiers starting at $0.10/$0.47/$0.99 per managed resource-month (Essentials/Standard/Premium), billed hourly on peak managed resources.\n\nThe biggest concern is state data protection, as workspace deletion is unrecoverable and results in permanent loss of state files, potentially leaving production infrastructure orphaned. This follows a pattern of restrictions accelerating since IBM's acquisition of HashiCorp closed in late 2024.\n\nThe terraform import command for onboarding existing infrastructure has been restricted to the Business Tier, removing it from Free and Standard tiers. Organizations moving off HCP Terraform need to consider state migration by exporting state from workspaces and configuring new backends.",
+        "arch_impact": "Organizations must audit their Terraform Cloud usage and plan migration strategies before March 31, 2026 to avoid infrastructure management disruption. State file protection is critical as workspace deletion results in permanent loss, potentially orphaning cloud resources. The resource-based pricing model requires careful capacity planning for large-scale infrastructure deployments. Teams should evaluate alternative platforms like Spacelift or self-hosted Terraform Enterprise to maintain cost predictability.",
+        "key_points": [
+          "Legacy Free plan ends March 31, 2026 with automatic migration to enhanced tier",
+          "New pricing model based on managed resources with hourly billing",
+          "terraform import command restricted to Business Tier and above",
+          "State file protection critical to prevent infrastructure orphaning"
+        ],
+        "apsRelevance": "Government agencies using Terraform Cloud must plan migration to avoid infrastructure management disruption"
+      },
+      {
+        "title": "Oracle Database@AWS Expands to Australia and Canada Regions",
+        "vendors": [
+          "oracle",
+          "aws"
+        ],
+        "topicTag": "arch",
+        "lead": "Oracle Database@AWS has added new regions in Canada and Australia, initially deployed in one availability zone within each region, expanding the service to seven global regions.",
+        "body": "Oracle and Microsoft have a longer-standing relationship with Oracle Database@Azure available since December 2023, following Microsoft's multi-year agreement to use Oracle Cloud for AI inferencing on Bing search service, now available in 32 regions. Oracle operates and manages Oracle Exadata Database Service, Oracle Autonomous Database, and Oracle Database Zero Data Loss Autonomous Recovery Service running on OCI in six Microsoft Azure regions including Australia East.\n\nOracle Cloud for Australian Government is built for Australian Government and certified for IRAP at Protected level and for HCF at Certified Strategic level, dedicated for Australian Government or Defence workloads adhering to data sovereignty and privacy. Oracle is currently the only hyperscale cloud provider to operate physically separate cloud regions for governments outside the U.S., with eight government regions across the U.S., U.K., and Australia.\n\nThe March 2026 AWS outage represents a watershed moment for cloud industry, with 84+ services disrupted across Middle Eastern regions, cascading global issues, and exposure of systemic fragility from over-reliance on single providers. While AWS experienced significant outage, Oracle Cloud Infrastructure's global infrastructure continued operating with zero incidents throughout the entire period.\n\nOracle is hosting AI World Tour in Sydney on March 24, 2026, connecting with AI leaders and peers at the complimentary one-day event.",
+        "arch_impact": "The Australian region expansion provides local data sovereignty options for Oracle workloads while maintaining hyperscale capabilities. Multicloud options including Oracle Database@AWS, Oracle Database@Azure, and Oracle Database@Google Cloud allow customers to combine key capabilities across clouds. For government agencies, dedicated Oracle Government Cloud with IRAP Protected certification provides sovereign cloud options. The March 2026 AWS outage demonstrates the importance of multi-cloud strategies and Oracle's resilience advantage.",
+        "key_points": [
+          "Oracle Database@AWS now available in Australian region with one AZ",
+          "Oracle Government Cloud certified for IRAP Protected and HCF Strategic levels",
+          "Only hyperscale provider with physically separate government regions outside US",
+          "Oracle infrastructure maintained zero incidents during March 2026 AWS outage"
+        ],
+        "apsRelevance": "Provides sovereign database options for government with IRAP Protected certification and data residency"
+      },
+      {
+        "title": "AI Arms Race Reshapes Australian Cybersecurity Landscape in 2026",
+        "vendors": [
+          "emerging"
+        ],
+        "topicTag": "security",
+        "lead": "In 2026, AI will redefine cyber conflict, already embedded in criminal toolkits and becoming standard for both attackers and defenders alongside machine learning.",
+        "body": "Sophisticated phishing and social engineering powered by AI-generated content and deepfakes will be near impossible to spot without advanced tools, with adversaries using AI to accelerate attacks and autonomous 'agentic' malware capable of scanning networks, finding vulnerabilities, and adapting tactics on the fly. Kinetic IT has outlined five cyber security trends expected to shape Australian critical services in 2026, with AI-driven attacks and defence tools at the centre of a widening cyber arms race.\n\nHigher risk for smart cities and connected critical infrastructure exists as connectivity expands potential entry points, with expectations of at least one major city suffering a coordinated cyberattack in 2026, potentially taking down IT networks and connected services. Government agencies face expanding threats as more services move online, with attackers targeting citizen-facing portals and escalating tactics beyond data theft to manipulation of permit records or health data.\n\nThe challenge in 2026 is harnessing AI's defensive power without it becoming the ultimate attack vector, but AI isn't just an attacker's weapon - it's a game-changer for defenders with intelligent automation meaning faster detection, smarter correlation, and near-instant response. Cybersecurity firm Kai has emerged from stealth with $125m in funding for autonomous threat defence, developing the first agentic AI cybersecurity platform designed to operate autonomously at machine speed.\n\nAutomation and AI can amplify defensive capability, but only when paired with clear accountability, sound data practices and robust oversight, with cyber security working best when practical, proportionate and aligned to real-world outcomes.",
+        "arch_impact": "Security architects must design for AI-driven threats while leveraging AI-powered defenses. Building adaptive security programs that can evolve with AI-driven threats requires alignment of security investment to business risk and compliance realities. Intelligent automation enables faster detection, smarter correlation, and near-instant response, shifting from reactive firefighting to proactive risk management. Zero Trust architectures become critical for managing AI-augmented attack surfaces and autonomous security responses.",
+        "key_points": [
+          "AI-powered deepfakes and autonomous malware pose unprecedented threats",
+          "Smart cities and critical infrastructure face coordinated cyberattack risks",
+          "Government services targeted for data manipulation beyond theft",
+          "AI-driven defense tools enable real-time response at machine speed"
+        ],
+        "apsRelevance": "Government agencies must prepare for AI-driven manipulation of citizen data and critical infrastructure attacks"
+      },
+      {
+        "title": "Australian Government Mandates AI Officers and Digital ID Verification Expansion",
+        "vendors": [
+          "microsoft"
+        ],
+        "topicTag": "ai",
+        "lead": "The Australian government is planning to appoint a chief AI officer to every federal agency in 2026 to drive adoption and strategic change, with every government worker given access to generative AI tools.",
+        "body": "Australians will be asked to prove they are 18 or over when accessing pornographic websites from March 2026, with age assurance checks extending to search engines, porn sites, and app stores beyond the under-16s social media ban. New legally enforceable industry codes co-developed by technology companies require platforms to hide or blur inappropriate content, implementing age assurance technologies including government ID verification, biometric age estimation, or data-based age inference.\n\nWhile the government already holds AI contracts with Microsoft and OpenAI, plans include appointing chief AI officers to every federal agency in 2026 to drive adoption and advocate for strategic change in each office. Every government worker will receive access to generative AI tools plus guidance and training on proper usage, with government agencies potentially becoming 'talent magnets' by embracing agentic AI.\n\nThe Department of Industry, Science and Resources and National AI Centre published new Guidance for AI Adoption (GfAA) in October, superseding the existing Voluntary AI Safety Standard (VAISS) after only 12 months. The GfAA condenses ten VAISS guardrails into six essential practices, being more prescriptive and placing greater emphasis on whole-of-lifecycle development, deployment and ongoing assessment of AI systems.\n\nAustralia is ranked second in the world in the latest OECD Digital Government Index released earlier this month, a tremendous result representing the product of hard work by many.",
+        "arch_impact": "Universal AI tool access for government workers requires robust governance frameworks and security controls for AI deployment at scale. AI policies and standard contractual provisions published for the Australian Public Service will influence AI adoption and contracting practices, requiring contractors to disclose AI use and ensure responsibility rests with suppliers. Age verification systems require integration with Digital ID infrastructure and robust identity verification capabilities across government platforms.",
+        "key_points": [
+          "Chief AI officers appointed to every federal agency in 2026",
+          "Universal AI tool access for all government workers with training",
+          "Age verification expansion to 18+ content from March 2026",
+          "New AI Guidance supersedes previous voluntary standards with six practices"
+        ],
+        "apsRelevance": "Fundamental transformation of APS AI adoption with mandatory governance and universal access"
+      }
+    ]
   },
   "quiz": {
-    "questions": []
+    "questions": [
+      {
+        "q": "According to the Microsoft VSA6 agreement with the Australian Government, what is the primary outcome for Microsoft's computing capacity in Australia over the five-year term?",
+        "options": [
+          "A. 250% increase in computing capacity",
+          "B. 150% increase in computing capacity",
+          "C. Establishment of a single data center in Sydney",
+          "D. Reduction in infrastructure costs by 50%"
+        ],
+        "correct": 0,
+        "explanation": "The article explicitly states a '250% increase in Microsoft's Australian computing capacity' as a key deliverable of the VSA6 deal commencing July 2026. As an architect, understanding capacity expansion commitments is critical for infrastructure planning and government compliance roadmaps.",
+        "vendors": [
+          "Microsoft"
+        ],
+        "topicTag": "arch"
+      },
+      {
+        "q": "How does Ping Identity's PROTECTED-level IRAP assessment streamline procurement for Australian government agencies?",
+        "options": [
+          "A. It eliminates the need for security assessments in vendor selection processes",
+          "B. It validates that PingOne Advanced Identity Cloud meets Australian Government expectations for sensitive information systems, reducing individual agency assessment overhead",
+          "C. It guarantees unlimited budget allocation for identity solutions",
+          "D. It removes all compliance requirements for regulated organisations"
+        ],
+        "correct": 1,
+        "explanation": "The article explains that the PROTECTED-level IRAP assessment 'streamlines procurement for government agencies and regulated organisations' by pre-validating the service against stringent security standards. Architects use pre-assessed vendor credentials to accelerate procurement cycles and reduce duplication of compliance work across agencies.",
+        "vendors": [
+          "Ping Identity"
+        ],
+        "topicTag": "security"
+      },
+      {
+        "q": "As a Solution Architect designing a multi-cloud governance solution for an Australian government agency managing costs across AWS, Azure, and GCP, which ServiceNow feature would you prioritize to meet their requirements?",
+        "options": [
+          "A. Operational Technology Management for legacy system visibility",
+          "B. Cloud Governance Suite with cost optimization across multiple hyperscalers",
+          "C. Legacy Platform Analytics without AI capabilities",
+          "D. On-premises data residency on Oracle infrastructure"
+        ],
+        "correct": 1,
+        "explanation": "ServiceNow's Cloud Governance Suite explicitly supports 'multi-cloud governance suite for AWS, Azure, GCP with cost optimization.' For an architect addressing cost governance across multiple clouds, this native multi-hyperscaler feature directly addresses the stated requirement, whereas OT Management targets industrial equipment and legacy analytics lack AI-driven insights needed for optimization decisions.",
+        "vendors": [
+          "ServiceNow"
+        ],
+        "topicTag": "arch|devops"
+      }
+    ]
   },
   "aps": {
-    "lastUpdated": "Wednesday 11 March 2026",
+    "lastUpdated": "Thursday 12 March 2026",
     "keyAlerts": [],
     "irapStatus": [],
     "protectiveMarkings": [],
