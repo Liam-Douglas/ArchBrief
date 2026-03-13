@@ -1,7 +1,7 @@
 {
-  "dateKey": "2026-03-13",
-  "date": "Friday 13 March 2026",
-  "generatedAt": "2026-03-13T06:43:39.870773+11:00",
+  "dateKey": "2026-03-14",
+  "date": "Saturday 14 March 2026",
+  "generatedAt": "2026-03-14T06:33:16.525309+11:00",
   "generatedBy": "github-actions-v2",
   "vendors": [
     "aws",
@@ -15,8 +15,9 @@
     "emerging"
   ],
   "errors": [
+    "digest: Extra data: line 120 column 1 (char 21423)",
     "aps: Claude API failed after 3 attempts",
-    "explorer: Extra data: line 100 column 1 (char 9991)"
+    "explorer: Extra data: line 100 column 1 (char 9393)"
   ],
   "apsChanges": [],
   "context": {
@@ -25,177 +26,15 @@
     "historyDays": 0
   },
   "digest": {
-    "summary": "Major disruptions in Australian cybersecurity with critical CVE-2026-21858 n8n vulnerability requiring immediate patching, alongside Australia's landmark $2 billion Top Secret Cloud partnership with AWS and breakthrough AI governance frameworks from IBM watsonx now available locally.",
-    "apsAlert": "CRITICAL: CVE-2026-21858 n8n workflow automation platform vulnerability (CVSS 10.0) allows unauthenticated remote code execution - immediate patching required for all APS agencies using workflow automation tools",
-    "articles": [
-      {
-        "title": "Australia Announces $2 Billion Top Secret Cloud Partnership with AWS",
-        "vendors": [
-          "aws"
-        ],
-        "topicTag": "arch",
-        "lead": "ASD and AWS unveil transformative intelligence infrastructure for National Intelligence Community collaboration.",
-        "body": "The Australian Government has announced a strategic partnership between the Australian Signals Directorate (ASD) and Amazon Web Services (AWS) worth at least $2 billion over the next decade, which will transform the way the National Intelligence Community (NIC) and Defence work together to protect Australia and stay ahead of adversaries.\n\nThe Top Secret (TS) Cloud will facilitate rapid sharing of Australia's most sensitive information and intelligence material among the 10 agencies that make up the NIC, fostering collaboration at speed and at scale. The project will involve constructing three data centres in Australia, designed to house the nation's most sensitive intelligence information. All personnel involved in the construction and operation of this project will be required to meet stringent Australian security clearance standards.\n\nDirector-General of National Intelligence, Andrew Shearer said: \"The Top Secret Cloud represents a truly transformative capability boost for the National Intelligence Community.\" Marles emphasised that the project would ensure Australia \"keeps pace with the world's most advanced defence forces,\" while also enhancing interoperability with US agencies. The Guardian reported that deputy prime minister Richard Marles recently unveiled this significant investment, highlighting its potential to create approximately 2,000 jobs.\n\nNoble said the agreement would give intelligence agencies access to \"the best staff the private sector has to offer in terms of technology capabilities, services, and tools.\" Artificial intelligence could substantially affect operational theory, with Noble highlighting its \"game-changing\" impact when applied to data collection and analysis. Responding to concerns about security, Noble reassured that effective safeguards would be set up to prevent extensive data leaks, a priority in the post-WikiLeaks era. She stated, \"Access to top-secret data is really carefully managed at an individual level, and we have very strong controls over what individuals are looking at within that top-secret environment.\"",
-        "arch_impact": "This represents Australia's most significant sovereign cloud investment, establishing dedicated TOP SECRET-level infrastructure within Australian borders. For solution architects, this creates new opportunities for PROTECTED-level workload design patterns, enhanced data sovereignty controls, and potential integration pathways with existing government cloud services. The three-data-centre architecture suggests geographic redundancy requirements that will influence future APS cloud strategies.",
-        "key_points": [
-          "$2 billion investment over decade for TOP SECRET cloud infrastructure",
-          "Three Australian data centres with stringent clearance requirements",
-          "Facilitates NIC collaboration among 10 intelligence agencies",
-          "Creates 2,000 jobs and enhances US intelligence interoperability"
-        ],
-        "apsRelevance": "Critical for agencies working on PROTECTED and above classifications, establishes new benchmark for sovereign cloud architecture in Australian government"
-      },
-      {
-        "title": "Critical CVE-2026-21858 n8n Workflow Vulnerability Threatens Australian Infrastructure",
-        "vendors": [],
-        "topicTag": "security",
-        "lead": "ACSC issues critical alert for CVSS 10.0 vulnerability affecting workflow automation platforms across APS and critical infrastructure.",
-        "body": "The critical vulnerability, tracked as CVE-2026-21858, allows unauthenticated threat actors to access sensitive files on the underlying server through execution of certain form-based workflows leading to RCE. This vulnerability is assessed as CVSS 10.0. A critical unauthenticated Remote Code Execution (RCE) vulnerability affecting n8n workflow automation platform has been observed.\n\nASD's ACSC is aware of active global exploitation affecting MongoDB servers CVE-2025-14847. ASD's ACSC recommends that organisations take immediate action to mitigate affected products, apply the latest patches and investigate for potential compromise. Malicious cyber threat actors are targeting SD-WANs of organisations, globally. The purpose of this Alert is to provide mitigations for the ongoing exploitation of Cisco Software-Defined Wide Area…\n\nCybersecurity intelligence from March 11, 2026, has detected a high-priority \"Access and Data\" listing involving a key player in the Australian dental technology sector. The threat actor claims to have gained persistence via a successful brute-force attack on the company's RDWeb (Remote Desktop Web) gateway—a critical portal used for remote administrative and client-facing support. The exfiltrated 35GB dataset, reportedly stored in JPEG format, suggests a massive dump of digitized patient intake forms, dental X-rays, and insurance documents.\n\nIn its Annual Cyber Threat Report 2024–25, the ACSC said that it responded to over 1,200 cybersecurity incidents, an 11% increase. ASD's ACSC notified critical infrastructure entities of potential malicious cyber activity impacting their networks over 190 times in the last reporting period, up 111 percent from the previous year.",
-        "arch_impact": "This maximum-severity vulnerability in workflow automation platforms demands immediate architectural review of all automated processes across government systems. Solution architects must audit n8n deployments, implement network segmentation, and establish workflow-specific security controls. The RCE nature means complete system compromise is possible, requiring zero-trust principles for all workflow automation infrastructure.",
-        "key_points": [
-          "CVSS 10.0 maximum severity unauthenticated RCE vulnerability",
-          "Active global exploitation of workflow automation platforms",
-          "Immediate patching and compromise investigation required",
-          "Part of broader targeting of Australian critical infrastructure"
-        ],
-        "apsRelevance": "Immediate action required for all APS agencies using workflow automation - applies to OFFICIAL through PROTECTED classifications"
-      },
-      {
-        "title": "Microsoft Strengthens Australian Government AI with $1.55M Training Fund",
-        "vendors": [
-          "azure"
-        ],
-        "topicTag": "ai",
-        "lead": "Five-year Volume Sourcing Arrangement delivers Copilot, Azure AI services with enhanced IRAP compliance and productivity gains.",
-        "body": "The agreement led by the Digital Transformation Agency gives agencies access to Microsoft Copilot, Azure, Microsoft 365, Dynamics 365 and a strengthened security and compliance framework instead of continuing reliance on ageing systems. It recommits both sides to national security requirements, including the Security of Critical Infrastructure legislation, the Cloud Hosting Certification Framework and IRAP. These measures allow agencies to expand AI use while retaining control of data and meeting the expectations placed on government institutions.\n\nA successful Copilot trial in 2024 already demonstrated personal productivity gains of around one hour per day for participating staff. Microsoft is also establishing a $1.55 million training fund for the Australian Public Service to support capability building in ethical AI use and modern cloud operations. Dubbed VSA6, the agreement, negotiated by the Digital Transformation Agency (DTA) on behalf of the Commonwealth, is expected to provide cost certainty to government agencies through stable pricing, improved discounts and capped price increases that will shield the Australian Public Service (APS) from global price fluctuations. Through the deal, which commences on 1 July 2026, the APS will be able to access Microsoft's core enterprise and cloud stack, including Microsoft Copilot, Microsoft 365, Azure cloud services and Dynamics 365, as well as security and identity services.\n\nThis deal aligns our industry-leading data protection and responsible AI commitments with Government data and security expectations, providing confidence for whole-of-government Copilot adoption, following the successful trial in 2024 in which participants saved around one hour per day. Building upon decades of investment in global infrastructure and industry-leading data residency capabilities, Microsoft will now offer in-country data processing for customers' Microsoft 365 Copilot interactions in 15 countries around the world. By the end of 2025, Microsoft will offer customers in four countries—Australia, India, Japan and the United Kingdom—the option to have Microsoft 365 Copilot interactions processed in-country.",
-        "arch_impact": "This government-wide AI adoption framework establishes Microsoft as the primary productivity AI platform across APS. Solution architects must prepare for Copilot integration patterns, data residency requirements for AI workloads, and governance frameworks for responsible AI deployment. The in-country processing capability addresses data sovereignty concerns for PROTECTED workloads using AI services.",
-        "key_points": [
-          "$1.55M training fund for APS ethical AI capability building",
-          "One hour per day productivity gains demonstrated in 2024 trial",
-          "In-country processing for Copilot interactions addresses sovereignty",
-          "Enhanced IRAP compliance framework for government AI adoption"
-        ],
-        "apsRelevance": "Establishes Microsoft as primary AI platform for APS agencies - critical for digital transformation strategies from July 2026"
-      },
-      {
-        "title": "IBM watsonx.governance 2.1 Delivers Enterprise AI Compliance for Australian Regulations",
-        "vendors": [
-          "ibm"
-        ],
-        "topicTag": "ai",
-        "lead": "Enhanced AI governance platform addresses Australian responsible AI regulations with automated compliance and risk management.",
-        "body": "Recently, the Australian government introduced new regulations for safe and responsible AI to develop a regulatory environment that builds community trust and promotes AI adoption at scale. To meet this strong demand for scalable, safe and responsible AI, IBM is launching watsonx on IBM Cloud in Australia and New Zealand, significantly enhancing cloud infrastructure in the region. The Sydney, Australia data center will offer several key advantages for clients: Data sovereignty: Manage and store data locally to comply with Australia's stringent privacy regulations, ensuring sensitive information remains secure. Low latency connectivity: IBM Cloud's high-performance network connectivity significantly reduces latency for users across Australia, essential for real-time data processing.\n\nIBM watsonx.governance™facilitates enterprise adoption of AI to modernize business operations with a powerful AI governance, risk and compliance (GRC) tool kit built to automate AI lifecycle workflows, proactively detect and mitigate risk, and meet the changing legal, compliance and regulatory landscape. Today, IBM announces the general availability of watsonx.governance 2.1 feature releases to accelerate responsible, transparent and ethical AI workflows. IBM's watsonx.governance ensures that AI systems conform to AI regulation. It provides a clear assessment of the type of risk and an out of the box ability to assess its applicability against various AI regulations such as the EU AI Act.\n\nIBM watsonx™ is split broadly into three layers - model development (watsonx.ai), data governance (watsonx.data) and responsible AI tooling (watsonx.governance). IBM's advantage has always been its relationship with large enterprises - the banks, insurers, telcos, and governments that care deeply about compliance, audit trails, and hybrid cloud compatibility. With trusted AI platforms, deep local expertise and a commitment to responsible innovation, IBM helps Australian organizations navigate uncertainty and build confidence in an AI-driven world.",
-        "arch_impact": "IBM's Sydney-based watsonx platform provides local data sovereignty for AI governance workloads, addressing APS requirements for responsible AI deployment. Solution architects can leverage automated compliance frameworks, model risk assessment, and audit trail capabilities essential for PROTECTED-level AI implementations. The three-layer architecture enables separation of AI development, data management, and governance concerns.",
-        "key_points": [
-          "Sydney data centre provides local AI processing with data sovereignty",
-          "Automated compliance for Australian responsible AI regulations",
-          "Three-layer architecture separating development, data, and governance",
-          "Enterprise-grade audit trails and risk management for government use"
-        ],
-        "apsRelevance": "Critical for APS agencies implementing AI while maintaining compliance with emerging Australian AI regulations and data sovereignty requirements"
-      },
-      {
-        "title": "Oracle Cloud Achieves 'Certified Strategic' HCF Status for Australian Government Defence",
-        "vendors": [
-          "oracle"
-        ],
-        "topicTag": "arch",
-        "lead": "Oracle expands government cloud capabilities with HCF certification enabling AI and machine learning workloads for Defence and civilian agencies.",
-        "body": "'Certified Strategic' status enables Australian Government and Defence to unlock cloud innovation and AI. Building off the previous HCF certification of 'Certified Strategic' for Sydney and Melbourne Oracle Public Cloud Regions, the certification of Oracle Cloud for Australian Government and Defence, ensures Oracle is able to support all levels of government, as well as Defence with built in security for mission-critical and modern workloads such as AI, machine learning, and simulations. Government customers in Australia rely on Oracle Cloud to run their most critical workloads and to achieve better mission outcomes. Oracle has the tools they need to efficiently migrate and manage workloads in the cloud.\n\nAchieving HCF certification for Oracle Cloud for Australian Government and Defence underscores our unwavering commitment to provide government with access to innovative technology while ensuring the highest levels of security and resiliency. This certification not only enhances our capability to help our customers meet the highest security standards but also empowers Australians with greater confidence in the protection of their data,\" said Stephen Bovis, regional managing director, Australia and New Zealand.\n\nOCI Government Regions across the globe are focused on addressing public sector needs with capabilities including strong encryption, in-depth auditing, robust security controls, and a curated community of users. The HCF compliance status is available on the HCF Certified Service Providers website and the HCF certificate is available to customers on request.",
-        "arch_impact": "Oracle's HCF 'Certified Strategic' status provides another major cloud option for Australian government workloads, particularly for AI and machine learning applications requiring high-performance computing. Solution architects now have Oracle Cloud as a validated platform for mission-critical Defence and civilian agency workloads, complementing existing AWS and Azure government offerings with additional vendor choice.",
-        "key_points": [
-          "HCF 'Certified Strategic' certification for government and Defence workloads",
-          "Enables AI, machine learning, and simulation workloads in Sydney/Melbourne regions",
-          "Built-in security controls and curated government user community",
-          "Supports migration from legacy systems to modern cloud architecture"
-        ],
-        "apsRelevance": "Provides additional validated cloud platform choice for APS agencies requiring AI/ML capabilities with government-grade security controls"
-      },
-      {
-        "title": "Palo Alto Networks Advances Zero Trust SASE with Private Location Deployment",
-        "vendors": [
-          "palo_alto"
-        ],
-        "topicTag": "security",
-        "lead": "Prisma Access 6.1 introduces on-premises SASE capabilities supporting 40,000 users per location with ultra-low latency security inspection.",
-        "body": "To address this, Palo Alto Networks has introduced its new SASE Private Location, part of the latest release of Prisma Access 6.1. SASE Private Location keeps users, data and inspection at the local PoP where it is deployed, not the other way around. Designed to support up to 40,000 users per SASE Private Location, it allows you to process massive volumes of traffic locally. You get the rigorous security inspection you need without the latency penalty of backhauling high-volume traffic to the cloud.\n\nThe fundamental shift to SASE is about ensuring high-performance networking and zero trust security across your entire environment, regardless of where your users or applications reside. The promise of secure access service edge (SASE) has always been simple yet transformative: unify networking and security into a single, cloud-delivered service. It's a vision that ensures zero trust inspection for every user, every connection and every application, regardless of location.\n\nSASE Private Location ends the hairpin. By placing the SASE stack \"inside your doors,\" local traffic stays local. Your users gain ultra-low-latency access to their most critical applications, ensuring a seamless experience that keeps productivity high while IT maintains full security control. SASE Private Location acts as your ultimate insurance policy. It provides robust business continuity planning (BCP) capabilities, ensuring your connectivity and security policies remain enforced even during a broader cloud outage or an ISP failure. Your business keeps running, your data stays secure, and your operations remain resilient, no matter what happens outside your walls.",
-        "arch_impact": "SASE Private Location enables on-premises deployment of zero trust security inspection, addressing data sovereignty and latency concerns for Australian government agencies. This hybrid SASE model allows architects to maintain local traffic processing while leveraging cloud-managed policies, critical for PROTECTED workloads requiring both security inspection and performance. The 40,000 user capacity suits large agency deployments.",
-        "key_points": [
-          "On-premises SASE deployment supporting 40,000 users per location",
-          "Eliminates hairpin routing for local traffic processing",
-          "Business continuity during cloud outages or ISP failures",
-          "Cloud-managed policies with local security inspection"
-        ],
-        "apsRelevance": "Addresses APS requirements for local security processing while maintaining zero trust principles - suitable for PROTECTED environments"
-      },
-      {
-        "title": "Australian AI Startup Ecosystem Surges with $503M Investment in Early 2026",
-        "vendors": [],
-        "topicTag": "industry",
-        "lead": "Emerging Australian AI companies like Lorikeet, Andromeda, and Kapture attract significant funding as local innovation accelerates.",
-        "body": "Australia's startup ecosystem continues its strong momentum into 2026, with early-stage and growth companies attracting significant investor interest amid a rebound in venture capital flows. Total equity funding in Australia reached $503 million across 25 rounds in the first two months of 2026—up 27% from the same period in 2025—driven by AI, climate tech, fintech, and deep tech sectors. While established unicorns like Canva and Airwallex dominate headlines, a new wave of rising startups is gaining traction through innovative solutions, rapid scaling, and high-profile partnerships. These emerging players, many backed by accelerators like Startmate and investors such as Blackbird Ventures, are addressing real-world challenges in healthcare, customer service, space exploration, and more.\n\nLorikeet has emerged as one of the fastest-rising AI startups in Australia, securing $35 million in funding in under a year. The platform deploys autonomous AI agents that handle complex customer support interactions, reducing reliance on human teams. With strong traction in e-commerce and SaaS, Lorikeet is expanding globally in 2026, positioning itself as a leader in agentic AI for enterprises. Founded by Grace Brown, Andromeda develops Abi—a companion robot designed to combat loneliness in aged care facilities while supporting staff shortages. The hardware-software solution has defied skepticism around high-cost robotics startups by focusing on emotional intelligence and practical integration. With pilot programs scaling in 2026, Andromeda is drawing attention for its social impact and potential international expansion.\n\nBy 2026, the Australian tech ecosystem has firmly pivoted from \"fast follower\" to global leader in specialized Artificial Intelligence. While Silicon Valley continues the arms race for general-purpose models, our team has identified a distinct trend of Australian founders building \"Vertical AI\"—deep, purpose-built solutions that solve high-stakes problems in healthcare, law, and defence. We curated this list to highlight the innovators who have moved beyond simple \"wrappers\" to deploy autonomous agents and sovereign infrastructure, proving that the next generation of category-defining tech giants is being built Down Under.",
-        "arch_impact": "The surge in Australian AI startups creates new opportunities for APS agencies to leverage locally-developed solutions that understand Australian compliance requirements and data sovereignty needs. Enterprise architects should evaluate these emerging platforms for specific use cases, particularly in customer service automation, healthcare AI, and specialized vertical applications that complement major vendor platforms.",
-        "key_points": [
-          "$503M in startup funding across 25 rounds in early 2026, up 27%",
-          "Lorikeet leads with $35M for autonomous customer service AI agents",
-          "Andromeda's Abi companion robots scaling in aged care sector",
-          "Australian focus on \"Vertical AI\" solutions for specific industries"
-        ],
-        "apsRelevance": "Emerging Australian AI capabilities provide opportunities for APS to support local innovation while accessing specialized solutions designed for Australian regulatory environment"
-      }
-    ]
+    "summary": "Generation failed.",
+    "articles": [],
+    "apsAlert": null
   },
   "quiz": {
-    "questions": [
-      {
-        "q": "According to the ASD-AWS partnership announcement, what is the primary purpose of establishing three Australian data centres with stringent clearance requirements?",
-        "options": [
-          "A. To facilitate National Intelligence Community collaboration among 10 intelligence agencies",
-          "B. To provide commercial cloud services to private sector enterprises",
-          "C. To reduce AWS operational costs through geographic distribution",
-          "D. To enable direct connectivity to US Department of Defense networks"
-        ],
-        "correct": 0,
-        "explanation": "The article explicitly states the three data centres support TOP SECRET cloud infrastructure for facilitating NIC collaboration among 10 intelligence agencies. This is the core strategic objective of the $2 billion investment, distinguishing it from commercial cloud deployments or cost optimization initiatives.",
-        "vendors": [
-          "aws"
-        ],
-        "topicTag": "arch"
-      },
-      {
-        "q": "Which of the following best describes how the Microsoft Copilot implementation addresses Australian government sovereignty concerns?",
-        "options": [
-          "A. By restricting Copilot access to users with top-secret security clearances only",
-          "B. By implementing in-country processing for Copilot interactions to keep data within Australia",
-          "C. By requiring all AI requests to be routed through the Department of Defence",
-          "D. By replacing Copilot with an Australian-developed AI alternative"
-        ],
-        "correct": 1,
-        "explanation": "The article specifically identifies 'in-country processing for Copilot interactions addresses sovereignty' as a key capability. This demonstrates how Microsoft's solution balances productivity gains with Australian data residency requirements—a critical architect consideration for government AI adoption.",
-        "vendors": [
-          "microsoft"
-        ],
-        "topicTag": "ai"
-      },
-      {
-        "q": "An APS Solution Architect is designing a critical infrastructure protection strategy following the CVE-2026-21858 disclosure. Given the CVSS 10.0 unauthenticated RCE vulnerability in workflow automation platforms and active global exploitation, which two actions should take immediate priority?",
-        "options": [
-          "A. Implement network segmentation and schedule patches during next monthly maintenance window",
-          "B. Initiate emergency patching and conduct compromise investigations simultaneously",
-          "C. Switch to manual workflow processes until vendor provides a security update",
-          "D. Deploy additional firewalls and delay patching pending risk assessment"
-        ],
-        "correct": 1,
-        "explanation": "The article states 'Immediate patching and compromise investigation required' for a maximum-severity unauthenticated RCE vulnerability under active exploitation. As an architect, you cannot accept the delay risk of scheduled maintenance or manual processes—parallel emergency patching and forensics are essential for critical infrastructure protection.",
-        "vendors": [
-          "acsc"
-        ],
-        "topicTag": "security"
-      }
-    ]
+    "questions": []
   },
   "aps": {
-    "lastUpdated": "Friday 13 March 2026",
+    "lastUpdated": "Saturday 14 March 2026",
     "keyAlerts": [],
     "irapStatus": [],
     "protectiveMarkings": [],
