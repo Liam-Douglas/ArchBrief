@@ -1,7 +1,7 @@
 {
-  "dateKey": "2026-03-20",
-  "date": "Friday 20 March 2026",
-  "generatedAt": "2026-03-20T06:48:11.399634+11:00",
+  "dateKey": "2026-03-21",
+  "date": "Saturday 21 March 2026",
+  "generatedAt": "2026-03-21T06:38:43.427600+11:00",
   "generatedBy": "github-actions-v2",
   "vendors": [
     "aws",
@@ -15,9 +15,9 @@
     "emerging"
   ],
   "errors": [
-    "digest: Extra data: line 112 column 1 (char 18511)",
+    "digest: Claude API failed after 3 attempts",
     "aps: Claude API failed after 3 attempts",
-    "explorer: Extra data: line 100 column 1 (char 11103)"
+    "explorer: Claude API failed after 3 attempts"
   ],
   "apsChanges": [],
   "context": {
@@ -34,7 +34,7 @@
     "questions": []
   },
   "aps": {
-    "lastUpdated": "Friday 20 March 2026",
+    "lastUpdated": "Saturday 21 March 2026",
     "keyAlerts": [],
     "irapStatus": [],
     "protectiveMarkings": [],
