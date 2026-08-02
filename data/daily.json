@@ -1,7 +1,7 @@
 {
-  "dateKey": "2026-08-02",
-  "date": "Sunday 02 August 2026",
-  "generatedAt": "2026-08-02T06:10:28.329901+10:00",
+  "dateKey": "2026-08-03",
+  "date": "Monday 03 August 2026",
+  "generatedAt": "2026-08-03T06:10:52.475875+10:00",
   "generatedBy": "github-actions-v2",
   "vendors": [
     "aws",
@@ -34,7 +34,7 @@
     "questions": []
   },
   "aps": {
-    "lastUpdated": "Sunday 02 August 2026",
+    "lastUpdated": "Monday 03 August 2026",
     "keyAlerts": [],
     "irapStatus": [],
     "protectiveMarkings": [],
