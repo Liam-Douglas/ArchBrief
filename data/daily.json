@@ -1,7 +1,7 @@
 {
-  "dateKey": "2026-11-13",
-  "date": "Friday 13 November 2026",
-  "generatedAt": "2026-11-13T10:59:05.895979+11:00",
+  "dateKey": "2026-11-14",
+  "date": "Saturday 14 November 2026",
+  "generatedAt": "2026-11-14T11:13:59.625641+11:00",
   "generatedBy": "github-actions-v2",
   "vendors": [
     "aws",
@@ -17,8 +17,7 @@
   "errors": [
     "digest: Claude API failed after 3 attempts",
     "aps: Claude API failed after 3 attempts",
-    "explorer: Claude API failed after 3 attempts",
-    "weekly: Claude API failed after 3 attempts"
+    "explorer: Claude API failed after 3 attempts"
   ],
   "apsChanges": [],
   "context": {
@@ -35,7 +34,7 @@
     "questions": []
   },
   "aps": {
-    "lastUpdated": "Friday 13 November 2026",
+    "lastUpdated": "Saturday 14 November 2026",
     "keyAlerts": [],
     "irapStatus": [],
     "protectiveMarkings": [],
